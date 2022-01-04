@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Working with Census Data in R</title>
-  <meta name="description" content="Working with Census Data in R" />
+  <title>3 Loading Census Data | Working with Census Data in R</title>
+  <meta name="description" content="3 Loading Census Data | Working with Census Data in R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Working with Census Data in R" />
+  <meta property="og:title" content="3 Loading Census Data | Working with Census Data in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Working with Census Data in R" />
+  <meta name="twitter:title" content="3 Loading Census Data | Working with Census Data in R" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="a-caucus-race-and-a-long-tale.html"/>
 
-<link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -159,13 +159,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Working with Census Data in R</h1>
-<p class="author"><em>Aditya Ranganath</em></p>
-<p class="date"><em>2022-01-03</em></p>
-</div>
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
+<div id="loading-census-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Loading Census Data</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="loading-census-data.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-census-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a>state_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb2-2"><a href="loading-census-data.html#cb2-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>, </span>
+<span id="cb2-3"><a href="loading-census-data.html#cb2-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">geometry=</span><span class="cn">TRUE</span>,</span>
+<span id="cb2-4"><a href="loading-census-data.html#cb2-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">shift_geo =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-5"><a href="loading-census-data.html#cb2-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using feature geometry obtained from the albersusa package</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Please note: Alaska and Hawaii are being shifted and are not to scale.</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="loading-census-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a>state_population_2010</span></code></pre></div>
+<pre><code>## Simple feature collection with 51 features and 4 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -2100000 ymin: -2500000 xmax: 2516374 ymax: 732103.3
+## CRS:            +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs
+## # A tibble: 51 x 5
+##    GEOID NAME              variable    value                                                                   geometry
+##    &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;       &lt;dbl&gt;                                                         &lt;MULTIPOLYGON [m]&gt;
+##  1 04    Arizona           P001001   6392017 (((-1111066 -805474.8, -1110710 -805527.4, -1096162 -807662.1, -1095175 -…
+##  2 05    Arkansas          P001001   2915918 (((557903.1 -1310327, 557483.6 -1303671, 557408.4 -1302208, 557113.4 -129…
+##  3 06    California        P001001  37253956 (((-1853480 -998633.1, -1853321 -998375.9, -1852406 -997949.2, -1851573 -…
+##  4 08    Colorado          P001001   5029196 (((-613452.9 -417106.2, -586939.8 -419363.1, -575002.3 -420410.4, -541232…
+##  5 09    Connecticut       P001001   3574097 (((2226838 51908.44, 2242161 57149.68, 2247027 58823.47, 2247030 58824.25…
+##  6 11    District of Colu… P001001    601723 (((1960720 -410647.9, 1960509 -409425.2, 1959178 -407396.3, 1956075 -4049…
+##  7 13    Georgia           P001001   9687653 (((1379893 -987523.9, 1380010 -987506.9, 1380104 -987487.1, 1382994 -9869…
+##  8 17    Illinois          P001001  12830632 (((868942.5 -221376, 869308.9 -221357.5, 875058.6 -220731.5, 878327 -2203…
+##  9 18    Indiana           P001001   6483802 (((1279733 -398355.3, 1280583 -403035.5, 1280583 -403037.8, 1280716 -4038…
+## 10 22    Louisiana         P001001   4533372 (((1080885 -1620913, 1078920 -1625009, 1074771 -1632330, 1074358 -1632208…
+## # … with 41 more rows</code></pre>
 
 </div>
             </section>
@@ -173,8 +198,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -205,7 +230,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/aranganath24/R_Census/edit/master/index.Rmd",
+"link": "https://github.com/aranganath24/R_Census/edit/master/loading_data.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -213,7 +238,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/aranganath24/R_Census/blob/master/index.Rmd",
+"link": "https://github.com/aranganath24/R_Census/blob/master/loading_data.Rmd",
 "text": null
 },
 "download": null,

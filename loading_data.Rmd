@@ -1,0 +1,18 @@
+# Loading Census Data
+
+```{r}
+library(tidycensus)
+```
+
+
+
+```{r}
+state_population_2010<-get_decennial(geography = "state", 
+                                     variables = "P001001", 
+                                     geometry=TRUE,
+                                     shift_geo = TRUE,
+                                     year = 2010)
+
+state_population_2010
+```
+
