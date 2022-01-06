@@ -1,3 +1,6 @@
+fig:unnamed-chunk-5
 introduction
-a-caucus-race-and-a-long-tale
-loading-census-data
+retrieve-and-load-decennial-census-data-into-r-studio
+load-table-of-variables
+query-the-census-api-and-retrieve-data-using-tidycensus
+modifying-a-census-api-call-by-altering-arguments-to-the-get_decennial-function

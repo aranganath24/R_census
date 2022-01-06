@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Loading Census Data | Working with Census Data in R</title>
-  <meta name="description" content="2 Loading Census Data | Working with Census Data in R" />
+  <title>2 Loading Decennial Census Data via tidycensus | Working with Census Data in R</title>
+  <meta name="description" content="2 Loading Decennial Census Data via tidycensus | Working with Census Data in R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Loading Census Data | Working with Census Data in R" />
+  <meta property="og:title" content="2 Loading Decennial Census Data via tidycensus | Working with Census Data in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Loading Census Data | Working with Census Data in R" />
+  <meta name="twitter:title" content="2 Loading Decennial Census Data via tidycensus | Working with Census Data in R" />
   
   
   
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="loading-census-data.html"><a href="loading-census-data.html"><i class="fa fa-check"></i><b>2</b> Loading Census Data</a></li>
+<li class="chapter" data-level="2" data-path="loading-decennial-census-data-via-tidycensus.html"><a href="loading-decennial-census-data-via-tidycensus.html"><i class="fa fa-check"></i><b>2</b> Loading Decennial Census Data via <strong>tidycensus</strong></a></li>
 <li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -158,40 +158,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-census-data" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Loading Census Data</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="loading-census-data.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-census-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a>state_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
-<span id="cb2-2"><a href="loading-census-data.html#cb2-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>, </span>
-<span id="cb2-3"><a href="loading-census-data.html#cb2-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">geometry=</span><span class="cn">TRUE</span>,</span>
-<span id="cb2-4"><a href="loading-census-data.html#cb2-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">shift_geo =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-5"><a href="loading-census-data.html#cb2-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
-<pre><code>## Warning: The `shift_geo` argument is deprecated and will be removed in a future release. We recommend
-## using `tigris::shift_geometry()` instead.</code></pre>
+<div id="loading-decennial-census-data-via-tidycensus" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Loading Decennial Census Data via <strong>tidycensus</strong></h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="loading-decennial-census-data-via-tidycensus.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span></code></pre></div>
+<p>We begin by loading a table of decennial census variables, and assigning it to an object named <code>decennial_variables</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-decennial-census-data-via-tidycensus.html#cb2-1" aria-hidden="true" tabindex="-1"></a>decennial_variables<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2010</span>, <span class="st">&quot;sf1&quot;</span>)</span></code></pre></div>
+<p>We can print this table to the console by simply printing the object name, <code>decennial_variables</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="loading-decennial-census-data-via-tidycensus.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table of 2010 decennial variables to console</span></span>
+<span id="cb3-2"><a href="loading-decennial-census-data-via-tidycensus.html#cb3-2" aria-hidden="true" tabindex="-1"></a>decennial_variables</span></code></pre></div>
+<pre><code>## # A tibble: 8,959 x 3
+##    name    label                                concept         
+##    &lt;chr&gt;   &lt;chr&gt;                                &lt;chr&gt;           
+##  1 H001001 Total                                HOUSING UNITS   
+##  2 H002001 Total                                URBAN AND RURAL 
+##  3 H002002 Total!!Urban                         URBAN AND RURAL 
+##  4 H002003 Total!!Urban!!Inside urbanized areas URBAN AND RURAL 
+##  5 H002004 Total!!Urban!!Inside urban clusters  URBAN AND RURAL 
+##  6 H002005 Total!!Rural                         URBAN AND RURAL 
+##  7 H002006 Total!!Not defined for this file     URBAN AND RURAL 
+##  8 H003001 Total                                OCCUPANCY STATUS
+##  9 H003002 Total!!Occupied                      OCCUPANCY STATUS
+## 10 H003003 Total!!Vacant                        OCCUPANCY STATUS
+## # … with 8,949 more rows</code></pre>
+<p>Now, let’s generate a table of population by state, based on the 2010 decennial census</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="loading-decennial-census-data-via-tidycensus.html#cb5-1" aria-hidden="true" tabindex="-1"></a>state_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb5-2"><a href="loading-decennial-census-data-via-tidycensus.html#cb5-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>, </span>
+<span id="cb5-3"><a href="loading-decennial-census-data-via-tidycensus.html#cb5-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">geometry=</span><span class="cn">TRUE</span>,</span>
+<span id="cb5-4"><a href="loading-decennial-census-data-via-tidycensus.html#cb5-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
 <pre><code>## Getting data from the 2010 decennial Census</code></pre>
-<pre><code>## Using feature geometry obtained from the albersusa package</code></pre>
+<pre><code>## Downloading feature geometry from the Census website.  To cache shapefiles for use in future sessions, set `options(tigris_use_cache = TRUE)`.</code></pre>
 <pre><code>## Using Census Summary File 1</code></pre>
-<pre><code>## Please note: Alaska and Hawaii are being shifted and are not to scale.</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loading-census-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a>state_population_2010</span></code></pre></div>
-<pre><code>## Simple feature collection with 51 features and 4 fields
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="loading-decennial-census-data-via-tidycensus.html#cb9-1" aria-hidden="true" tabindex="-1"></a>state_population_2010</span></code></pre></div>
+<pre><code>## Simple feature collection with 52 features and 4 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: -2100000 ymin: -2500000 xmax: 2516374 ymax: 732103.3
-## CRS:            +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs
-## # A tibble: 51 x 5
-##    GEOID NAME            variable   value                                                        geometry
-##    &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;      &lt;dbl&gt;                                              &lt;MULTIPOLYGON [m]&gt;
-##  1 04    Arizona         P001001   6.39e6 (((-1111066 -805474.8, -1110710 -805527.4, -1096162 -807662.1,…
-##  2 05    Arkansas        P001001   2.92e6 (((557903.1 -1310327, 557483.6 -1303671, 557408.4 -1302208, 55…
-##  3 06    California      P001001   3.73e7 (((-1853480 -998633.1, -1853321 -998375.9, -1852406 -997949.2,…
-##  4 08    Colorado        P001001   5.03e6 (((-613452.9 -417106.2, -586939.8 -419363.1, -575002.3 -420410…
-##  5 09    Connecticut     P001001   3.57e6 (((2226838 51908.44, 2242161 57149.68, 2247027 58823.47, 22470…
-##  6 11    District of Co… P001001   6.02e5 (((1960720 -410647.9, 1960509 -409425.2, 1959178 -407396.3, 19…
-##  7 13    Georgia         P001001   9.69e6 (((1379893 -987523.9, 1380010 -987506.9, 1380104 -987487.1, 13…
-##  8 17    Illinois        P001001   1.28e7 (((868942.5 -221376, 869308.9 -221357.5, 875058.6 -220731.5, 8…
-##  9 18    Indiana         P001001   6.48e6 (((1279733 -398355.3, 1280583 -403035.5, 1280583 -403037.8, 12…
-## 10 22    Louisiana       P001001   4.53e6 (((1080885 -1620913, 1078920 -1625009, 1074771 -1632330, 10743…
-## # … with 41 more rows</code></pre>
+## bbox:           xmin: -179.1473 ymin: 17.88481 xmax: 179.7785 ymax: 71.35256
+## geographic CRS: NAD83
+## # A tibble: 52 x 5
+##    GEOID NAME         variable   value                                                           geometry
+##    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt;                                                 &lt;MULTIPOLYGON [°]&gt;
+##  1 23    Maine        P001001   1.33e6 (((-67.61976 44.51975, -67.61541 44.52197, -67.58774 44.5162, -67…
+##  2 25    Massachuset… P001001   6.55e6 (((-70.83204 41.6065, -70.82373 41.59857, -70.82092 41.58767, -70…
+##  3 26    Michigan     P001001   9.88e6 (((-88.68443 48.11578, -88.67563 48.12044, -88.67639 48.12488, -8…
+##  4 30    Montana      P001001   9.89e5 (((-104.0577 44.99743, -104.2501 44.99822, -104.4701 44.99845, -1…
+##  5 32    Nevada       P001001   2.70e6 (((-114.0506 37.0004, -114.05 36.95777, -114.0506 36.84313, -114.…
+##  6 34    New Jersey   P001001   8.79e6 (((-75.52684 39.65571, -75.52634 39.65641, -75.52234 39.66081, -7…
+##  7 36    New York     P001001   1.94e7 (((-71.94356 41.28667, -71.9268 41.29012, -71.93526 41.28058, -71…
+##  8 37    North Carol… P001001   9.54e6 (((-82.60288 36.03983, -82.60074 36.03742, -82.59878 36.03416, -8…
+##  9 39    Ohio         P001001   1.15e7 (((-82.81349 41.72347, -82.81049 41.72052, -82.80887 41.70833, -8…
+## 10 42    Pennsylvania P001001   1.27e7 (((-75.41504 39.80179, -75.42804 39.80921, -75.45374 39.82031, -7…
+## # … with 42 more rows</code></pre>
 
 </div>
             </section>

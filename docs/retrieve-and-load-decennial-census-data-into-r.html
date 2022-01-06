@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 A caucus-race and a long tale | Working with Census Data in R</title>
-  <meta name="description" content="3 A caucus-race and a long tale | Working with Census Data in R" />
+  <title>2 Retrieve and Load Decennial Census Data into R | Working with Census Data in R</title>
+  <meta name="description" content="2 Retrieve and Load Decennial Census Data into R | Working with Census Data in R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 A caucus-race and a long tale | Working with Census Data in R" />
+  <meta property="og:title" content="2 Retrieve and Load Decennial Census Data into R | Working with Census Data in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 A caucus-race and a long tale | Working with Census Data in R" />
+  <meta name="twitter:title" content="2 Retrieve and Load Decennial Census Data into R | Working with Census Data in R" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="retrieve-and-load-decennial-census-data-into-r.html"/>
-
+<link rel="prev" href="index.html"/>
+<link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -162,17 +162,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="a-caucus-race-and-a-long-tale" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> A caucus-race and a long tale</h1>
+<div id="retrieve-and-load-decennial-census-data-into-r" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Retrieve and Load Decennial Census Data into R</h1>
+<div id="load-table-of-variables" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Load table of variables</h2>
+<p>We begin by loading a table of decennial census variables, and assigning it to an object named <code>decennial_variables</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a>decennial_variables<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2010</span>, <span class="st">&quot;sf1&quot;</span>)</span></code></pre></div>
+<p>We can print this table to the console by simply printing the object name, <code>decennial_variables</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table of 2010 decennial variables to console</span></span>
+<span id="cb2-2"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb2-2" aria-hidden="true" tabindex="-1"></a>decennial_variables</span></code></pre></div>
+<pre><code>## # A tibble: 8,959 x 3
+##    name    label                                concept         
+##    &lt;chr&gt;   &lt;chr&gt;                                &lt;chr&gt;           
+##  1 H001001 Total                                HOUSING UNITS   
+##  2 H002001 Total                                URBAN AND RURAL 
+##  3 H002002 Total!!Urban                         URBAN AND RURAL 
+##  4 H002003 Total!!Urban!!Inside urbanized areas URBAN AND RURAL 
+##  5 H002004 Total!!Urban!!Inside urban clusters  URBAN AND RURAL 
+##  6 H002005 Total!!Rural                         URBAN AND RURAL 
+##  7 H002006 Total!!Not defined for this file     URBAN AND RURAL 
+##  8 H003001 Total                                OCCUPANCY STATUS
+##  9 H003002 Total!!Occupied                      OCCUPANCY STATUS
+## 10 H003003 Total!!Vacant                        OCCUPANCY STATUS
+## # … with 8,949 more rows</code></pre>
+<p>To view this table in R Studio’s data viewer, pass the object to the <code>View</code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(decennial_variables)</span></code></pre></div>
+<p>When the data is open in the R Studio data viewer, it will look something like this:</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="pictures/pic1.png" alt="Table of 2010 census variable descriptions and codes" width="973" />
+<p class="caption">
+Figure 2.1: Table of 2010 census variable descriptions and codes
+</p>
+</div>
+</div>
+<div id="query-the-census-api-and-retrieve-data-using-tidycensus" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Query the census API, and retrieve data using tidycensus</h2>
+<p>Now, let’s generate a table of population by state, based on the 2010 decennial census, and assign this new dataset to an object named <code>state_population_2010</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a>state_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb5-2"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb5-3"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb5-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<p>As with our table of variable descriptions (<code>decennial_variables</code>), we can view the data by typing the object name, which prints its contents to the console:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="retrieve-and-load-decennial-census-data-into-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a>state_population_2010</span></code></pre></div>
+<pre><code>## # A tibble: 52 x 4
+##    GEOID NAME        variable    value
+##    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;
+##  1 01    Alabama     P001001   4779736
+##  2 02    Alaska      P001001    710231
+##  3 04    Arizona     P001001   6392017
+##  4 05    Arkansas    P001001   2915918
+##  5 06    California  P001001  37253956
+##  6 22    Louisiana   P001001   4533372
+##  7 21    Kentucky    P001001   4339367
+##  8 08    Colorado    P001001   5029196
+##  9 09    Connecticut P001001   3574097
+## 10 10    Delaware    P001001    897934
+## # … with 42 more rows</code></pre>
+<p>Recall that we</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">NAME</th>
+<th align="left">variable</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">01</td>
+<td align="left">Alabama</td>
+<td align="left">P001001</td>
+<td align="right">4779736</td>
+</tr>
+<tr class="even">
+<td align="left">02</td>
+<td align="left">Alaska</td>
+<td align="left">P001001</td>
+<td align="right">710231</td>
+</tr>
+<tr class="odd">
+<td align="left">04</td>
+<td align="left">Arizona</td>
+<td align="left">P001001</td>
+<td align="right">6392017</td>
+</tr>
+<tr class="even">
+<td align="left">05</td>
+<td align="left">Arkansas</td>
+<td align="left">P001001</td>
+<td align="right">2915918</td>
+</tr>
+<tr class="odd">
+<td align="left">06</td>
+<td align="left">California</td>
+<td align="left">P001001</td>
+<td align="right">37253956</td>
+</tr>
+<tr class="even">
+<td align="left">22</td>
+<td align="left">Louisiana</td>
+<td align="left">P001001</td>
+<td align="right">4533372</td>
+</tr>
+</tbody>
+</table>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="retrieve-and-load-decennial-census-data-into-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -203,7 +308,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/aranganath24/R_Census/edit/master/03-race.Rmd",
+"link": "https://github.com/aranganath24/R_Census/edit/master/02-loading_data.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -211,7 +316,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/aranganath24/R_Census/blob/master/03-race.Rmd",
+"link": "https://github.com/aranganath24/R_Census/blob/master/02-loading_data.Rmd",
 "text": null
 },
 "download": null,
