@@ -1,6 +1,7 @@
 fig:unnamed-chunk-5
 introduction
-retrieve-and-load-decennial-census-data-into-r-studio
+basic-data-retrieval
 load-table-of-variables
 query-the-census-api-and-retrieve-data-using-tidycensus
-modifying-a-census-api-call-by-altering-arguments-to-the-get_decennial-function
+modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function
+basic-data-cleaning-and-manipulation-with-dplyr

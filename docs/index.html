@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-01-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="retrieve-and-load-decennial-census-data-into-r-studio.html"/>
+<link rel="next" href="basic-data-retrieval.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -137,12 +137,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="retrieve-and-load-decennial-census-data-into-r-studio.html"><a href="retrieve-and-load-decennial-census-data-into-r-studio.html"><i class="fa fa-check"></i><b>2</b> Retrieve and Load Decennial Census Data into R Studio</a>
+<li class="part"><span><b>I Decennial Census</b></span></li>
+<li class="chapter" data-level="2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html"><i class="fa fa-check"></i><b>2</b> Basic Data Retrieval</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="retrieve-and-load-decennial-census-data-into-r-studio.html"><a href="retrieve-and-load-decennial-census-data-into-r-studio.html#load-table-of-variables"><i class="fa fa-check"></i><b>2.1</b> Load table of variables</a></li>
-<li class="chapter" data-level="2.2" data-path="retrieve-and-load-decennial-census-data-into-r-studio.html"><a href="retrieve-and-load-decennial-census-data-into-r-studio.html#query-the-census-api-and-retrieve-data-using-tidycensus"><i class="fa fa-check"></i><b>2.2</b> Query the census API, and retrieve data using tidycensus</a></li>
-<li class="chapter" data-level="2.3" data-path="retrieve-and-load-decennial-census-data-into-r-studio.html"><a href="retrieve-and-load-decennial-census-data-into-r-studio.html#modifying-a-census-api-call-by-altering-arguments-to-the-get_decennial-function"><i class="fa fa-check"></i><b>2.3</b> Modifying a census API call by altering arguments to the “get_decennial” function</a></li>
+<li class="chapter" data-level="2.1" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#load-table-of-variables"><i class="fa fa-check"></i><b>2.1</b> Load table of variables</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#query-the-census-api-and-retrieve-data-using-tidycensus"><i class="fa fa-check"></i><b>2.2</b> Query the census API, and retrieve data using tidycensus</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function"><i class="fa fa-check"></i><b>2.3</b> Modify a census API call by altering arguments to the “get_decennial” function</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Basic data cleaning and manipulation with <em>dplyr</em></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -165,19 +167,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Working with Census Data in R</h1>
 <p class="author"><em>Aditya Ranganath</em></p>
-<p class="date"><em>2022-01-05</em></p>
+<p class="date"><em>2022-01-06</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
 
-<a href="retrieve-and-load-decennial-census-data-into-r-studio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basic-data-retrieval.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

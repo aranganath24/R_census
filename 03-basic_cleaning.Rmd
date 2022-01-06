@@ -1,0 +1,34 @@
+# Basic data cleaning and manipulation with *dplyr*
+
+```{r, echo=F}
+library(tidycensus)
+library(tidyverse)
+library(knitr)
+```
+
+Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up the census data that we retrieve using *tidycensus*.  
+
+Let's clean up the dataset of Colorado's 2010 population distribution with respect to counties that we just created in the previous section (```CO_county_population_2010```). As a reminder, the first few rows of that dataset look like this:
+
+```{r}
+View(CO_county_population_2010)
+```
+
+```{r}
+kable(head(CO_county_population_2010, n=6)) 
+```
+
+Let's remove the "variable" field, and rename the "value" field as "Population". We can perform these operations by using functions from the *dplyr* package, which is a part of the *tidyverse*.
+
+
+
+
+
+
+
+
+
+
+
+
+

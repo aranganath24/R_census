@@ -1,4 +1,6 @@
-# Retrieve and Load Decennial Census Data into R Studio
+# (PART) Decennial Census {-}
+
+# Basic Data Retrieval
 
 ## Load table of variables
 
@@ -59,8 +61,24 @@ View(state_population_2010)
 kable(head(state_population_2010, n=6))
 ```
 
-## Modifying a census API call by altering arguments to the "get_decennial" function
+## Modify a census API call by altering arguments to the "get_decennial" function
 
+Let's say that instead of a dataset that contains the population for each state (based on the 2010) census, we want a dataset that contains the population for each county in the state of Colorado. We can generate this county-level dataset by simply changing the ```geography``` argument in the ```get_decennial``` function, and specifying ```state="CO"```. We'll assign this county-level population dataset for Colorado to a new object called ```CO_county_population_2010```: 
+
+```{r, message=FALSE}
+# Generate dataset with information on population by county in Colorado, and assign to an object named "CO_county_population_2010"
+CO_county_population_2010<-get_decennial(geography = "county", 
+                                         state="CO",
+                                         variables = "P001001", 
+                                         year = 2010)
+
+# View dataset
+View(CO_county_population_2010)
+```
+
+```{r, echo=F}
+kable(head(CO_county_population_2010, n=6)) 
+```
 
 
 

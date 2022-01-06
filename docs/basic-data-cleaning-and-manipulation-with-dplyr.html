@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Working with Census Data in R</title>
-  <meta name="description" content="Page not found | Working with Census Data in R" />
+  <title>3 Basic data cleaning and manipulation with dplyr | Working with Census Data in R</title>
+  <meta name="description" content="3 Basic data cleaning and manipulation with dplyr | Working with Census Data in R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Working with Census Data in R" />
+  <meta property="og:title" content="3 Basic data cleaning and manipulation with dplyr | Working with Census Data in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Working with Census Data in R" />
+  <meta name="twitter:title" content="3 Basic data cleaning and manipulation with dplyr | Working with Census Data in R" />
   
   
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="basic-data-retrieval.html"/>
 
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -164,18 +164,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="basic-data-cleaning-and-manipulation-with-dplyr" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Basic data cleaning and manipulation with <em>dplyr</em></h1>
+<p>Once data has been pulled into R Studio via <em>tidycensus</em>, it’s possible to work with data using the entire suite of data analysis tools available through the <em>tidyverse</em>. Among other things, we can use <em>tidyverse</em> tools to clean up the census data that we retrieve using <em>tidycensus</em>.</p>
+<p>Let’s clean up the dataset of Colorado’s 2010 population distribution with respect to counties that we just created in the previous section (<code>CO_county_population_2010</code>). As a reminder, the first few rows of that dataset look like this:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(CO_county_population_2010, <span class="at">n=</span><span class="dv">6</span>)) </span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">NAME</th>
+<th align="left">variable</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08023</td>
+<td align="left">Costilla County, Colorado</td>
+<td align="left">P001001</td>
+<td align="right">3524</td>
+</tr>
+<tr class="even">
+<td align="left">08025</td>
+<td align="left">Crowley County, Colorado</td>
+<td align="left">P001001</td>
+<td align="right">5823</td>
+</tr>
+<tr class="odd">
+<td align="left">08027</td>
+<td align="left">Custer County, Colorado</td>
+<td align="left">P001001</td>
+<td align="right">4255</td>
+</tr>
+<tr class="even">
+<td align="left">08029</td>
+<td align="left">Delta County, Colorado</td>
+<td align="left">P001001</td>
+<td align="right">30952</td>
+</tr>
+<tr class="odd">
+<td align="left">08031</td>
+<td align="left">Denver County, Colorado</td>
+<td align="left">P001001</td>
+<td align="right">600158</td>
+</tr>
+<tr class="even">
+<td align="left">08035</td>
+<td align="left">Douglas County, Colorado</td>
+<td align="left">P001001</td>
+<td align="right">285465</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s remove the “variable” field, and rename the “value” field as “Population”. We can perform these operations by using functions from the <em>dplyr</em> package, which is a part of the <em>tidyverse</em>.</p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="basic-data-retrieval.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -207,7 +258,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/aranganath24/R_Census/edit/master/%s",
+"link": "https://github.com/aranganath24/R_Census/edit/master/03-basic_cleaning.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -215,7 +266,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/aranganath24/R_Census/blob/master/%s",
+"link": "https://github.com/aranganath24/R_Census/blob/master/03-basic_cleaning.Rmd",
 "text": null
 },
 "download": null,
