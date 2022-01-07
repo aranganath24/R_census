@@ -7,7 +7,7 @@ modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function
 basic-data-cleaning-and-manipulation-with-dplyr
 renaming-and-deleting-columns
 modifying-column-contents
-filtering-data
+subsetting-data
 creating-new-variables
 grouping-operations-and-summary-statistics
 elementary-visualization

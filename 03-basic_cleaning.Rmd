@@ -30,7 +30,7 @@ CO_county_population_2010_cleaned<-CO_county_population_2010 %>%
                                       rename(population=value)
 ```
 
-Let's view the dataset to ensure that these changes have been made:
+Let's view the dataset to ensure that these changes have been implemented:
 
 ```{r}
 View(CO_county_population_2010_cleaned) 
@@ -65,18 +65,86 @@ Note that the "Name" column in our cleaned county-level dataset of the Colorado 
 
 
 ```{r}
-# Take the "CO_county_population_2010_cleaned" object and 
+# Take the "CO_county_population_2010_cleaned" dataset, create a new variable named "County" that takes the information in the "NAME" column and removes the part of the string that contains "County, Colorado", and then remove the now superfluous "NAME" column
+
 CO_county_population_2010_cleaned<-CO_county_population_2010_cleaned %>% 
                                     mutate(County=str_remove(NAME, "County, Colorado")) %>% 
                                     select(-NAME)
+
+# View "CO_county_population_2010_cleaned" (Note that only the first six records are printed in this guide)
+
+View(CO_county_population_2010_cleaned)
 ```
 
-
-```{r}
+```{r, echo=FALSE}
 kable(head(CO_county_population_2010_cleaned, n=6))
 ```
 
-## Filtering Data
+It's worth noting that we can use the ```relocate``` function to reorder a dataset's columns to our specifications. For example, note that currently, the population column is sandwiched between "GEOID" and "County"; what if we prefer that the "population" column is the last column in the dataset? We can change the column order using the ```relocate``` function, and specify the desired relative position of a given column using either the ```.before``` or ```.after``` argument:
+
+```{r}
+CO_county_population_2010_cleaned<-CO_county_population_2010_cleaned %>% 
+                                    relocate(population, .after=County)
+
+View(CO_county_population_2010_cleaned)
+```
+
+```{r, echo=FALSE}
+kable(head(CO_county_population_2010_cleaned, n=6))
+```
+
+Note that if neither the ```.before``` nor ```.after``` arguments are specified within the ```relocate``` function, the column that is passed to ```relocate``` will automatically be moved to the front of the dataset (i.e. it will be the first column). 
+
+## Subsetting Data
+
+*dplyr* also allows us to easily subset census data retrieved from *tidycensus*.  Let's say, for example, that we want to select only those counties in ```CO_county_population_2010_cleaned``` that have a population greater than 100,000. To do so, we can specify this condition with the appropriate logical operator within the ```filter``` function. We'll assign this subsetted data to a new object named ```CO_large_counties```:
+
+```{r}
+CO_large_counties<-CO_county_population_2010_cleaned %>% 
+                      filter(population>100000)
+```
+
+Now, let's view our newly created table of Colorado counties with a population of greater than 100,000:
+
+```{r}
+View(CO_large_counties)
+```
+
+```{r, echo=FALSE}
+kable(CO_large_counties)
+```
+
+Note that the table is not arranged in order, with respect to the population. Let's reorder the dataset's rows, in descending order with respect to the population variable (such that the most populous county appears in the first row):
+
+```{r}
+CO_large_counties<-CO_large_counties %>% 
+                      arrange(desc(population))
+```
+
+```{r}
+View(CO_large_counties)
+```
+
+```{r, echo=FALSE}
+kable(CO_large_counties)
+```
+
+If we want to arrange the dataset in ascending order with respect to the population (such that the least populous county appears on top), we can use the following:
+
+```{r}
+CO_large_counties<-CO_large_counties %>% 
+                      arrange(population)
+
+View(CO_large_counties)
+```
+
+```{r, echo=FALSE}
+kable(CO_large_counties)
+```
+
+
+
+max, min
 
 
 ## Creating new variables
