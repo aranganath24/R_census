@@ -146,9 +146,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Basic data cleaning and manipulation with <em>dplyr</em></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#renaming-and-deleting-columns"><i class="fa fa-check"></i><b>3.1</b> Renaming and deleting columns</a></li>
-<li class="chapter" data-level="3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#modifying-column-contents"><i class="fa fa-check"></i><b>3.2</b> Modifying column contents</a></li>
-<li class="chapter" data-level="3.3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#subsetting-data"><i class="fa fa-check"></i><b>3.3</b> Subsetting Data</a></li>
+<li class="chapter" data-level="3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#renaming-and-deleting-columns"><i class="fa fa-check"></i><b>3.1</b> Renaming and deleting columns</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-rename-and-select-functions"><i class="fa fa-check"></i><b>3.1.1</b> The <code>rename</code> and <code>select</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#modifying-columns"><i class="fa fa-check"></i><b>3.2</b> Modifying columns</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#columns-and-string-operations"><i class="fa fa-check"></i><b>3.2.1</b> Columns and string operations</a></li>
+<li class="chapter" data-level="3.2.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-relocate-function"><i class="fa fa-check"></i><b>3.2.2</b> The <code>relocate</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#subsetting-data"><i class="fa fa-check"></i><b>3.3</b> Subsetting Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-filter-function"><i class="fa fa-check"></i><b>3.3.1</b> The <code>filter</code> function</a></li>
+<li class="chapter" data-level="3.3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#slice-functions"><i class="fa fa-check"></i><b>3.3.2</b> <code>slice</code> functions</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#creating-new-variables"><i class="fa fa-check"></i><b>3.4</b> Creating new variables</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>4</b> Grouping operations and summary statistics</a></li>
@@ -175,9 +186,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="basic-data-cleaning-and-manipulation-with-dplyr" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Basic data cleaning and manipulation with <em>dplyr</em></h1>
-<p>Once data has been pulled into R Studio via <em>tidycensus</em>, it’s possible to work with data using the entire suite of data analysis tools available through the <em>tidyverse</em>. Among other things, we can use <em>tidyverse</em> tools to clean up the census data that we retrieve using <em>tidycensus</em>.</p>
+<p>Once data has been pulled into R Studio via <em>tidycensus</em>, it’s possible to work with data using the entire suite of data analysis tools available through the <em>tidyverse</em>. Among other things, we can use <em>tidyverse</em> tools to clean up, modify, or explore the census datasets that we retrieve using <em>tidycensus</em>.</p>
 <div id="renaming-and-deleting-columns" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Renaming and deleting columns</h2>
+<div id="the-rename-and-select-functions" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> The <code>rename</code> and <code>select</code> functions</h3>
 <p>Let’s clean up the dataset of Colorado’s 2010 population distribution with respect to counties that we just created in the previous section (<code>CO_county_population_2010</code>). As a reminder, the first few rows of that dataset look like this:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(CO_county_population_2010, <span class="at">n=</span><span class="dv">6</span>)) </span></code></pre></div>
@@ -326,13 +339,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div id="modifying-column-contents" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Modifying column contents</h2>
+</div>
+<div id="modifying-columns" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Modifying columns</h2>
+<div id="columns-and-string-operations" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Columns and string operations</h3>
 <p>Note that the “Name” column in our cleaned county-level dataset of the Colorado population contains names in the format “<County Name> County, Colorado”. What if we want to edit this, such that we replace the “NAME” column with a new column named “County”, which contains simply the name of the county (i.e. &lt;“County Name”&gt; instead of &lt;“County Name&gt; County, Colorado”&gt;)? To do so, we can use the <code>mutate</code> function to create a new column named “County”, and then populate this column with the string that results from removing “County, Colorado” from the “NAME” column; then, we can go ahead and remove the “NAME” column. Below, instead of assigning this modified dataset to a new object, we’ll simply assign it back to <code>CO_county_population_2010_cleaned</code>, which overwrites that object’s existing contents with these changes:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the &quot;CO_county_population_2010_cleaned&quot; dataset, create a new variable named &quot;County&quot; that takes the information in the &quot;NAME&quot; column and removes the part of the string that contains &quot;County, Colorado&quot;, and then remove the now superfluous &quot;NAME&quot; column</span></span>
 <span id="cb18-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-3" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned<span class="ot">&lt;-</span>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove</span>(NAME, <span class="st">&quot;County, Colorado&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove</span>(NAME, <span class="st">&quot; County, Colorado&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb18-5"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">select</span>(<span class="sc">-</span>NAME)</span>
 <span id="cb18-6"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-7"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View &quot;CO_county_population_2010_cleaned&quot; (Note that only the first six records are printed in this guide)</span></span>
@@ -379,6 +395,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
+</div>
+<div id="the-relocate-function" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> The <code>relocate</code> function</h3>
 <p>It’s worth noting that we can use the <code>relocate</code> function to reorder a dataset’s columns to our specifications. For example, note that currently, the population column is sandwiched between “GEOID” and “County”; what if we prefer that the “population” column is the last column in the dataset? We can change the column order using the <code>relocate</code> function, and specify the desired relative position of a given column using either the <code>.before</code> or <code>.after</code> argument:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb19-1" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned<span class="ot">&lt;-</span>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb19-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">relocate</span>(population, <span class="at">.after=</span>County)</span>
@@ -427,8 +446,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Note that if neither the <code>.before</code> nor <code>.after</code> arguments are specified within the <code>relocate</code> function, the column that is passed to <code>relocate</code> will automatically be moved to the front of the dataset (i.e. it will be the first column).</p>
 </div>
+</div>
 <div id="subsetting-data" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Subsetting Data</h2>
+<div id="the-filter-function" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> The <code>filter</code> function</h3>
 <p><em>dplyr</em> also allows us to easily subset census data retrieved from <em>tidycensus</em>. Let’s say, for example, that we want to select only those counties in <code>CO_county_population_2010_cleaned</code> that have a population greater than 100,000. To do so, we can specify this condition with the appropriate logical operator within the <code>filter</code> function. We’ll assign this subsetted data to a new object named <code>CO_large_counties</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb20-1" aria-hidden="true" tabindex="-1"></a>CO_large_counties<span class="ot">&lt;-</span>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> </span>
 <span id="cb20-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb20-2" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">filter</span>(population<span class="sc">&gt;</span><span class="dv">100000</span>)</span></code></pre></div>
@@ -641,7 +663,114 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>max, min</p>
+<p>It is also possible to filter based on text; for example, if we want to extract the record for Denver, we could use the following (note the double equal sign in the expression):</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb25-1" aria-hidden="true" tabindex="-1"></a>CO_large_counties <span class="sc">%&gt;%</span> <span class="fu">filter</span>(County<span class="sc">==</span><span class="st">&quot;Denver&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   GEOID County population
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1 08031 Denver     600158</code></pre>
+<p>Note that above, we didn’t assign this subsetted record to it’s own object, but we could have easily done so. Below, let’s subset Denver and Boulder counties, and assign these records to a new object, named <code>denver_boulder</code>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb27-1" aria-hidden="true" tabindex="-1"></a>denver_boulder<span class="ot">&lt;-</span>CO_large_counties <span class="sc">%&gt;%</span> <span class="fu">filter</span>(County<span class="sc">==</span><span class="st">&quot;Denver&quot;</span><span class="sc">|</span>County<span class="sc">==</span><span class="st">&quot;Boulder&quot;</span>)</span>
+<span id="cb27-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(denver_boulder)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(denver_boulder)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">County</th>
+<th align="right">population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08013</td>
+<td align="left">Boulder</td>
+<td align="right">294567</td>
+</tr>
+<tr class="even">
+<td align="left">08031</td>
+<td align="left">Denver</td>
+<td align="right">600158</td>
+</tr>
+</tbody>
+</table>
+<p>Note the syntax above; the code that reads <code>filter(County=="Denver"|County=="Boulder</code>) specifies that we want to pull out all records where the “County” column takes on the value “Denver” OR (denoted by the <code>|</code>) “Boulder”.</p>
+<p>While <code>filter</code> is the most common function used to subset data according to specified criteria, there are others that come in handy as well.</p>
+</div>
+<div id="slice-functions" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> <code>slice</code> functions</h3>
+<p>It is often useful to extract rows with particularly high or low values for a given variable. This is where the <code>slice</code> functions of <strong><em>dplyr</em></strong> can come in handy. Let’s say we want to extract the county with the largest population in the <code>CO_county_population_2010_cleaned</code> dataset; we can do so by passing the “population” variable as an argument to the <code>slice_max</code> function:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb29-1" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(population)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   GEOID County  population
+##   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1 08041 El Paso     622263</code></pre>
+<p>If we don’t want the single largest county by population, it is easy to extract records with the “n” largest values of a variable by specifying <code>n</code> as an argument. For example, if we wanted the four most populous counties, we would specify <code>n=4</code> after the population argument:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb31-1" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(population, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##   GEOID County    population
+##   &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;
+## 1 08041 El Paso       622263
+## 2 08031 Denver        600158
+## 3 08005 Arapahoe      572003
+## 4 08059 Jefferson     534543</code></pre>
+<p>The <code>slice_min</code> function is analogous to the <code>slice_max</code> function, but extracts the rows associated with the “n” smallest values of a variable. For example, the code below extracts the 8 smallest counties by population (note that unlike in the <code>slice_max</code> example, we’ll assign the resulting subset to a new object, named <code>CO_counties_8smallest</code>):</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb33-1" aria-hidden="true" tabindex="-1"></a>CO_counties_8smallest<span class="ot">&lt;-</span>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(population, <span class="at">n=</span><span class="dv">8</span>)</span>
+<span id="cb33-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_counties_8smallest)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">County</th>
+<th align="right">population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08111</td>
+<td align="left">San Juan</td>
+<td align="right">699</td>
+</tr>
+<tr class="even">
+<td align="left">08079</td>
+<td align="left">Mineral</td>
+<td align="right">712</td>
+</tr>
+<tr class="odd">
+<td align="left">08053</td>
+<td align="left">Hinsdale</td>
+<td align="right">843</td>
+</tr>
+<tr class="even">
+<td align="left">08057</td>
+<td align="left">Jackson</td>
+<td align="right">1394</td>
+</tr>
+<tr class="odd">
+<td align="left">08061</td>
+<td align="left">Kiowa</td>
+<td align="right">1398</td>
+</tr>
+<tr class="even">
+<td align="left">08017</td>
+<td align="left">Cheyenne</td>
+<td align="right">1836</td>
+</tr>
+<tr class="odd">
+<td align="left">08033</td>
+<td align="left">Dolores</td>
+<td align="right">2064</td>
+</tr>
+<tr class="even">
+<td align="left">08115</td>
+<td align="left">Sedgwick</td>
+<td align="right">2379</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="creating-new-variables" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Creating new variables</h2>

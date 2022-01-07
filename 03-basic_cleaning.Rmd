@@ -7,9 +7,11 @@ library(knitr)
 library(stringr)
 ```
 
-Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up the census data that we retrieve using *tidycensus*.  
+Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up, modify, or explore the census datasets that we retrieve using *tidycensus*.  
 
 ## Renaming and deleting columns
+
+### The ```rename``` and ```select``` functions  
 
 Let's clean up the dataset of Colorado's 2010 population distribution with respect to counties that we just created in the previous section (```CO_county_population_2010```). As a reminder, the first few rows of that dataset look like this:
 
@@ -59,7 +61,9 @@ View(CO_county_population_2010_cleaned_alternate)
 kable(head(CO_county_population_2010_cleaned_alternate, n=6))
 ```
 
-## Modifying column contents
+## Modifying columns
+
+### Columns and string operations
 
 Note that the "Name" column in our cleaned county-level dataset of the Colorado population contains names in the format "<County Name> County, Colorado". What if we want to edit this, such that we replace the "NAME" column with a new column named "County", which contains simply the name of the county (i.e. <"County Name"> instead of <"County Name> County, Colorado">)? To do so, we can use the ```mutate``` function to create a new column named "County", and then populate this column with the string that results from removing "County, Colorado" from the "NAME" column; then, we can go ahead and remove the "NAME" column. Below, instead of assigning this modified dataset to a new object, we'll simply assign it back to ```CO_county_population_2010_cleaned```, which overwrites that object's existing contents with these changes: 
 
@@ -68,7 +72,7 @@ Note that the "Name" column in our cleaned county-level dataset of the Colorado 
 # Take the "CO_county_population_2010_cleaned" dataset, create a new variable named "County" that takes the information in the "NAME" column and removes the part of the string that contains "County, Colorado", and then remove the now superfluous "NAME" column
 
 CO_county_population_2010_cleaned<-CO_county_population_2010_cleaned %>% 
-                                    mutate(County=str_remove(NAME, "County, Colorado")) %>% 
+                                    mutate(County=str_remove(NAME, " County, Colorado")) %>% 
                                     select(-NAME)
 
 # View "CO_county_population_2010_cleaned" (Note that only the first six records are printed in this guide)
@@ -79,6 +83,8 @@ View(CO_county_population_2010_cleaned)
 ```{r, echo=FALSE}
 kable(head(CO_county_population_2010_cleaned, n=6))
 ```
+
+### The ```relocate``` function
 
 It's worth noting that we can use the ```relocate``` function to reorder a dataset's columns to our specifications. For example, note that currently, the population column is sandwiched between "GEOID" and "County"; what if we prefer that the "population" column is the last column in the dataset? We can change the column order using the ```relocate``` function, and specify the desired relative position of a given column using either the ```.before``` or ```.after``` argument:
 
@@ -96,6 +102,8 @@ kable(head(CO_county_population_2010_cleaned, n=6))
 Note that if neither the ```.before``` nor ```.after``` arguments are specified within the ```relocate``` function, the column that is passed to ```relocate``` will automatically be moved to the front of the dataset (i.e. it will be the first column). 
 
 ## Subsetting Data
+
+### The ```filter``` function
 
 *dplyr* also allows us to easily subset census data retrieved from *tidycensus*.  Let's say, for example, that we want to select only those counties in ```CO_county_population_2010_cleaned``` that have a population greater than 100,000. To do so, we can specify this condition with the appropriate logical operator within the ```filter``` function. We'll assign this subsetted data to a new object named ```CO_large_counties```:
 
@@ -142,10 +150,53 @@ View(CO_large_counties)
 kable(CO_large_counties)
 ```
 
+It is also possible to filter based on text; for example, if we want to extract the record for Denver, we could use the following (note the double equal sign in the expression):
 
+```{r}
+CO_large_counties %>% filter(County=="Denver")
+```
 
-max, min
+Note that above, we didn't assign this subsetted record to it's own object, but we could have easily done so. Below, let's subset Denver and Boulder counties, and assign these records to a new object, named ```denver_boulder```:
 
+```{r}
+denver_boulder<-CO_large_counties %>% filter(County=="Denver"|County=="Boulder")
+
+View(denver_boulder)
+```
+
+```{r}
+kable(denver_boulder)
+```
+
+Note the syntax above; the code that reads ```filter(County=="Denver"|County=="Boulder```) specifies that we want to pull out all records where the "County" column takes on the value "Denver" OR (denoted by the ```|```) "Boulder". 
+
+While ```filter``` is the most common function used to subset data according to specified criteria, there are others that come in handy as well. 
+
+### ```slice``` functions 
+
+It is often useful to extract rows with particularly high or low values for a given variable. This is where the ```slice``` functions of ***dplyr*** can come in handy. Let's say we want to extract the county with the largest population in the ```CO_county_population_2010_cleaned``` dataset; we can do so by passing the "population" variable as an argument to the ```slice_max``` function:
+
+```{r}
+CO_county_population_2010_cleaned %>% slice_max(population)
+```
+
+If we don't want the single largest county by population, it is easy to extract records with  the "n" largest values of a variable by specifying ```n``` as an argument. For example, if we wanted the four most populous counties, we would specify ```n=4``` after the population argument:
+
+```{r}
+CO_county_population_2010_cleaned %>% slice_max(population, n=4)
+```
+
+The ```slice_min``` function is analogous to the ```slice_max``` function, but extracts the rows associated with the "n" smallest values of a variable. For example, the code below extracts the 8 smallest counties by population (note that unlike in the ```slice_max``` example, we'll assign the resulting subset to a new object, named ```CO_counties_8smallest```):
+
+```{r}
+CO_counties_8smallest<-CO_county_population_2010_cleaned %>% slice_min(population, n=8)
+
+View(CO_counties_8smallest)
+```
+
+```{r, echo=FALSE}
+kable(CO_counties_8smallest)
+```
 
 ## Creating new variables
 
