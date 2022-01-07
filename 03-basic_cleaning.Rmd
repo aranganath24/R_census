@@ -4,9 +4,12 @@
 library(tidycensus)
 library(tidyverse)
 library(knitr)
+library(stringr)
 ```
 
 Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up the census data that we retrieve using *tidycensus*.  
+
+## Renaming and deleting columns
 
 Let's clean up the dataset of Colorado's 2010 population distribution with respect to counties that we just created in the previous section (```CO_county_population_2010```). As a reminder, the first few rows of that dataset look like this:
 
@@ -18,7 +21,65 @@ View(CO_county_population_2010)
 kable(head(CO_county_population_2010, n=6)) 
 ```
 
-Let's remove the "variable" field, and rename the "value" field as "Population". We can perform these operations by using functions from the *dplyr* package, which is a part of the *tidyverse*.
+Let's remove the "variable" field, and rename the "value" field as "Population". We can perform these operations by using functions from the *dplyr* package, which is a part of the *tidyverse*. We can use the ```select``` function to remove the "variable" field, and the ```rename``` function to rename the name of the field containing the population data from "value" to "population". We'll use the pipe operator (``` %>% ```) to chain together these functions, which allows us to perform both of these cleaning operations in one block of code; we'll assign the revised dataset to a new object named ```CO_county_population_2010_cleaned```:
+
+```{r}
+# Takes "CO_county_population_2010", deletes the "variable" column, renames the "value" column as "population", and assigns this modified dataset to a new object names "CO_county_population_2010_cleaned"
+CO_county_population_2010_cleaned<-CO_county_population_2010 %>% 
+                                      select(-variable) %>% 
+                                      rename(population=value)
+```
+
+Let's view the dataset to ensure that these changes have been made:
+
+```{r}
+View(CO_county_population_2010_cleaned) 
+```
+
+```{r, echo=FALSE}
+kable(head(CO_county_population_2010_cleaned, n=6))
+```
+
+Note that the ```select``` function can either be used to directly ***delete*** columns from a dataset (if these columns are preceded by a ```-```) or alternatively, to designate the columns to ***keep*** (which will delete the residual columns). So, for example, the following syntax would also effectively delete the variable column, and rename the value column:
+
+```{r}
+# Takes "CO_county_population_2010", deletes the "variable" column (using slightly different syntax than above), renames the "value" column as "population", and assigns this modified dataset to a new object names "CO_county_population_2010_cleaned_alternate"
+CO_county_population_2010_cleaned_alternate<-CO_county_population_2010 %>% 
+                                              select(GEOID, NAME, value) %>% 
+                                              rename(population=value)
+```
+
+Let's check to make sure that ```CO_county_population_cleaned_alternate``` looks the same as ```CO_county_population_cleaned``` above:
+
+```{r}
+View(CO_county_population_2010_cleaned_alternate) 
+```
+
+```{r, echo=FALSE}
+kable(head(CO_county_population_2010_cleaned_alternate, n=6))
+```
+
+## Modifying column contents
+
+Note that the "Name" column in our cleaned county-level dataset of the Colorado population contains names in the format "<County Name> County, Colorado". What if we want to edit this, such that we replace the "NAME" column with a new column named "County", which contains simply the name of the county (i.e. <"County Name"> instead of <"County Name> County, Colorado">)? To do so, we can use the ```mutate``` function to create a new column named "County", and then populate this column with the string that results from removing "County, Colorado" from the "NAME" column; then, we can go ahead and remove the "NAME" column. Below, instead of assigning this modified dataset to a new object, we'll simply assign it back to ```CO_county_population_2010_cleaned```, which overwrites that object's existing contents with these changes: 
+
+
+```{r}
+# Take the "CO_county_population_2010_cleaned" object and 
+CO_county_population_2010_cleaned<-CO_county_population_2010_cleaned %>% 
+                                    mutate(County=str_remove(NAME, "County, Colorado")) %>% 
+                                    select(-NAME)
+```
+
+
+```{r}
+kable(head(CO_county_population_2010_cleaned, n=6))
+```
+
+## Filtering Data
+
+
+## Creating new variables
 
 
 

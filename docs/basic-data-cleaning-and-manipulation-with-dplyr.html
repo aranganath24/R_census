@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="basic-data-retrieval.html"/>
-
+<link rel="next" href="grouping-operations-and-summary-statistics.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -144,7 +144,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#query-the-census-api-and-retrieve-data-using-tidycensus"><i class="fa fa-check"></i><b>2.2</b> Query the census API, and retrieve data using tidycensus</a></li>
 <li class="chapter" data-level="2.3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function"><i class="fa fa-check"></i><b>2.3</b> Modify a census API call by altering arguments to the “get_decennial” function</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Basic data cleaning and manipulation with <em>dplyr</em></a></li>
+<li class="chapter" data-level="3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Basic data cleaning and manipulation with <em>dplyr</em></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#renaming-and-deleting-columns"><i class="fa fa-check"></i><b>3.1</b> Renaming and deleting columns</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#modifying-column-contents"><i class="fa fa-check"></i><b>3.2</b> Modifying column contents</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#filtering-data"><i class="fa fa-check"></i><b>3.3</b> Filtering Data</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#creating-new-variables"><i class="fa fa-check"></i><b>3.4</b> Creating new variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>4</b> Grouping operations and summary statistics</a></li>
+<li class="chapter" data-level="5" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>5</b> Elementary Visualization</a></li>
+<li class="chapter" data-level="6" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>6</b> Advanced data retrieval</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -167,6 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basic-data-cleaning-and-manipulation-with-dplyr" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Basic data cleaning and manipulation with <em>dplyr</em></h1>
 <p>Once data has been pulled into R Studio via <em>tidycensus</em>, it’s possible to work with data using the entire suite of data analysis tools available through the <em>tidyverse</em>. Among other things, we can use <em>tidyverse</em> tools to clean up the census data that we retrieve using <em>tidycensus</em>.</p>
+<div id="renaming-and-deleting-columns" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Renaming and deleting columns</h2>
 <p>Let’s clean up the dataset of Colorado’s 2010 population distribution with respect to counties that we just created in the previous section (<code>CO_county_population_2010</code>). As a reminder, the first few rows of that dataset look like this:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(CO_county_population_2010, <span class="at">n=</span><span class="dv">6</span>)) </span></code></pre></div>
@@ -218,16 +229,168 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>Let’s remove the “variable” field, and rename the “value” field as “Population”. We can perform these operations by using functions from the <em>dplyr</em> package, which is a part of the <em>tidyverse</em>.</p>
+<p>Let’s remove the “variable” field, and rename the “value” field as “Population”. We can perform these operations by using functions from the <em>dplyr</em> package, which is a part of the <em>tidyverse</em>. We can use the <code>select</code> function to remove the “variable” field, and the <code>rename</code> function to rename the name of the field containing the population data from “value” to “population”. We’ll use the pipe operator (<code>%&gt;%</code>) to chain together these functions, which allows us to perform both of these cleaning operations in one block of code; we’ll assign the revised dataset to a new object named <code>CO_county_population_2010_cleaned</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes &quot;CO_county_population_2010&quot;, deletes the &quot;variable&quot; column, renames the &quot;value&quot; column as &quot;population&quot;, and assigns this modified dataset to a new object names &quot;CO_county_population_2010_cleaned&quot;</span></span>
+<span id="cb14-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb14-2" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned<span class="ot">&lt;-</span>CO_county_population_2010 <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb14-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">select</span>(<span class="sc">-</span>variable) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb14-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">rename</span>(<span class="at">population=</span>value)</span></code></pre></div>
+<p>Let’s view the dataset to ensure that these changes have been made:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010_cleaned) </span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">NAME</th>
+<th align="right">population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08023</td>
+<td align="left">Costilla County, Colorado</td>
+<td align="right">3524</td>
+</tr>
+<tr class="even">
+<td align="left">08025</td>
+<td align="left">Crowley County, Colorado</td>
+<td align="right">5823</td>
+</tr>
+<tr class="odd">
+<td align="left">08027</td>
+<td align="left">Custer County, Colorado</td>
+<td align="right">4255</td>
+</tr>
+<tr class="even">
+<td align="left">08029</td>
+<td align="left">Delta County, Colorado</td>
+<td align="right">30952</td>
+</tr>
+<tr class="odd">
+<td align="left">08031</td>
+<td align="left">Denver County, Colorado</td>
+<td align="right">600158</td>
+</tr>
+<tr class="even">
+<td align="left">08035</td>
+<td align="left">Douglas County, Colorado</td>
+<td align="right">285465</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the <code>select</code> function can either be used to directly <strong><em>delete</em></strong> columns from a dataset (if these columns are preceded by a <code>-</code>) or alternatively, to designate the columns to <strong><em>keep</em></strong> (which will delete the residual columns). So, for example, the following syntax would also effectively delete the variable column, and rename the value column:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes &quot;CO_county_population_2010&quot;, deletes the &quot;variable&quot; column (using slightly different syntax than above), renames the &quot;value&quot; column as &quot;population&quot;, and assigns this modified dataset to a new object names &quot;CO_county_population_2010_cleaned_alternate&quot;</span></span>
+<span id="cb16-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb16-2" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned_alternate<span class="ot">&lt;-</span>CO_county_population_2010 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb16-3" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">select</span>(GEOID, NAME, value) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                                              <span class="fu">rename</span>(<span class="at">population=</span>value)</span></code></pre></div>
+<p>Let’s check to make sure that <code>CO_county_population_cleaned_alternate</code> looks the same as <code>CO_county_population_cleaned</code> above:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010_cleaned_alternate) </span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">NAME</th>
+<th align="right">population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08023</td>
+<td align="left">Costilla County, Colorado</td>
+<td align="right">3524</td>
+</tr>
+<tr class="even">
+<td align="left">08025</td>
+<td align="left">Crowley County, Colorado</td>
+<td align="right">5823</td>
+</tr>
+<tr class="odd">
+<td align="left">08027</td>
+<td align="left">Custer County, Colorado</td>
+<td align="right">4255</td>
+</tr>
+<tr class="even">
+<td align="left">08029</td>
+<td align="left">Delta County, Colorado</td>
+<td align="right">30952</td>
+</tr>
+<tr class="odd">
+<td align="left">08031</td>
+<td align="left">Denver County, Colorado</td>
+<td align="right">600158</td>
+</tr>
+<tr class="even">
+<td align="left">08035</td>
+<td align="left">Douglas County, Colorado</td>
+<td align="right">285465</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="modifying-column-contents" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Modifying column contents</h2>
+<p>Note that the “Name” column in our cleaned county-level dataset of the Colorado population contains names in the format “<County Name> County, Colorado”. What if we want to edit this, such that we replace the “NAME” column with a new column named “County”, which contains simply the name of the county (i.e. &lt;“County Name”&gt; instead of &lt;“County Name&gt; County, Colorado”&gt;)? To do so, we can use the <code>mutate</code> function to create a new column named “County”, and then populate this column with the string that results from removing “County, Colorado” from the “NAME” column; then, we can go ahead and remove the “NAME” column. Below, instead of assigning this modified dataset to a new object, we’ll simply assign it back to <code>CO_county_population_2010_cleaned</code>, which overwrites that object’s existing contents with these changes:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the &quot;CO_county_population_2010_cleaned&quot; object and </span></span>
+<span id="cb18-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-2" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned<span class="ot">&lt;-</span>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove</span>(NAME, <span class="st">&quot;County, Colorado&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb18-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">select</span>(<span class="sc">-</span>NAME)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(CO_county_population_2010_cleaned, <span class="at">n=</span><span class="dv">6</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="right">population</th>
+<th align="left">County</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08023</td>
+<td align="right">3524</td>
+<td align="left">Costilla</td>
+</tr>
+<tr class="even">
+<td align="left">08025</td>
+<td align="right">5823</td>
+<td align="left">Crowley</td>
+</tr>
+<tr class="odd">
+<td align="left">08027</td>
+<td align="right">4255</td>
+<td align="left">Custer</td>
+</tr>
+<tr class="even">
+<td align="left">08029</td>
+<td align="right">30952</td>
+<td align="left">Delta</td>
+</tr>
+<tr class="odd">
+<td align="left">08031</td>
+<td align="right">600158</td>
+<td align="left">Denver</td>
+</tr>
+<tr class="even">
+<td align="left">08035</td>
+<td align="right">285465</td>
+<td align="left">Douglas</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="filtering-data" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Filtering Data</h2>
+</div>
+<div id="creating-new-variables" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Creating new variables</h2>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="basic-data-retrieval.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="basic-data-retrieval.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="grouping-operations-and-summary-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
