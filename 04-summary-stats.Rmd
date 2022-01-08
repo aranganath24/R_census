@@ -50,10 +50,6 @@ gapminder_france_summary<-gapminder_france %>%
 
 
 
-
-https://stackoverflow.com/questions/34594641/dplyr-summary-table-for-multiple-variables 
-
-
 summary(CO_counties_population_cleaned$)
 
     

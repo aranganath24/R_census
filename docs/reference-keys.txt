@@ -1,5 +1,6 @@
 fig:unnamed-chunk-5
 introduction
+preliminaries
 basic-data-retrieval
 load-table-of-variables
 query-the-census-api-and-retrieve-data-using-tidycensus

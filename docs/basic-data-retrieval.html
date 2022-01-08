@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Basic Data Retrieval | Working with Census Data in R</title>
-  <meta name="description" content="2 Basic Data Retrieval | Working with Census Data in R" />
+  <title>3 Basic Data Retrieval | Working with Census Data in R</title>
+  <meta name="description" content="3 Basic Data Retrieval | Working with Census Data in R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Basic Data Retrieval | Working with Census Data in R" />
+  <meta property="og:title" content="3 Basic Data Retrieval | Working with Census Data in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Basic Data Retrieval | Working with Census Data in R" />
+  <meta name="twitter:title" content="3 Basic Data Retrieval | Working with Census Data in R" />
   
   
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+<link rel="prev" href="preliminaries.html"/>
 <link rel="next" href="basic-data-cleaning-and-manipulation-with-dplyr.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -137,34 +137,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>2</b> Preliminaries</a></li>
 <li class="part"><span><b>I Decennial Census</b></span></li>
-<li class="chapter" data-level="2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html"><i class="fa fa-check"></i><b>2</b> Basic Data Retrieval</a>
+<li class="chapter" data-level="3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html"><i class="fa fa-check"></i><b>3</b> Basic Data Retrieval</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#load-table-of-variables"><i class="fa fa-check"></i><b>2.1</b> Load table of variables</a></li>
-<li class="chapter" data-level="2.2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#query-the-census-api-and-retrieve-data-using-tidycensus"><i class="fa fa-check"></i><b>2.2</b> Query the census API, and retrieve data using tidycensus</a></li>
-<li class="chapter" data-level="2.3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function"><i class="fa fa-check"></i><b>2.3</b> Modify a census API call by altering arguments to the “get_decennial” function</a></li>
+<li class="chapter" data-level="3.1" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#load-table-of-variables"><i class="fa fa-check"></i><b>3.1</b> Load table of variables</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#query-the-census-api-and-retrieve-data-using-tidycensus"><i class="fa fa-check"></i><b>3.2</b> Query the census API, and retrieve data using tidycensus</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function"><i class="fa fa-check"></i><b>3.3</b> Modify a census API call by altering arguments to the “get_decennial” function</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Basic data cleaning and manipulation with <em>dplyr</em></a>
+<li class="chapter" data-level="4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>4</b> Basic data cleaning and manipulation with <em>dplyr</em></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#renaming-and-deleting-columns"><i class="fa fa-check"></i><b>3.1</b> Renaming and deleting columns</a>
+<li class="chapter" data-level="4.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#renaming-and-deleting-columns"><i class="fa fa-check"></i><b>4.1</b> Renaming and deleting columns</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-rename-and-select-functions"><i class="fa fa-check"></i><b>3.1.1</b> The <code>rename</code> and <code>select</code> functions</a></li>
+<li class="chapter" data-level="4.1.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-rename-and-select-functions"><i class="fa fa-check"></i><b>4.1.1</b> The <code>rename</code> and <code>select</code> functions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#modifying-columns"><i class="fa fa-check"></i><b>3.2</b> Modifying columns</a>
+<li class="chapter" data-level="4.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#modifying-columns"><i class="fa fa-check"></i><b>4.2</b> Modifying columns</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#columns-and-string-operations"><i class="fa fa-check"></i><b>3.2.1</b> Columns and string operations</a></li>
-<li class="chapter" data-level="3.2.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-relocate-function"><i class="fa fa-check"></i><b>3.2.2</b> The <code>relocate</code> function</a></li>
+<li class="chapter" data-level="4.2.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#columns-and-string-operations"><i class="fa fa-check"></i><b>4.2.1</b> Columns and string operations</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-relocate-function"><i class="fa fa-check"></i><b>4.2.2</b> The <code>relocate</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#subsetting-data"><i class="fa fa-check"></i><b>3.3</b> Subsetting Data</a>
+<li class="chapter" data-level="4.3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#subsetting-data"><i class="fa fa-check"></i><b>4.3</b> Subsetting Data</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-filter-function"><i class="fa fa-check"></i><b>3.3.1</b> The <code>filter</code> function</a></li>
-<li class="chapter" data-level="3.3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#slice-functions"><i class="fa fa-check"></i><b>3.3.2</b> <code>slice</code> functions</a></li>
+<li class="chapter" data-level="4.3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-filter-function"><i class="fa fa-check"></i><b>4.3.1</b> The <code>filter</code> function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#slice-functions"><i class="fa fa-check"></i><b>4.3.2</b> <code>slice</code> functions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#creating-new-variables"><i class="fa fa-check"></i><b>3.4</b> Creating new variables</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#creating-new-variables"><i class="fa fa-check"></i><b>4.4</b> Creating new variables</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>4</b> Grouping operations and summary statistics</a></li>
-<li class="chapter" data-level="5" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>5</b> Elementary Visualization</a></li>
-<li class="chapter" data-level="6" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>6</b> Advanced data retrieval</a></li>
+<li class="chapter" data-level="5" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>5</b> Grouping operations and summary statistics</a></li>
+<li class="chapter" data-level="6" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>6</b> Elementary Visualization</a></li>
+<li class="chapter" data-level="7" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>7</b> Advanced data retrieval</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -184,15 +185,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="basic-data-retrieval" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Basic Data Retrieval</h1>
-<div id="load-table-of-variables" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Load table of variables</h2>
+<div id="basic-data-retrieval" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Basic Data Retrieval</h1>
+<div id="load-table-of-variables" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Load table of variables</h2>
 <p>We begin by loading a table of decennial census variables, and assigning it to an object named <code>decennial_variables</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="basic-data-retrieval.html#cb1-1" aria-hidden="true" tabindex="-1"></a>decennial_variables<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2010</span>, <span class="st">&quot;sf1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="basic-data-retrieval.html#cb2-1" aria-hidden="true" tabindex="-1"></a>decennial_variables<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2010</span>, <span class="st">&quot;sf1&quot;</span>)</span></code></pre></div>
 <p>We can print this table to the console by simply printing the object name, <code>decennial_variables</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="basic-data-retrieval.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table of 2010 decennial variables to console</span></span>
-<span id="cb2-2"><a href="basic-data-retrieval.html#cb2-2" aria-hidden="true" tabindex="-1"></a>decennial_variables</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="basic-data-retrieval.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table of 2010 decennial variables to console</span></span>
+<span id="cb3-2"><a href="basic-data-retrieval.html#cb3-2" aria-hidden="true" tabindex="-1"></a>decennial_variables</span></code></pre></div>
 <pre><code>## # A tibble: 8,959 x 3
 ##    name    label                                concept         
 ##    &lt;chr&gt;   &lt;chr&gt;                                &lt;chr&gt;           
@@ -208,25 +209,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 H003003 Total!!Vacant                        OCCUPANCY STATUS
 ## # … with 8,949 more rows</code></pre>
 <p>To view this table in R Studio’s data viewer, pass the object to the <code>View</code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="basic-data-retrieval.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(decennial_variables)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="basic-data-retrieval.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(decennial_variables)</span></code></pre></div>
 <p>When the data is open in the R Studio data viewer, it will look something like this:</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
 <img src="pictures/pic1.png" alt="Table of 2010 census variable descriptions and codes" width="973" />
 <p class="caption">
-Figure 2.1: Table of 2010 census variable descriptions and codes
+Figure 3.1: Table of 2010 census variable descriptions and codes
 </p>
 </div>
 </div>
-<div id="query-the-census-api-and-retrieve-data-using-tidycensus" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Query the census API, and retrieve data using tidycensus</h2>
+<div id="query-the-census-api-and-retrieve-data-using-tidycensus" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Query the census API, and retrieve data using tidycensus</h2>
 <p>Now, let’s generate a table of population by state, based on the 2010 decennial census, and assign this new dataset to an object named <code>state_population_2010</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="basic-data-retrieval.html#cb5-1" aria-hidden="true" tabindex="-1"></a>state_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
-<span id="cb5-2"><a href="basic-data-retrieval.html#cb5-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
-<span id="cb5-3"><a href="basic-data-retrieval.html#cb5-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="basic-data-retrieval.html#cb6-1" aria-hidden="true" tabindex="-1"></a>state_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb6-2"><a href="basic-data-retrieval.html#cb6-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb6-3"><a href="basic-data-retrieval.html#cb6-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
 <pre><code>## Getting data from the 2010 decennial Census</code></pre>
 <pre><code>## Using Census Summary File 1</code></pre>
 <p>As with our table of variable descriptions (<code>decennial_variables</code>), we can view the data by typing the object name, which prints its contents to the console:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="basic-data-retrieval.html#cb8-1" aria-hidden="true" tabindex="-1"></a>state_population_2010</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="basic-data-retrieval.html#cb9-1" aria-hidden="true" tabindex="-1"></a>state_population_2010</span></code></pre></div>
 <pre><code>## # A tibble: 52 x 4
 ##    GEOID NAME        variable    value
 ##    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;
@@ -242,7 +243,7 @@ Figure 2.1: Table of 2010 census variable descriptions and codes
 ## 10 10    Delaware    P001001    897934
 ## # … with 42 more rows</code></pre>
 <p>Recall that we can also bring up the data in the R Studio data viewer using the <code>View</code> function:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="basic-data-retrieval.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(state_population_2010)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basic-data-retrieval.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(state_population_2010)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -292,17 +293,17 @@ Figure 2.1: Table of 2010 census variable descriptions and codes
 </tbody>
 </table>
 </div>
-<div id="modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Modify a census API call by altering arguments to the “get_decennial” function</h2>
+<div id="modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Modify a census API call by altering arguments to the “get_decennial” function</h2>
 <p>Let’s say that instead of a dataset that contains the population for each state (based on the 2010) census, we want a dataset that contains the population for each county in the state of Colorado. We can generate this county-level dataset by simply changing the <code>geography</code> argument in the <code>get_decennial</code> function, and specifying <code>state="CO"</code>. We’ll assign this county-level population dataset for Colorado to a new object called <code>CO_county_population_2010</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basic-data-retrieval.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate dataset with information on population by county in Colorado, and assign to an object named &quot;CO_county_population_2010&quot;</span></span>
-<span id="cb11-2"><a href="basic-data-retrieval.html#cb11-2" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;county&quot;</span>, </span>
-<span id="cb11-3"><a href="basic-data-retrieval.html#cb11-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">state=</span><span class="st">&quot;CO&quot;</span>,</span>
-<span id="cb11-4"><a href="basic-data-retrieval.html#cb11-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>, </span>
-<span id="cb11-5"><a href="basic-data-retrieval.html#cb11-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">year =</span> <span class="dv">2010</span>)</span>
-<span id="cb11-6"><a href="basic-data-retrieval.html#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="basic-data-retrieval.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View dataset</span></span>
-<span id="cb11-8"><a href="basic-data-retrieval.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic-data-retrieval.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate dataset with information on population by county in Colorado, and assign to an object named &quot;CO_county_population_2010&quot;</span></span>
+<span id="cb12-2"><a href="basic-data-retrieval.html#cb12-2" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;county&quot;</span>, </span>
+<span id="cb12-3"><a href="basic-data-retrieval.html#cb12-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">state=</span><span class="st">&quot;CO&quot;</span>,</span>
+<span id="cb12-4"><a href="basic-data-retrieval.html#cb12-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>, </span>
+<span id="cb12-5"><a href="basic-data-retrieval.html#cb12-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">year =</span> <span class="dv">2010</span>)</span>
+<span id="cb12-6"><a href="basic-data-retrieval.html#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="basic-data-retrieval.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View dataset</span></span>
+<span id="cb12-8"><a href="basic-data-retrieval.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -359,7 +360,7 @@ Figure 2.1: Table of 2010 census variable descriptions and codes
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preliminaries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="basic-data-cleaning-and-manipulation-with-dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

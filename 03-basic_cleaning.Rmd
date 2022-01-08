@@ -1,13 +1,5 @@
 # Basic data cleaning and manipulation with *dplyr*
 
-```{r, echo=F}
-library(tidycensus)
-library(tidyverse)
-library(knitr)
-library(stringr)
-library(psych)
-```
-
 Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up, modify, query, and augment the census datasets that we retrieve using *tidycensus*.  
 
 ## Renaming and deleting columns

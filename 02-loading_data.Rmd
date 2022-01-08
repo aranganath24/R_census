@@ -1,14 +1,20 @@
+# Preliminaries 
+
+```{r, message=F, warning=F}
+library(tidycensus)
+library(tidyverse)
+library(knitr)
+library(psych)
+library(stringr)
+```
+
+
+
 # (PART) Decennial Census {-}
 
 # Basic Data Retrieval
 
 ## Load table of variables
-
-```{r, echo=FALSE}
-library(tidycensus)
-library(tidyverse)
-library(knitr)
-```
 
 We begin by loading a table of decennial census variables, and assigning it to an object named ```decennial_variables```:
 
