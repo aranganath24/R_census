@@ -5,9 +5,10 @@ library(tidycensus)
 library(tidyverse)
 library(knitr)
 library(stringr)
+library(psych)
 ```
 
-Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up, modify, or explore the census datasets that we retrieve using *tidycensus*.  
+Once data has been pulled into R Studio via *tidycensus*, it's possible to work with data using the entire suite of data analysis tools available through the *tidyverse*. Among other things, we can use *tidyverse* tools to clean up, modify, query, and augment the census datasets that we retrieve using *tidycensus*.  
 
 ## Renaming and deleting columns
 
@@ -200,7 +201,39 @@ kable(CO_counties_8smallest)
 
 ## Creating new variables
 
+After retrieving a census dataset, we may want to recode variables, or generate new variables based on existing variables. For instance, perhaps we want to create a new qualitative indicator variable named "Population_Category" in the ```CO_county_population_2010_cleaned``` dataset that is coded as "High Population" if a county's population is greater than 100,000; coded as "Medium Population" if it is between 10,000 and 100,000; and "Low Population" if it is below 10,000. 
 
+```{r}
+CO_county_population_2010_cleaned<-
+  CO_county_population_2010_cleaned %>% 
+      mutate(Population_Category=case_when(population>=100000~"High Population",
+                                            population<100000 & population>=10000~"Medium Population",
+                                            population<10000~"Low Population"))
+
+View(CO_county_population_2010_cleaned)
+
+```
+
+```{r, echo=FALSE}
+kable(CO_county_population_2010_cleaned)
+```
+
+
+```{r}
+sum(CO_county_population_2010_cleaned$population)
+```
+
+```{r}
+CO_county_population_2010_cleaned<-CO_county_population_2010_cleaned %>% 
+                                    mutate(county_population_concentration=((population/5029196)*100))
+
+
+View(CO_county_population_2010_cleaned)
+```
+
+```{r, echo=F}
+kable(CO_county_population_2010_cleaned)
+```
 
 
 

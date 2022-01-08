@@ -1,2 +1,64 @@
 # Grouping operations and summary statistics
 
+```{r, message=FALSE, warning=FALSE}
+usa_counties_total_rural<-get_decennial(geography = "county", 
+                                        variables = c("P001001", "P002005"),
+                                        output="wide",
+                                        year = 2010) %>% 
+                          rename(total_population=P001001, rural_population=P002005)
+
+```
+
+```{r}
+View(usa_counties_total_rural)
+```
+
+```{r, echo=FALSE}
+kable(head(usa_counties_total_rural, n=6))
+```
+
+
+```{r}
+usa_counties_summary<-usa_counties_total_rural %>% 
+                          select(total_population, rural_population) %>% 
+                          describe(quant=c(0.25,0.75)) %>% 
+                          as_tibble(rownames="variables")
+```
+
+
+```{r}
+usa_counties_summary
+```
+
+
+```{r}
+kable(usa_counties_summary)
+```
+
+
+
+
+
+
+
+
+gapminder_france_summary<-gapminder_france %>% 
+                  select(lifeExp, pop, gdpPercap) %>% 
+                  describe(quant=c(0.25,0.75)) %>% 
+                  as_tibble(rownames="variables")
+
+
+
+
+
+https://stackoverflow.com/questions/34594641/dplyr-summary-table-for-multiple-variables 
+
+
+summary(CO_counties_population_cleaned$)
+
+    
+test<-CO_county_population_2010_cleaned %>% 
+        summarize(Mean_Population=mean(population),
+                  Median_Population=median(population))
+        
+        

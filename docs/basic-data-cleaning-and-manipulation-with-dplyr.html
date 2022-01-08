@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-07" />
+<meta name="date" content="2022-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -186,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="basic-data-cleaning-and-manipulation-with-dplyr" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Basic data cleaning and manipulation with <em>dplyr</em></h1>
-<p>Once data has been pulled into R Studio via <em>tidycensus</em>, it’s possible to work with data using the entire suite of data analysis tools available through the <em>tidyverse</em>. Among other things, we can use <em>tidyverse</em> tools to clean up, modify, or explore the census datasets that we retrieve using <em>tidycensus</em>.</p>
+<p>Once data has been pulled into R Studio via <em>tidycensus</em>, it’s possible to work with data using the entire suite of data analysis tools available through the <em>tidyverse</em>. Among other things, we can use <em>tidyverse</em> tools to clean up, modify, query, and augment the census datasets that we retrieve using <em>tidycensus</em>.</p>
 <div id="renaming-and-deleting-columns" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Renaming and deleting columns</h2>
 <div id="the-rename-and-select-functions" class="section level3" number="3.1.1">
@@ -774,6 +774,878 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="creating-new-variables" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Creating new variables</h2>
+<p>After retrieving a census dataset, we may want to recode variables, or generate new variables based on existing variables. For instance, perhaps we want to create a new qualitative indicator variable named “Population_Category” in the <code>CO_county_population_2010_cleaned</code> dataset that is coded as “High Population” if a county’s population is greater than 100,000; coded as “Medium Population” if it is between 10,000 and 100,000; and “Low Population” if it is below 10,000.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-1" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned<span class="ot">&lt;-</span></span>
+<span id="cb34-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Population_Category=</span><span class="fu">case_when</span>(population<span class="sc">&gt;=</span><span class="dv">100000</span><span class="sc">~</span><span class="st">&quot;High Population&quot;</span>,</span>
+<span id="cb34-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-4" aria-hidden="true" tabindex="-1"></a>                                            population<span class="sc">&lt;</span><span class="dv">100000</span> <span class="sc">&amp;</span> population<span class="sc">&gt;=</span><span class="dv">10000</span><span class="sc">~</span><span class="st">&quot;Medium Population&quot;</span>,</span>
+<span id="cb34-5"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-5" aria-hidden="true" tabindex="-1"></a>                                            population<span class="sc">&lt;</span><span class="dv">10000</span><span class="sc">~</span><span class="st">&quot;Low Population&quot;</span>))</span>
+<span id="cb34-6"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010_cleaned)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">County</th>
+<th align="right">population</th>
+<th align="left">Population_Category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08023</td>
+<td align="left">Costilla</td>
+<td align="right">3524</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08025</td>
+<td align="left">Crowley</td>
+<td align="right">5823</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08027</td>
+<td align="left">Custer</td>
+<td align="right">4255</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08029</td>
+<td align="left">Delta</td>
+<td align="right">30952</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08031</td>
+<td align="left">Denver</td>
+<td align="right">600158</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="even">
+<td align="left">08035</td>
+<td align="left">Douglas</td>
+<td align="right">285465</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08033</td>
+<td align="left">Dolores</td>
+<td align="right">2064</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08049</td>
+<td align="left">Grand</td>
+<td align="right">14843</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08039</td>
+<td align="left">Elbert</td>
+<td align="right">23086</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08041</td>
+<td align="left">El Paso</td>
+<td align="right">622263</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08043</td>
+<td align="left">Fremont</td>
+<td align="right">46824</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08045</td>
+<td align="left">Garfield</td>
+<td align="right">56389</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08047</td>
+<td align="left">Gilpin</td>
+<td align="right">5441</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08069</td>
+<td align="left">Larimer</td>
+<td align="right">299630</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08051</td>
+<td align="left">Gunnison</td>
+<td align="right">15324</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08053</td>
+<td align="left">Hinsdale</td>
+<td align="right">843</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08055</td>
+<td align="left">Huerfano</td>
+<td align="right">6711</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08057</td>
+<td align="left">Jackson</td>
+<td align="right">1394</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08059</td>
+<td align="left">Jefferson</td>
+<td align="right">534543</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="even">
+<td align="left">08061</td>
+<td align="left">Kiowa</td>
+<td align="right">1398</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08063</td>
+<td align="left">Kit Carson</td>
+<td align="right">8270</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08065</td>
+<td align="left">Lake</td>
+<td align="right">7310</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08071</td>
+<td align="left">Las Animas</td>
+<td align="right">15507</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08067</td>
+<td align="left">La Plata</td>
+<td align="right">51334</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08087</td>
+<td align="left">Morgan</td>
+<td align="right">28159</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08073</td>
+<td align="left">Lincoln</td>
+<td align="right">5467</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08075</td>
+<td align="left">Logan</td>
+<td align="right">22709</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08077</td>
+<td align="left">Mesa</td>
+<td align="right">146723</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08079</td>
+<td align="left">Mineral</td>
+<td align="right">712</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08081</td>
+<td align="left">Moffat</td>
+<td align="right">13795</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08083</td>
+<td align="left">Montezuma</td>
+<td align="right">25535</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08085</td>
+<td align="left">Montrose</td>
+<td align="right">41276</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08099</td>
+<td align="left">Prowers</td>
+<td align="right">12551</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08089</td>
+<td align="left">Otero</td>
+<td align="right">18831</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08091</td>
+<td align="left">Ouray</td>
+<td align="right">4436</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08093</td>
+<td align="left">Park</td>
+<td align="right">16206</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08095</td>
+<td align="left">Phillips</td>
+<td align="right">4442</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08097</td>
+<td align="left">Pitkin</td>
+<td align="right">17148</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08111</td>
+<td align="left">San Juan</td>
+<td align="right">699</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08107</td>
+<td align="left">Routt</td>
+<td align="right">23509</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08109</td>
+<td align="left">Saguache</td>
+<td align="right">6108</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08101</td>
+<td align="left">Pueblo</td>
+<td align="right">159063</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08103</td>
+<td align="left">Rio Blanco</td>
+<td align="right">6666</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08105</td>
+<td align="left">Rio Grande</td>
+<td align="right">11982</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08113</td>
+<td align="left">San Miguel</td>
+<td align="right">7359</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08115</td>
+<td align="left">Sedgwick</td>
+<td align="right">2379</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08117</td>
+<td align="left">Summit</td>
+<td align="right">27994</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08119</td>
+<td align="left">Teller</td>
+<td align="right">23350</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08121</td>
+<td align="left">Washington</td>
+<td align="right">4814</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08123</td>
+<td align="left">Weld</td>
+<td align="right">252825</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08125</td>
+<td align="left">Yuma</td>
+<td align="right">10043</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08011</td>
+<td align="left">Bent</td>
+<td align="right">6499</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08001</td>
+<td align="left">Adams</td>
+<td align="right">441603</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="even">
+<td align="left">08005</td>
+<td align="left">Arapahoe</td>
+<td align="right">572003</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08007</td>
+<td align="left">Archuleta</td>
+<td align="right">12084</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08009</td>
+<td align="left">Baca</td>
+<td align="right">3788</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08003</td>
+<td align="left">Alamosa</td>
+<td align="right">15445</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08021</td>
+<td align="left">Conejos</td>
+<td align="right">8256</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08013</td>
+<td align="left">Boulder</td>
+<td align="right">294567</td>
+<td align="left">High Population</td>
+</tr>
+<tr class="even">
+<td align="left">08014</td>
+<td align="left">Broomfield</td>
+<td align="right">55889</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08015</td>
+<td align="left">Chaffee</td>
+<td align="right">17809</td>
+<td align="left">Medium Population</td>
+</tr>
+<tr class="even">
+<td align="left">08017</td>
+<td align="left">Cheyenne</td>
+<td align="right">1836</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="odd">
+<td align="left">08019</td>
+<td align="left">Clear Creek</td>
+<td align="right">9088</td>
+<td align="left">Low Population</td>
+</tr>
+<tr class="even">
+<td align="left">08037</td>
+<td align="left">Eagle</td>
+<td align="right">52197</td>
+<td align="left">Medium Population</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(CO_county_population_2010_cleaned<span class="sc">$</span>population)</span></code></pre></div>
+<pre><code>## [1] 5029196</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb37-1" aria-hidden="true" tabindex="-1"></a>CO_county_population_2010_cleaned<span class="ot">&lt;-</span>CO_county_population_2010_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb37-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">mutate</span>(<span class="at">county_population_concentration=</span>((population<span class="sc">/</span><span class="dv">5029196</span>)<span class="sc">*</span><span class="dv">100</span>))</span>
+<span id="cb37-3"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010_cleaned)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">County</th>
+<th align="right">population</th>
+<th align="left">Population_Category</th>
+<th align="right">county_population_concentration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">08023</td>
+<td align="left">Costilla</td>
+<td align="right">3524</td>
+<td align="left">Low Population</td>
+<td align="right">0.0700708</td>
+</tr>
+<tr class="even">
+<td align="left">08025</td>
+<td align="left">Crowley</td>
+<td align="right">5823</td>
+<td align="left">Low Population</td>
+<td align="right">0.1157839</td>
+</tr>
+<tr class="odd">
+<td align="left">08027</td>
+<td align="left">Custer</td>
+<td align="right">4255</td>
+<td align="left">Low Population</td>
+<td align="right">0.0846060</td>
+</tr>
+<tr class="even">
+<td align="left">08029</td>
+<td align="left">Delta</td>
+<td align="right">30952</td>
+<td align="left">Medium Population</td>
+<td align="right">0.6154463</td>
+</tr>
+<tr class="odd">
+<td align="left">08031</td>
+<td align="left">Denver</td>
+<td align="right">600158</td>
+<td align="left">High Population</td>
+<td align="right">11.9334780</td>
+</tr>
+<tr class="even">
+<td align="left">08035</td>
+<td align="left">Douglas</td>
+<td align="right">285465</td>
+<td align="left">High Population</td>
+<td align="right">5.6761558</td>
+</tr>
+<tr class="odd">
+<td align="left">08033</td>
+<td align="left">Dolores</td>
+<td align="right">2064</td>
+<td align="left">Low Population</td>
+<td align="right">0.0410404</td>
+</tr>
+<tr class="even">
+<td align="left">08049</td>
+<td align="left">Grand</td>
+<td align="right">14843</td>
+<td align="left">Medium Population</td>
+<td align="right">0.2951366</td>
+</tr>
+<tr class="odd">
+<td align="left">08039</td>
+<td align="left">Elbert</td>
+<td align="right">23086</td>
+<td align="left">Medium Population</td>
+<td align="right">0.4590396</td>
+</tr>
+<tr class="even">
+<td align="left">08041</td>
+<td align="left">El Paso</td>
+<td align="right">622263</td>
+<td align="left">High Population</td>
+<td align="right">12.3730115</td>
+</tr>
+<tr class="odd">
+<td align="left">08043</td>
+<td align="left">Fremont</td>
+<td align="right">46824</td>
+<td align="left">Medium Population</td>
+<td align="right">0.9310435</td>
+</tr>
+<tr class="even">
+<td align="left">08045</td>
+<td align="left">Garfield</td>
+<td align="right">56389</td>
+<td align="left">Medium Population</td>
+<td align="right">1.1212329</td>
+</tr>
+<tr class="odd">
+<td align="left">08047</td>
+<td align="left">Gilpin</td>
+<td align="right">5441</td>
+<td align="left">Low Population</td>
+<td align="right">0.1081883</td>
+</tr>
+<tr class="even">
+<td align="left">08069</td>
+<td align="left">Larimer</td>
+<td align="right">299630</td>
+<td align="left">High Population</td>
+<td align="right">5.9578111</td>
+</tr>
+<tr class="odd">
+<td align="left">08051</td>
+<td align="left">Gunnison</td>
+<td align="right">15324</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3047008</td>
+</tr>
+<tr class="even">
+<td align="left">08053</td>
+<td align="left">Hinsdale</td>
+<td align="right">843</td>
+<td align="left">Low Population</td>
+<td align="right">0.0167621</td>
+</tr>
+<tr class="odd">
+<td align="left">08055</td>
+<td align="left">Huerfano</td>
+<td align="right">6711</td>
+<td align="left">Low Population</td>
+<td align="right">0.1334408</td>
+</tr>
+<tr class="even">
+<td align="left">08057</td>
+<td align="left">Jackson</td>
+<td align="right">1394</td>
+<td align="left">Low Population</td>
+<td align="right">0.0277181</td>
+</tr>
+<tr class="odd">
+<td align="left">08059</td>
+<td align="left">Jefferson</td>
+<td align="right">534543</td>
+<td align="left">High Population</td>
+<td align="right">10.6287963</td>
+</tr>
+<tr class="even">
+<td align="left">08061</td>
+<td align="left">Kiowa</td>
+<td align="right">1398</td>
+<td align="left">Low Population</td>
+<td align="right">0.0277977</td>
+</tr>
+<tr class="odd">
+<td align="left">08063</td>
+<td align="left">Kit Carson</td>
+<td align="right">8270</td>
+<td align="left">Low Population</td>
+<td align="right">0.1644398</td>
+</tr>
+<tr class="even">
+<td align="left">08065</td>
+<td align="left">Lake</td>
+<td align="right">7310</td>
+<td align="left">Low Population</td>
+<td align="right">0.1453513</td>
+</tr>
+<tr class="odd">
+<td align="left">08071</td>
+<td align="left">Las Animas</td>
+<td align="right">15507</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3083395</td>
+</tr>
+<tr class="even">
+<td align="left">08067</td>
+<td align="left">La Plata</td>
+<td align="right">51334</td>
+<td align="left">Medium Population</td>
+<td align="right">1.0207198</td>
+</tr>
+<tr class="odd">
+<td align="left">08087</td>
+<td align="left">Morgan</td>
+<td align="right">28159</td>
+<td align="left">Medium Population</td>
+<td align="right">0.5599106</td>
+</tr>
+<tr class="even">
+<td align="left">08073</td>
+<td align="left">Lincoln</td>
+<td align="right">5467</td>
+<td align="left">Low Population</td>
+<td align="right">0.1087052</td>
+</tr>
+<tr class="odd">
+<td align="left">08075</td>
+<td align="left">Logan</td>
+<td align="right">22709</td>
+<td align="left">Medium Population</td>
+<td align="right">0.4515433</td>
+</tr>
+<tr class="even">
+<td align="left">08077</td>
+<td align="left">Mesa</td>
+<td align="right">146723</td>
+<td align="left">High Population</td>
+<td align="right">2.9174246</td>
+</tr>
+<tr class="odd">
+<td align="left">08079</td>
+<td align="left">Mineral</td>
+<td align="right">712</td>
+<td align="left">Low Population</td>
+<td align="right">0.0141573</td>
+</tr>
+<tr class="even">
+<td align="left">08081</td>
+<td align="left">Moffat</td>
+<td align="right">13795</td>
+<td align="left">Medium Population</td>
+<td align="right">0.2742983</td>
+</tr>
+<tr class="odd">
+<td align="left">08083</td>
+<td align="left">Montezuma</td>
+<td align="right">25535</td>
+<td align="left">Medium Population</td>
+<td align="right">0.5077352</td>
+</tr>
+<tr class="even">
+<td align="left">08085</td>
+<td align="left">Montrose</td>
+<td align="right">41276</td>
+<td align="left">Medium Population</td>
+<td align="right">0.8207276</td>
+</tr>
+<tr class="odd">
+<td align="left">08099</td>
+<td align="left">Prowers</td>
+<td align="right">12551</td>
+<td align="left">Medium Population</td>
+<td align="right">0.2495628</td>
+</tr>
+<tr class="even">
+<td align="left">08089</td>
+<td align="left">Otero</td>
+<td align="right">18831</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3744336</td>
+</tr>
+<tr class="odd">
+<td align="left">08091</td>
+<td align="left">Ouray</td>
+<td align="right">4436</td>
+<td align="left">Low Population</td>
+<td align="right">0.0882050</td>
+</tr>
+<tr class="even">
+<td align="left">08093</td>
+<td align="left">Park</td>
+<td align="right">16206</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3222384</td>
+</tr>
+<tr class="odd">
+<td align="left">08095</td>
+<td align="left">Phillips</td>
+<td align="right">4442</td>
+<td align="left">Low Population</td>
+<td align="right">0.0883243</td>
+</tr>
+<tr class="even">
+<td align="left">08097</td>
+<td align="left">Pitkin</td>
+<td align="right">17148</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3409690</td>
+</tr>
+<tr class="odd">
+<td align="left">08111</td>
+<td align="left">San Juan</td>
+<td align="right">699</td>
+<td align="left">Low Population</td>
+<td align="right">0.0138988</td>
+</tr>
+<tr class="even">
+<td align="left">08107</td>
+<td align="left">Routt</td>
+<td align="right">23509</td>
+<td align="left">Medium Population</td>
+<td align="right">0.4674505</td>
+</tr>
+<tr class="odd">
+<td align="left">08109</td>
+<td align="left">Saguache</td>
+<td align="right">6108</td>
+<td align="left">Low Population</td>
+<td align="right">0.1214508</td>
+</tr>
+<tr class="even">
+<td align="left">08101</td>
+<td align="left">Pueblo</td>
+<td align="right">159063</td>
+<td align="left">High Population</td>
+<td align="right">3.1627918</td>
+</tr>
+<tr class="odd">
+<td align="left">08103</td>
+<td align="left">Rio Blanco</td>
+<td align="right">6666</td>
+<td align="left">Low Population</td>
+<td align="right">0.1325460</td>
+</tr>
+<tr class="even">
+<td align="left">08105</td>
+<td align="left">Rio Grande</td>
+<td align="right">11982</td>
+<td align="left">Medium Population</td>
+<td align="right">0.2382488</td>
+</tr>
+<tr class="odd">
+<td align="left">08113</td>
+<td align="left">San Miguel</td>
+<td align="right">7359</td>
+<td align="left">Low Population</td>
+<td align="right">0.1463256</td>
+</tr>
+<tr class="even">
+<td align="left">08115</td>
+<td align="left">Sedgwick</td>
+<td align="right">2379</td>
+<td align="left">Low Population</td>
+<td align="right">0.0473038</td>
+</tr>
+<tr class="odd">
+<td align="left">08117</td>
+<td align="left">Summit</td>
+<td align="right">27994</td>
+<td align="left">Medium Population</td>
+<td align="right">0.5566297</td>
+</tr>
+<tr class="even">
+<td align="left">08119</td>
+<td align="left">Teller</td>
+<td align="right">23350</td>
+<td align="left">Medium Population</td>
+<td align="right">0.4642889</td>
+</tr>
+<tr class="odd">
+<td align="left">08121</td>
+<td align="left">Washington</td>
+<td align="right">4814</td>
+<td align="left">Low Population</td>
+<td align="right">0.0957211</td>
+</tr>
+<tr class="even">
+<td align="left">08123</td>
+<td align="left">Weld</td>
+<td align="right">252825</td>
+<td align="left">High Population</td>
+<td align="right">5.0271455</td>
+</tr>
+<tr class="odd">
+<td align="left">08125</td>
+<td align="left">Yuma</td>
+<td align="right">10043</td>
+<td align="left">Medium Population</td>
+<td align="right">0.1996939</td>
+</tr>
+<tr class="even">
+<td align="left">08011</td>
+<td align="left">Bent</td>
+<td align="right">6499</td>
+<td align="left">Low Population</td>
+<td align="right">0.1292254</td>
+</tr>
+<tr class="odd">
+<td align="left">08001</td>
+<td align="left">Adams</td>
+<td align="right">441603</td>
+<td align="left">High Population</td>
+<td align="right">8.7807872</td>
+</tr>
+<tr class="even">
+<td align="left">08005</td>
+<td align="left">Arapahoe</td>
+<td align="right">572003</td>
+<td align="left">High Population</td>
+<td align="right">11.3736470</td>
+</tr>
+<tr class="odd">
+<td align="left">08007</td>
+<td align="left">Archuleta</td>
+<td align="right">12084</td>
+<td align="left">Medium Population</td>
+<td align="right">0.2402770</td>
+</tr>
+<tr class="even">
+<td align="left">08009</td>
+<td align="left">Baca</td>
+<td align="right">3788</td>
+<td align="left">Low Population</td>
+<td align="right">0.0753202</td>
+</tr>
+<tr class="odd">
+<td align="left">08003</td>
+<td align="left">Alamosa</td>
+<td align="right">15445</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3071067</td>
+</tr>
+<tr class="even">
+<td align="left">08021</td>
+<td align="left">Conejos</td>
+<td align="right">8256</td>
+<td align="left">Low Population</td>
+<td align="right">0.1641614</td>
+</tr>
+<tr class="odd">
+<td align="left">08013</td>
+<td align="left">Boulder</td>
+<td align="right">294567</td>
+<td align="left">High Population</td>
+<td align="right">5.8571390</td>
+</tr>
+<tr class="even">
+<td align="left">08014</td>
+<td align="left">Broomfield</td>
+<td align="right">55889</td>
+<td align="left">Medium Population</td>
+<td align="right">1.1112909</td>
+</tr>
+<tr class="odd">
+<td align="left">08015</td>
+<td align="left">Chaffee</td>
+<td align="right">17809</td>
+<td align="left">Medium Population</td>
+<td align="right">0.3541123</td>
+</tr>
+<tr class="even">
+<td align="left">08017</td>
+<td align="left">Cheyenne</td>
+<td align="right">1836</td>
+<td align="left">Low Population</td>
+<td align="right">0.0365068</td>
+</tr>
+<tr class="odd">
+<td align="left">08019</td>
+<td align="left">Clear Creek</td>
+<td align="right">9088</td>
+<td align="left">Low Population</td>
+<td align="right">0.1807048</td>
+</tr>
+<tr class="even">
+<td align="left">08037</td>
+<td align="left">Eagle</td>
+<td align="right">52197</td>
+<td align="left">Medium Population</td>
+<td align="right">1.0378796</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>

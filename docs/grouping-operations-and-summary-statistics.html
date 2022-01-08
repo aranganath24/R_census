@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-07" />
+<meta name="date" content="2022-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -186,6 +186,159 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="grouping-operations-and-summary-statistics" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Grouping operations and summary statistics</h1>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="grouping-operations-and-summary-statistics.html#cb38-1" aria-hidden="true" tabindex="-1"></a>usa_counties_total_rural<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;county&quot;</span>, </span>
+<span id="cb38-2"><a href="grouping-operations-and-summary-statistics.html#cb38-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb38-3"><a href="grouping-operations-and-summary-statistics.html#cb38-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb38-4"><a href="grouping-operations-and-summary-statistics.html#cb38-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">year =</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-5"><a href="grouping-operations-and-summary-statistics.html#cb38-5" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">rename</span>(<span class="at">total_population=</span>P001001, <span class="at">rural_population=</span>P002005)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="grouping-operations-and-summary-statistics.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(usa_counties_total_rural)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">NAME</th>
+<th align="right">total_population</th>
+<th align="right">rural_population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">05131</td>
+<td align="left">Sebastian County, Arkansas</td>
+<td align="right">125744</td>
+<td align="right">26170</td>
+</tr>
+<tr class="even">
+<td align="left">05133</td>
+<td align="left">Sevier County, Arkansas</td>
+<td align="right">17058</td>
+<td align="right">10849</td>
+</tr>
+<tr class="odd">
+<td align="left">05135</td>
+<td align="left">Sharp County, Arkansas</td>
+<td align="right">17264</td>
+<td align="right">13821</td>
+</tr>
+<tr class="even">
+<td align="left">05137</td>
+<td align="left">Stone County, Arkansas</td>
+<td align="right">12394</td>
+<td align="right">12394</td>
+</tr>
+<tr class="odd">
+<td align="left">05139</td>
+<td align="left">Union County, Arkansas</td>
+<td align="right">41639</td>
+<td align="right">22695</td>
+</tr>
+<tr class="even">
+<td align="left">05141</td>
+<td align="left">Van Buren County, Arkansas</td>
+<td align="right">17295</td>
+<td align="right">17295</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="grouping-operations-and-summary-statistics.html#cb40-1" aria-hidden="true" tabindex="-1"></a>usa_counties_summary<span class="ot">&lt;-</span>usa_counties_total_rural <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="grouping-operations-and-summary-statistics.html#cb40-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">select</span>(total_population, rural_population) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="grouping-operations-and-summary-statistics.html#cb40-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">describe</span>(<span class="at">quant=</span><span class="fu">c</span>(<span class="fl">0.25</span>,<span class="fl">0.75</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="grouping-operations-and-summary-statistics.html#cb40-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">as_tibble</span>(<span class="at">rownames=</span><span class="st">&quot;variables&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="grouping-operations-and-summary-statistics.html#cb41-1" aria-hidden="true" tabindex="-1"></a>usa_counties_summary</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 16
+##   variables  vars     n   mean     sd median trimmed    mad   min    max  range  skew kurtosis    se
+##   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1 total_po…     1  3221 97011. 3.09e5  26076  41435. 27335.    82 9.82e6 9.82e6 14.5    353.   5450.
+## 2 rural_po…     2  3221 18542. 1.67e4  13878  15948. 12577.     0 1.47e5 1.47e5  1.79     4.66  293.
+## # … with 2 more variables: Q0.25 &lt;dbl&gt;, Q0.75 &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="grouping-operations-and-summary-statistics.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(usa_counties_summary)</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="12%" />
+<col width="3%" />
+<col width="3%" />
+<col width="6%" />
+<col width="7%" />
+<col width="5%" />
+<col width="6%" />
+<col width="6%" />
+<col width="3%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="8%" />
+<col width="7%" />
+<col width="4%" />
+<col width="4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">variables</th>
+<th align="right">vars</th>
+<th align="right">n</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">median</th>
+<th align="right">trimmed</th>
+<th align="right">mad</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">range</th>
+<th align="right">skew</th>
+<th align="right">kurtosis</th>
+<th align="right">se</th>
+<th align="right">Q0.25</th>
+<th align="right">Q0.75</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">total_population</td>
+<td align="right">1</td>
+<td align="right">3221</td>
+<td align="right">97010.66</td>
+<td align="right">309298.78</td>
+<td align="right">26076</td>
+<td align="right">41434.81</td>
+<td align="right">27334.7</td>
+<td align="right">82</td>
+<td align="right">9818605</td>
+<td align="right">9818523</td>
+<td align="right">14.502652</td>
+<td align="right">352.530688</td>
+<td align="right">5449.8287</td>
+<td align="right">11310</td>
+<td align="right">65880</td>
+</tr>
+<tr class="even">
+<td align="left">rural_population</td>
+<td align="right">2</td>
+<td align="right">3221</td>
+<td align="right">18542.32</td>
+<td align="right">16651.25</td>
+<td align="right">13878</td>
+<td align="right">15948.20</td>
+<td align="right">12576.9</td>
+<td align="right">0</td>
+<td align="right">146856</td>
+<td align="right">146856</td>
+<td align="right">1.792136</td>
+<td align="right">4.659721</td>
+<td align="right">293.3941</td>
+<td align="right">6616</td>
+<td align="right">25292</td>
+</tr>
+</tbody>
+</table>
+<p>gapminder_france_summary&lt;-gapminder_france %&gt;%
+select(lifeExp, pop, gdpPercap) %&gt;%
+describe(quant=c(0.25,0.75)) %&gt;%
+as_tibble(rownames=“variables”)</p>
+<p><a href="https://stackoverflow.com/questions/34594641/dplyr-summary-table-for-multiple-variables" class="uri">https://stackoverflow.com/questions/34594641/dplyr-summary-table-for-multiple-variables</a></p>
+<p>summary(CO_counties_population_cleaned$)</p>
+<p>test&lt;-CO_county_population_2010_cleaned %&gt;%
+summarize(Mean_Population=mean(population),
+Median_Population=median(population))</p>
 
 </div>
             </section>
