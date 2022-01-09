@@ -1,5 +1,7 @@
 # Grouping operations and summary statistics
 
+## Aggregate summary statistics
+
 ```{r, message=FALSE, warning=FALSE}
 usa_counties_total_rural<-get_decennial(geography = "county", 
                                         variables = c("P001001", "P002005"),
@@ -21,8 +23,8 @@ kable(head(usa_counties_total_rural, n=6))
 ```{r}
 usa_counties_summary<-usa_counties_total_rural %>% 
                           select(total_population, rural_population) %>% 
-                          describe(quant=c(0.25,0.75)) %>% 
-                          as_tibble(rownames="variables")
+                          describe() %>% 
+                          as_tibble(rownames="variable")
 ```
 
 
@@ -30,9 +32,46 @@ usa_counties_summary<-usa_counties_total_rural %>%
 usa_counties_summary
 ```
 
+```{r, echo=FALSE}
+kable(usa_counties_summary)
+```
 
 ```{r}
+usa_counties_summary<-usa_counties_summary %>% 
+                        select(variable, n, mean, sd, median, , min, max, range)
+```
+
+```{r, echo=FALSE}
 kable(usa_counties_summary)
+```
+
+## Summary statistics by group
+
+Create separate state field 
+```{r}
+usa_counties_states_total_rural<-usa_counties_total_rural %>% 
+                                    separate(NAME, into=c("County", "State"), sep=", ")
+```
+
+```{r, echo=FALSE}
+kable(head(usa_counties_states_total_rural, n=6))
+```
+
+
+Summary statistics by group
+
+```{r}
+group_summary<-usa_counties_states_total_rural %>% 
+                  group_by(State) %>% 
+                  summarise(mean_county_pop=mean(total_population),
+                            median_county_pop=median(total_population),
+                            mean_county_rural_pop=mean(rural_population),
+                            median_rural_county_population=median(rural_population),
+                            number_counties=n())
+```
+
+```{r, echo=FALSE}
+kable(group_summary) %>% kable_styling(font_size = 10)
 ```
 
 
@@ -41,20 +80,3 @@ kable(usa_counties_summary)
 
 
 
-
-gapminder_france_summary<-gapminder_france %>% 
-                  select(lifeExp, pop, gdpPercap) %>% 
-                  describe(quant=c(0.25,0.75)) %>% 
-                  as_tibble(rownames="variables")
-
-
-
-
-summary(CO_counties_population_cleaned$)
-
-    
-test<-CO_county_population_2010_cleaned %>% 
-        summarize(Mean_Population=mean(population),
-                  Median_Population=median(population))
-        
-        

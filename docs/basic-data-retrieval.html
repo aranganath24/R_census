@@ -53,6 +53,8 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -163,7 +165,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#creating-new-variables"><i class="fa fa-check"></i><b>4.4</b> Creating new variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>5</b> Grouping operations and summary statistics</a></li>
+<li class="chapter" data-level="5" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>5</b> Grouping operations and summary statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html#aggregate-summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Aggregate summary statistics</a></li>
+<li class="chapter" data-level="5.2" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html#summary-statistics-by-group"><i class="fa fa-check"></i><b>5.2</b> Summary statistics by group</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>6</b> Elementary Visualization</a></li>
 <li class="chapter" data-level="7" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>7</b> Advanced data retrieval</a></li>
 <li class="divider"></li>
@@ -246,49 +252,105 @@ Figure 3.1: Table of 2010 census variable descriptions and codes
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basic-data-retrieval.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(state_population_2010)</span></code></pre></div>
 <table>
 <thead>
-<tr class="header">
-<th align="left">GEOID</th>
-<th align="left">NAME</th>
-<th align="left">variable</th>
-<th align="right">value</th>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+value
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">01</td>
-<td align="left">Alabama</td>
-<td align="left">P001001</td>
-<td align="right">4779736</td>
+<tr>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+Alabama
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+4779736
+</td>
 </tr>
-<tr class="even">
-<td align="left">02</td>
-<td align="left">Alaska</td>
-<td align="left">P001001</td>
-<td align="right">710231</td>
+<tr>
+<td style="text-align:left;">
+02
+</td>
+<td style="text-align:left;">
+Alaska
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+710231
+</td>
 </tr>
-<tr class="odd">
-<td align="left">04</td>
-<td align="left">Arizona</td>
-<td align="left">P001001</td>
-<td align="right">6392017</td>
+<tr>
+<td style="text-align:left;">
+04
+</td>
+<td style="text-align:left;">
+Arizona
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+6392017
+</td>
 </tr>
-<tr class="even">
-<td align="left">05</td>
-<td align="left">Arkansas</td>
-<td align="left">P001001</td>
-<td align="right">2915918</td>
+<tr>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+Arkansas
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+2915918
+</td>
 </tr>
-<tr class="odd">
-<td align="left">06</td>
-<td align="left">California</td>
-<td align="left">P001001</td>
-<td align="right">37253956</td>
+<tr>
+<td style="text-align:left;">
+06
+</td>
+<td style="text-align:left;">
+California
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+37253956
+</td>
 </tr>
-<tr class="even">
-<td align="left">22</td>
-<td align="left">Louisiana</td>
-<td align="left">P001001</td>
-<td align="right">4533372</td>
+<tr>
+<td style="text-align:left;">
+22
+</td>
+<td style="text-align:left;">
+Louisiana
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+4533372
+</td>
 </tr>
 </tbody>
 </table>
@@ -306,49 +368,105 @@ Figure 3.1: Table of 2010 census variable descriptions and codes
 <span id="cb12-8"><a href="basic-data-retrieval.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(CO_county_population_2010)</span></code></pre></div>
 <table>
 <thead>
-<tr class="header">
-<th align="left">GEOID</th>
-<th align="left">NAME</th>
-<th align="left">variable</th>
-<th align="right">value</th>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+value
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">08023</td>
-<td align="left">Costilla County, Colorado</td>
-<td align="left">P001001</td>
-<td align="right">3524</td>
+<tr>
+<td style="text-align:left;">
+08023
+</td>
+<td style="text-align:left;">
+Costilla County, Colorado
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+3524
+</td>
 </tr>
-<tr class="even">
-<td align="left">08025</td>
-<td align="left">Crowley County, Colorado</td>
-<td align="left">P001001</td>
-<td align="right">5823</td>
+<tr>
+<td style="text-align:left;">
+08025
+</td>
+<td style="text-align:left;">
+Crowley County, Colorado
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+5823
+</td>
 </tr>
-<tr class="odd">
-<td align="left">08027</td>
-<td align="left">Custer County, Colorado</td>
-<td align="left">P001001</td>
-<td align="right">4255</td>
+<tr>
+<td style="text-align:left;">
+08027
+</td>
+<td style="text-align:left;">
+Custer County, Colorado
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+4255
+</td>
 </tr>
-<tr class="even">
-<td align="left">08029</td>
-<td align="left">Delta County, Colorado</td>
-<td align="left">P001001</td>
-<td align="right">30952</td>
+<tr>
+<td style="text-align:left;">
+08029
+</td>
+<td style="text-align:left;">
+Delta County, Colorado
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+30952
+</td>
 </tr>
-<tr class="odd">
-<td align="left">08031</td>
-<td align="left">Denver County, Colorado</td>
-<td align="left">P001001</td>
-<td align="right">600158</td>
+<tr>
+<td style="text-align:left;">
+08031
+</td>
+<td style="text-align:left;">
+Denver County, Colorado
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+600158
+</td>
 </tr>
-<tr class="even">
-<td align="left">08035</td>
-<td align="left">Douglas County, Colorado</td>
-<td align="left">P001001</td>
-<td align="right">285465</td>
+<tr>
+<td style="text-align:left;">
+08035
+</td>
+<td style="text-align:left;">
+Douglas County, Colorado
+</td>
+<td style="text-align:left;">
+P001001
+</td>
+<td style="text-align:right;">
+285465
+</td>
 </tr>
 </tbody>
 </table>

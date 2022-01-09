@@ -16,5 +16,7 @@ the-filter-function
 slice-functions
 creating-new-variables
 grouping-operations-and-summary-statistics
+aggregate-summary-statistics
+summary-statistics-by-group
 elementary-visualization
 advanced-data-retrieval
