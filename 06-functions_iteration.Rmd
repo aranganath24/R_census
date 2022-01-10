@@ -1,0 +1,47 @@
+# Functions and Iteration
+
+
+```{r, fig.asp=0.5, message=F, warning=F}
+
+state_codes<-c("NM", "UT", "AZ", "WY")
+state_names<-c("New Mexico", "Utah", "Arizona", "Wyoming")
+
+
+median_age_map<-function(state_codes, state_names){
+  census_call<-get_decennial(geography = "county",
+                              state=state_codes,
+                              variables = "P013001", 
+                              geometry=TRUE,
+                              year = 2010) %>% 
+  rename(median_age=value) %>% 
+  mutate(County=str_remove(NAME, paste0(" County,", " ", state_names))) %>% 
+  select(-NAME)
+  
+  median_age_map<-
+    tm_shape(census_call)+
+    tm_polygons(col="median_age",
+               style="jenks",
+                palette="YlGnBu", 
+                midpoint=TRUE)+
+    tm_layout(frame=FALSE, 
+              main.title=paste0("Median Age by County,\n", state_names),  
+              main.title.position="left", 
+              legend.outside=TRUE)
+return(median_age_map)
+}
+
+median_age_map("NM", "New Mexico")
+
+county_age_maps<-map2(state_codes, state_names,median_age_map)
+
+county_age_maps
+
+county_age_maps %>% pluck(2)
+
+```
+
+
+
+
+
+[https://mattherman.info/blog/tidycensus-mult-year/](https://mattherman.info/blog/tidycensus-mult-year/)

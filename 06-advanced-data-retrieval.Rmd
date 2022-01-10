@@ -1,3 +1,0 @@
-# Advanced data retrieval
-
-[https://mattherman.info/blog/tidycensus-mult-year/](https://mattherman.info/blog/tidycensus-mult-year/)

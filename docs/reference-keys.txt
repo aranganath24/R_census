@@ -21,4 +21,4 @@ summary-statistics-by-group
 elementary-visualization
 census-data-visualization-with-ggplot
 spatial-visualization-with-tmap
-advanced-data-retrieval
+functions-and-iteration

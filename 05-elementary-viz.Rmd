@@ -59,7 +59,6 @@ median_age_CO_map
 
 
 
-
 median age by county colorado
 vis and map
 
