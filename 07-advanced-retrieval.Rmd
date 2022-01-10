@@ -23,7 +23,7 @@ population_rural_2000_2010_list %>% pluck("2000")
 
 ### Retrieving different census year datasets and placing them in a single data frame
 
-```{r}
+```{r, message=F, warning=F}
 my_years<-lst(2000,2010)
 
 population_rural_2000_2010_df<-map_dfr(

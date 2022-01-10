@@ -284,12 +284,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-8"><a href="advanced-data-retrieval.html#cb70-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year =</span>.)) <span class="sc">%&gt;%</span> </span>
 <span id="cb70-9"><a href="advanced-data-retrieval.html#cb70-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb70-10"><a href="advanced-data-retrieval.html#cb70-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(NAME), <span class="at">.id=</span><span class="st">&quot;year&quot;</span></span>
-<span id="cb70-11"><a href="advanced-data-retrieval.html#cb70-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Getting data from the 2000 decennial Census</code></pre>
-<pre><code>## Using Census Summary File 1</code></pre>
-<pre><code>## Getting data from the 2010 decennial Census</code></pre>
-<pre><code>## Using Census Summary File 1</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="advanced-data-retrieval.html#cb75-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df</span></code></pre></div>
+<span id="cb70-11"><a href="advanced-data-retrieval.html#cb70-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb70-12"><a href="advanced-data-retrieval.html#cb70-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-13"><a href="advanced-data-retrieval.html#cb70-13" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df</span></code></pre></div>
 <pre><code>## # A tibble: 104 x 6
 ##    year  GEOID NAME                  P001001 P002005 rural_pct
 ##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
