@@ -182,7 +182,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>8</b> Advanced data retrieval</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-census-years"><i class="fa fa-check"></i><b>8.1</b> Retrieving data from multiple census years</a></li>
+<li class="chapter" data-level="8.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-census-years"><i class="fa fa-check"></i><b>8.1</b> Retrieving data from multiple census years</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list"><i class="fa fa-check"></i><b>8.1.1</b> Retrieving different census year datasets and placing them as separate elements in a list</a></li>
+<li class="chapter" data-level="8.1.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame"><i class="fa fa-check"></i><b>8.1.2</b> Retrieving different census year datasets and placing them in a single data frame</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -207,6 +211,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">8</span> Advanced data retrieval</h1>
 <div id="retrieving-data-from-multiple-census-years" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Retrieving data from multiple census years</h2>
+<div id="retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Retrieving different census year datasets and placing them as separate elements in a list</h3>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="advanced-data-retrieval.html#cb66-1" aria-hidden="true" tabindex="-1"></a>my_years<span class="ot">&lt;-</span><span class="fu">lst</span>(<span class="dv">2000</span>,<span class="dv">2010</span>)</span>
+<span id="cb66-2"><a href="advanced-data-retrieval.html#cb66-2" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list<span class="ot">&lt;-</span><span class="fu">map</span>(</span>
+<span id="cb66-3"><a href="advanced-data-retrieval.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  my_years,</span>
+<span id="cb66-4"><a href="advanced-data-retrieval.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>(<span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb66-5"><a href="advanced-data-retrieval.html#cb66-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb66-6"><a href="advanced-data-retrieval.html#cb66-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb66-7"><a href="advanced-data-retrieval.html#cb66-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year =</span>.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-8"><a href="advanced-data-retrieval.html#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-9"><a href="advanced-data-retrieval.html#cb66-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(NAME)</span>
+<span id="cb66-10"><a href="advanced-data-retrieval.html#cb66-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-11"><a href="advanced-data-retrieval.html#cb66-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-12"><a href="advanced-data-retrieval.html#cb66-12" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list</span></code></pre></div>
+<pre><code>## $`2000`
+## # A tibble: 52 x 5
+##    GEOID NAME                  P001001 P002005 rural_pct
+##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+##  1 01    Alabama               4447100 1981427     44.6 
+##  2 02    Alaska                 626932  215675     34.4 
+##  3 04    Arizona               5130632  607097     11.8 
+##  4 05    Arkansas              2673400 1269221     47.5 
+##  5 06    California           33871648 1881985      5.56
+##  6 08    Colorado              4301261  668076     15.5 
+##  7 09    Connecticut           3405565  417506     12.3 
+##  8 10    Delaware               783600  155842     19.9 
+##  9 11    District of Columbia   572059       0      0   
+## 10 12    Florida              15982378 1712358     10.7 
+## # … with 42 more rows
+## 
+## $`2010`
+## # A tibble: 52 x 5
+##    GEOID NAME                  P001001 P002005 rural_pct
+##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+##  1 01    Alabama               4779736 1957932     41.0 
+##  2 02    Alaska                 710231  241338     34.0 
+##  3 04    Arizona               6392017  651358     10.2 
+##  4 05    Arkansas              2915918 1278329     43.8 
+##  5 06    California           37253956 1880350      5.05
+##  6 08    Colorado              5029196  696435     13.8 
+##  7 09    Connecticut           3574097  429155     12.0 
+##  8 10    Delaware               897934  149985     16.7 
+##  9 11    District of Columbia   601723       0      0   
+## 10 12    Florida              18801310 1661466      8.84
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="advanced-data-retrieval.html#cb68-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;2000&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 52 x 5
+##    GEOID NAME                  P001001 P002005 rural_pct
+##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+##  1 01    Alabama               4447100 1981427     44.6 
+##  2 02    Alaska                 626932  215675     34.4 
+##  3 04    Arizona               5130632  607097     11.8 
+##  4 05    Arkansas              2673400 1269221     47.5 
+##  5 06    California           33871648 1881985      5.56
+##  6 08    Colorado              4301261  668076     15.5 
+##  7 09    Connecticut           3405565  417506     12.3 
+##  8 10    Delaware               783600  155842     19.9 
+##  9 11    District of Columbia   572059       0      0   
+## 10 12    Florida              15982378 1712358     10.7 
+## # … with 42 more rows</code></pre>
+</div>
+<div id="retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Retrieving different census year datasets and placing them in a single data frame</h3>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="advanced-data-retrieval.html#cb70-1" aria-hidden="true" tabindex="-1"></a>my_years<span class="ot">&lt;-</span><span class="fu">lst</span>(<span class="dv">2000</span>,<span class="dv">2010</span>)</span>
+<span id="cb70-2"><a href="advanced-data-retrieval.html#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="advanced-data-retrieval.html#cb70-3" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df<span class="ot">&lt;-</span><span class="fu">map_dfr</span>(</span>
+<span id="cb70-4"><a href="advanced-data-retrieval.html#cb70-4" aria-hidden="true" tabindex="-1"></a>  my_years,</span>
+<span id="cb70-5"><a href="advanced-data-retrieval.html#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>(<span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb70-6"><a href="advanced-data-retrieval.html#cb70-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb70-7"><a href="advanced-data-retrieval.html#cb70-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb70-8"><a href="advanced-data-retrieval.html#cb70-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year =</span>.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-9"><a href="advanced-data-retrieval.html#cb70-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-10"><a href="advanced-data-retrieval.html#cb70-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(NAME), <span class="at">.id=</span><span class="st">&quot;year&quot;</span></span>
+<span id="cb70-11"><a href="advanced-data-retrieval.html#cb70-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="advanced-data-retrieval.html#cb75-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df</span></code></pre></div>
+<pre><code>## # A tibble: 104 x 6
+##    year  GEOID NAME                  P001001 P002005 rural_pct
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+##  1 2000  01    Alabama               4447100 1981427     44.6 
+##  2 2000  02    Alaska                 626932  215675     34.4 
+##  3 2000  04    Arizona               5130632  607097     11.8 
+##  4 2000  05    Arkansas              2673400 1269221     47.5 
+##  5 2000  06    California           33871648 1881985      5.56
+##  6 2000  08    Colorado              4301261  668076     15.5 
+##  7 2000  09    Connecticut           3405565  417506     12.3 
+##  8 2000  10    Delaware               783600  155842     19.9 
+##  9 2000  11    District of Columbia   572059       0      0   
+## 10 2000  12    Florida              15982378 1712358     10.7 
+## # … with 94 more rows</code></pre>
 <p><a href="https://mattherman.info/blog/tidycensus-mult-year/">https://mattherman.info/blog/tidycensus-mult-year/</a></p>
 <p>median age by county colorado
 vis and map</p>
@@ -214,6 +311,7 @@ vis and map</p>
 <p>advanced retrieval</p>
 <p>temporal dynamics</p>
 
+</div>
 </div>
 </div>
             </section>

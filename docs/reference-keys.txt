@@ -26,3 +26,5 @@ automate-creation-of-median-age-graphs
 automate-creation-of-median-age-maps
 advanced-data-retrieval
 retrieving-data-from-multiple-census-years
+retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list
+retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame
