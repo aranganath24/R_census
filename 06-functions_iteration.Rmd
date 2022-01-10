@@ -1,5 +1,41 @@
 # Functions and Iteration
 
+## Automate creation of median age graphs
+
+```{r, warning=F, message=F}
+state_codes<-c("NM", "UT", "AZ", "WY")
+state_names<-c("New Mexico", "Utah", "Arizona", "Wyoming")
+
+median_age_graph<-function(state_codes, state_names){
+  census_call<-get_decennial(geography = "county",
+                             state=state_codes,
+                             variables = "P013001", 
+                             geometry=TRUE,
+                             year = 2010) %>% 
+    rename(median_age=value) %>% 
+    mutate(County=str_remove(NAME, paste0(" County,", " ", state_names))) %>% 
+    select(-NAME)
+  
+  median_age_ggplot<-
+    census_call %>%
+    ggplot(aes(x = median_age, y = reorder(County, median_age))) + 
+    geom_point()+
+    labs(title=paste0("Median Age by County", " ", state_names), x="Median Age", y="County")+
+    theme(plot.title=element_text(hjust=0.5))
+  
+  return(median_age_ggplot)
+}
+
+median_age_graph("NM", "New Mexico")
+
+county_age_graphs_list<-map2(state_codes, state_names, median_age_graph)
+
+county_age_graphs_list
+
+county_age_graphs_list %>% pluck(3)
+```
+
+## Automate creation of median-age maps 
 
 ```{r, fig.asp=0.5, message=F, warning=F}
 
@@ -39,9 +75,3 @@ county_age_maps
 county_age_maps %>% pluck(2)
 
 ```
-
-
-
-
-
-[https://mattherman.info/blog/tidycensus-mult-year/](https://mattherman.info/blog/tidycensus-mult-year/)

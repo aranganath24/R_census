@@ -1,0 +1,27 @@
+# Advanced data retrieval
+
+## Retrieving data from multiple census years
+
+
+
+
+
+
+
+
+
+[https://mattherman.info/blog/tidycensus-mult-year/](https://mattherman.info/blog/tidycensus-mult-year/)
+
+
+
+
+
+median age by county colorado
+vis and map
+
+functions and iteration
+
+advanced retrieval
+
+temporal dynamics
+

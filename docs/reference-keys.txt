@@ -22,3 +22,7 @@ elementary-visualization
 census-data-visualization-with-ggplot
 spatial-visualization-with-tmap
 functions-and-iteration
+automate-creation-of-median-age-graphs
+automate-creation-of-median-age-maps
+advanced-data-retrieval
+retrieving-data-from-multiple-census-years

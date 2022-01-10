@@ -56,15 +56,3 @@ median_age_CO_map<-
 
 median_age_CO_map
 ```
-
-
-
-median age by county colorado
-vis and map
-
-functions and iteration
-
-advanced retrieval
-
-temporal dynamics
-
