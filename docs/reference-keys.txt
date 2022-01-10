@@ -19,4 +19,6 @@ grouping-operations-and-summary-statistics
 aggregate-summary-statistics
 summary-statistics-by-group
 elementary-visualization
+census-data-visualization-with-ggplot
+spatial-visualization-with-tmap
 advanced-data-retrieval

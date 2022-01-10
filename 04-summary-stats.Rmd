@@ -11,7 +11,7 @@ usa_counties_total_rural<-get_decennial(geography = "county",
 
 ```
 
-```{r}
+```{r, eval=F}
 View(usa_counties_total_rural)
 ```
 
@@ -63,11 +63,11 @@ Summary statistics by group
 ```{r}
 group_summary<-usa_counties_states_total_rural %>% 
                   group_by(State) %>% 
-                  summarise(mean_county_pop=mean(total_population),
+                  summarise(number_counties=n(),
+                            mean_county_pop=mean(total_population),
                             median_county_pop=median(total_population),
                             mean_county_rural_pop=mean(rural_population),
-                            median_rural_county_population=median(rural_population),
-                            number_counties=n())
+                            median_rural_county_population=median(rural_population))
 ```
 
 ```{r, echo=FALSE}

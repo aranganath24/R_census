@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-08" />
+<meta name="date" content="2022-01-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,7 +170,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html#aggregate-summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Aggregate summary statistics</a></li>
 <li class="chapter" data-level="5.2" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html#summary-statistics-by-group"><i class="fa fa-check"></i><b>5.2</b> Summary statistics by group</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>6</b> Elementary Visualization</a></li>
+<li class="chapter" data-level="6" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>6</b> Elementary Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="elementary-visualization.html"><a href="elementary-visualization.html#census-data-visualization-with-ggplot"><i class="fa fa-check"></i><b>6.1</b> Census data visualization with <em>ggplot</em></a></li>
+<li class="chapter" data-level="6.2" data-path="elementary-visualization.html"><a href="elementary-visualization.html#spatial-visualization-with-tmap"><i class="fa fa-check"></i><b>6.2</b> Spatial visualization with <em>tmap</em></a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>7</b> Advanced data retrieval</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -193,7 +197,174 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="elementary-visualization" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Elementary Visualization</h1>
+<div id="census-data-visualization-with-ggplot" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Census data visualization with <em>ggplot</em></h2>
+<p>Make a graph that visually conveys the median age in Colorado, by county, based on the 2010 census.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="elementary-visualization.html#cb47-1" aria-hidden="true" tabindex="-1"></a>median_age_CO<span class="ot">&lt;-</span> <span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;county&quot;</span>,</span>
+<span id="cb47-2"><a href="elementary-visualization.html#cb47-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">state=</span><span class="st">&quot;CO&quot;</span>,</span>
+<span id="cb47-3"><a href="elementary-visualization.html#cb47-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">variables =</span> <span class="st">&quot;P013001&quot;</span>, </span>
+<span id="cb47-4"><a href="elementary-visualization.html#cb47-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">geometry=</span><span class="cn">TRUE</span>,</span>
+<span id="cb47-5"><a href="elementary-visualization.html#cb47-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">year =</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-6"><a href="elementary-visualization.html#cb47-6" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">median_age=</span>value) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-7"><a href="elementary-visualization.html#cb47-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove</span>(NAME, <span class="st">&quot; County, Colorado&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-8"><a href="elementary-visualization.html#cb47-8" aria-hidden="true" tabindex="-1"></a>                <span class="fu">select</span>(<span class="sc">-</span>NAME)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="elementary-visualization.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(median_age_CO)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+median_age
+</th>
+<th style="text-align:left;">
+geometry
+</th>
+<th style="text-align:left;">
+County
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+08053
+</td>
+<td style="text-align:left;">
+P013001
+</td>
+<td style="text-align:right;">
+47.1
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((-107.2116 3…
+</td>
+<td style="text-align:left;">
+Hinsdale
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+08061
+</td>
+<td style="text-align:left;">
+P013001
+</td>
+<td style="text-align:right;">
+47.4
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((-102.1985 3…
+</td>
+<td style="text-align:left;">
+Kiowa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+08063
+</td>
+<td style="text-align:left;">
+P013001
+</td>
+<td style="text-align:right;">
+39.7
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((-102.0498 3…
+</td>
+<td style="text-align:left;">
+Kit Carson
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+08071
+</td>
+<td style="text-align:left;">
+P013001
+</td>
+<td style="text-align:right;">
+43.9
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((-104.4804 3…
+</td>
+<td style="text-align:left;">
+Las Animas
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+08073
+</td>
+<td style="text-align:left;">
+P013001
+</td>
+<td style="text-align:right;">
+40.9
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((-103.7149 3…
+</td>
+<td style="text-align:left;">
+Lincoln
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+08075
+</td>
+<td style="text-align:left;">
+P013001
+</td>
+<td style="text-align:right;">
+38.4
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((-102.9049 4…
+</td>
+<td style="text-align:left;">
+Logan
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="elementary-visualization.html#cb49-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization<span class="ot">&lt;-</span></span>
+<span id="cb49-2"><a href="elementary-visualization.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  median_age_CO <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="elementary-visualization.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> median_age, <span class="at">y =</span> <span class="fu">reorder</span>(County, median_age))) <span class="sc">+</span> </span>
+<span id="cb49-4"><a href="elementary-visualization.html#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb49-5"><a href="elementary-visualization.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Median Age by County, CO&quot;</span>, <span class="at">x=</span><span class="st">&quot;Median Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;County&quot;</span>)<span class="sc">+</span></span>
+<span id="cb49-6"><a href="elementary-visualization.html#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))</span>
+<span id="cb49-7"><a href="elementary-visualization.html#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="elementary-visualization.html#cb49-8" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-59-1.png" width="864" /></p>
+</div>
+<div id="spatial-visualization-with-tmap" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Spatial visualization with <em>tmap</em></h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="elementary-visualization.html#cb50-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_map<span class="ot">&lt;-</span></span>
+<span id="cb50-2"><a href="elementary-visualization.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(median_age_CO)<span class="sc">+</span></span>
+<span id="cb50-3"><a href="elementary-visualization.html#cb50-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;median_age&quot;</span>,</span>
+<span id="cb50-4"><a href="elementary-visualization.html#cb50-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>,<span class="dv">50</span>),</span>
+<span id="cb50-5"><a href="elementary-visualization.html#cb50-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">palette=</span><span class="st">&quot;YlGnBu&quot;</span>, </span>
+<span id="cb50-6"><a href="elementary-visualization.html#cb50-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">midpoint=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb50-7"><a href="elementary-visualization.html#cb50-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>, </span>
+<span id="cb50-8"><a href="elementary-visualization.html#cb50-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main.title=</span><span class="st">&quot;Median Age by County,</span><span class="sc">\n</span><span class="st">Colorado&quot;</span>,  </span>
+<span id="cb50-9"><a href="elementary-visualization.html#cb50-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">main.title.position=</span><span class="st">&quot;left&quot;</span>, </span>
+<span id="cb50-10"><a href="elementary-visualization.html#cb50-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">legend.outside=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="elementary-visualization.html#cb51-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p>median age by county colorado
+vis and map</p>
+<p>functions and iteration</p>
+<p>advanced retrieval</p>
+<p>temporal dynamics</p>
 
+</div>
 </div>
             </section>
 

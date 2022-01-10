@@ -7,6 +7,8 @@ library(knitr)
 library(psych)
 library(stringr)
 library(kableExtra)
+library(sf)
+library(tmap)
 ```
 
 

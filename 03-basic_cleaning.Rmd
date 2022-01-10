@@ -8,7 +8,7 @@ Once data has been pulled into R Studio via *tidycensus*, it's possible to work 
 
 Let's clean up the dataset of Colorado's 2010 population distribution with respect to counties that we just created in the previous section (```CO_county_population_2010```). As a reminder, the first few rows of that dataset look like this:
 
-```{r}
+```{r, eval=F}
 View(CO_county_population_2010)
 ```
 
@@ -27,7 +27,7 @@ CO_county_population_2010_cleaned<-CO_county_population_2010 %>%
 
 Let's view the dataset to ensure that these changes have been implemented:
 
-```{r}
+```{r, eval=F}
 View(CO_county_population_2010_cleaned) 
 ```
 
@@ -107,7 +107,7 @@ CO_large_counties<-CO_county_population_2010_cleaned %>%
 
 Now, let's view our newly created table of Colorado counties with a population of greater than 100,000:
 
-```{r}
+```{r, eval=F}
 View(CO_large_counties)
 ```
 
@@ -122,7 +122,7 @@ CO_large_counties<-CO_large_counties %>%
                       arrange(desc(population))
 ```
 
-```{r}
+```{r, eval=F}
 View(CO_large_counties)
 ```
 

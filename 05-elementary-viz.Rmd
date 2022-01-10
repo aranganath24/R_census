@@ -1,1 +1,71 @@
 # Elementary Visualization 
+
+## Census data visualization with *ggplot*
+
+Make a graph that visually conveys the median age in Colorado, by county, based on the 2010 census. 
+
+```{r, message=F, warning=F}
+median_age_CO<- get_decennial(geography = "county",
+                              state="CO",
+                              variables = "P013001", 
+                              geometry=TRUE,
+                              year = 2010) %>% 
+                rename(median_age=value) %>% 
+                mutate(County=str_remove(NAME, " County, Colorado")) %>% 
+                select(-NAME)
+```
+
+```{r, eval=F}
+View(median_age_CO)
+```
+
+```{r, echo=FALSE}
+kable(head(median_age_CO, n=6))
+```
+
+
+```{r, fig.width=9,fig.height=7}
+
+median_age_CO_cleaned_visualization<-
+  median_age_CO %>%
+  ggplot(aes(x = median_age, y = reorder(County, median_age))) + 
+  geom_point()+
+  labs(title="Median Age by County, CO", x="Median Age", y="County")+
+  theme(plot.title=element_text(hjust=0.5))
+
+median_age_CO_cleaned_visualization
+```
+
+## Spatial visualization with *tmap*
+
+```{r, warning=FALSE, message=FALSE}
+median_age_CO_map<-
+  tm_shape(median_age_CO)+
+      tm_polygons(col="median_age",
+                  breaks=c(30,35,40,45,50),
+                  palette="YlGnBu", 
+                  midpoint=TRUE)+
+       tm_layout(frame=FALSE, 
+                 main.title="Median Age by County,\nColorado",  
+                main.title.position="left", 
+                legend.outside=TRUE)
+
+```
+
+```{r, fig.asp=0.5, message=F, warning=F}
+
+median_age_CO_map
+```
+
+
+
+
+median age by county colorado
+vis and map
+
+functions and iteration
+
+advanced retrieval
+
+temporal dynamics
+
