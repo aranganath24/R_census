@@ -2,42 +2,41 @@
 
 ## Retrieving data from multiple census years
 
+```{r, error=TRUE}
+population_rural_2000_2010<-get_decennial(geography = "state", 
+                                         variables = c("P001001", "P002005"),
+                                         output="wide",
+                                         year = c(2000,2010)) 
+```
+
+
 ### Retrieving different census year datasets and placing them as separate elements in a list
 
 ```{r, message=F, warning=F}
 my_years<-lst(2000,2010)
-population_rural_2000_2010_list<-map(
-  my_years,
-  ~(get_decennial(geography = "state", 
+census_query<-function(my_years){
+  get_decennial(geography = "state", 
                   variables = c("P001001", "P002005"),
                   output="wide",
-                  year =.)) %>% 
+                  year=my_years) %>% 
     mutate(rural_pct=(P002005/P001001)*100) %>% 
-    arrange(NAME)
-)
+    mutate(year=my_years)
+}
+
+population_rural_2000_2010_list<-map(my_years, census_query)
 
 population_rural_2000_2010_list
 
 population_rural_2000_2010_list %>% pluck("2000")
 ```
 
+
 ### Retrieving different census year datasets and placing them in a single data frame
 
 ```{r, message=F, warning=F}
-my_years<-lst(2000,2010)
-
-population_rural_2000_2010_df<-map_dfr(
-  my_years,
-  ~(get_decennial(geography = "state", 
-                  variables = c("P001001", "P002005"),
-                  output="wide",
-                  year =.)) %>% 
-    mutate(rural_pct=(P002005/P001001)*100) %>% 
-    arrange(NAME), .id="year"
-)
+population_rural_2000_2010_df<-map_dfr(my_years, census_query, .id="year") %>% arrange(GEOID)
 
 population_rural_2000_2010_df
-
 ```
 
 
