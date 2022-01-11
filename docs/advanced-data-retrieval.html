@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-10" />
+<meta name="date" content="2022-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,6 +187,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list"><i class="fa fa-check"></i><b>8.1.1</b> Retrieving different census year datasets and placing them as separate elements in a list</a></li>
 <li class="chapter" data-level="8.1.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame"><i class="fa fa-check"></i><b>8.1.2</b> Retrieving different census year datasets and placing them in a single data frame</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states"><i class="fa fa-check"></i><b>8.2</b> Retrieving microgeography data from multiple states</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#list"><i class="fa fa-check"></i><b>8.2.1</b> List</a></li>
+<li class="chapter" data-level="8.2.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#df"><i class="fa fa-check"></i><b>8.2.2</b> df</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states-and-multiple-years"><i class="fa fa-check"></i><b>8.3</b> Retrieving microgeography data from multiple states AND multiple years</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#list-1"><i class="fa fa-check"></i><b>8.3.1</b> List</a></li>
+<li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#df-1"><i class="fa fa-check"></i><b>8.3.2</b> df</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -209,12 +219,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="advanced-data-retrieval" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> Advanced data retrieval</h1>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="advanced-data-retrieval.html#cb66-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
+<span id="cb66-2"><a href="advanced-data-retrieval.html#cb66-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">state=</span><span class="fu">c</span>(<span class="st">&quot;CO&quot;</span>, <span class="st">&quot;UT&quot;</span>),</span>
+<span id="cb66-3"><a href="advanced-data-retrieval.html#cb66-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb66-4"><a href="advanced-data-retrieval.html#cb66-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb66-5"><a href="advanced-data-retrieval.html#cb66-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">year =</span> <span class="dv">2000</span>) </span></code></pre></div>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
 <div id="retrieving-data-from-multiple-census-years" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Retrieving data from multiple census years</h2>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="advanced-data-retrieval.html#cb66-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
-<span id="cb66-2"><a href="advanced-data-retrieval.html#cb66-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
-<span id="cb66-3"><a href="advanced-data-retrieval.html#cb66-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
-<span id="cb66-4"><a href="advanced-data-retrieval.html#cb66-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2000</span>,<span class="dv">2010</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="advanced-data-retrieval.html#cb68-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb68-2"><a href="advanced-data-retrieval.html#cb68-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb68-3"><a href="advanced-data-retrieval.html#cb68-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb68-4"><a href="advanced-data-retrieval.html#cb68-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2000</span>,<span class="dv">2010</span>)) </span></code></pre></div>
 <pre><code>## Getting data from the 2000 decennial CensusGetting data from the 2010 decennial Census</code></pre>
 <pre><code>## Warning in if (year == 2020) {: the condition has length &gt; 1 and only the first element will be used</code></pre>
 <pre><code>## Warning in if (year == 1990) {: the condition has length &gt; 1 and only the first element will be used</code></pre>
@@ -226,19 +242,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Error in UseMethod(&quot;select&quot;): no applicable method for &#39;select&#39; applied to an object of class &quot;character&quot;</code></pre>
 <div id="retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list" class="section level3" number="8.1.1">
 <h3><span class="header-section-number">8.1.1</span> Retrieving different census year datasets and placing them as separate elements in a list</h3>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="advanced-data-retrieval.html#cb74-1" aria-hidden="true" tabindex="-1"></a>my_years<span class="ot">&lt;-</span><span class="fu">lst</span>(<span class="dv">2000</span>,<span class="dv">2010</span>)</span>
-<span id="cb74-2"><a href="advanced-data-retrieval.html#cb74-2" aria-hidden="true" tabindex="-1"></a>census_query<span class="ot">&lt;-</span><span class="cf">function</span>(my_years){</span>
-<span id="cb74-3"><a href="advanced-data-retrieval.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
-<span id="cb74-4"><a href="advanced-data-retrieval.html#cb74-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
-<span id="cb74-5"><a href="advanced-data-retrieval.html#cb74-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
-<span id="cb74-6"><a href="advanced-data-retrieval.html#cb74-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span>my_years) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-7"><a href="advanced-data-retrieval.html#cb74-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-8"><a href="advanced-data-retrieval.html#cb74-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year=</span>my_years)</span>
-<span id="cb74-9"><a href="advanced-data-retrieval.html#cb74-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb74-10"><a href="advanced-data-retrieval.html#cb74-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-11"><a href="advanced-data-retrieval.html#cb74-11" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list<span class="ot">&lt;-</span><span class="fu">map</span>(my_years, census_query)</span>
-<span id="cb74-12"><a href="advanced-data-retrieval.html#cb74-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-13"><a href="advanced-data-retrieval.html#cb74-13" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="advanced-data-retrieval.html#cb76-1" aria-hidden="true" tabindex="-1"></a>my_years<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2000</span>,<span class="dv">2010</span>)</span>
+<span id="cb76-2"><a href="advanced-data-retrieval.html#cb76-2" aria-hidden="true" tabindex="-1"></a>census_query<span class="ot">&lt;-</span><span class="cf">function</span>(my_years){</span>
+<span id="cb76-3"><a href="advanced-data-retrieval.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb76-4"><a href="advanced-data-retrieval.html#cb76-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb76-5"><a href="advanced-data-retrieval.html#cb76-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb76-6"><a href="advanced-data-retrieval.html#cb76-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span>my_years) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-7"><a href="advanced-data-retrieval.html#cb76-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-8"><a href="advanced-data-retrieval.html#cb76-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year=</span>my_years)</span>
+<span id="cb76-9"><a href="advanced-data-retrieval.html#cb76-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb76-10"><a href="advanced-data-retrieval.html#cb76-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-11"><a href="advanced-data-retrieval.html#cb76-11" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list<span class="ot">&lt;-</span><span class="fu">map</span>(my_years, census_query)</span>
+<span id="cb76-12"><a href="advanced-data-retrieval.html#cb76-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-13"><a href="advanced-data-retrieval.html#cb76-13" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list</span></code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 52 x 6
+##    GEOID NAME                  P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama               4447100 1981427     44.6   2000
+##  2 02    Alaska                 626932  215675     34.4   2000
+##  3 04    Arizona               5130632  607097     11.8   2000
+##  4 05    Arkansas              2673400 1269221     47.5   2000
+##  5 06    California           33871648 1881985      5.56  2000
+##  6 08    Colorado              4301261  668076     15.5   2000
+##  7 09    Connecticut           3405565  417506     12.3   2000
+##  8 10    Delaware               783600  155842     19.9   2000
+##  9 11    District of Columbia   572059       0      0     2000
+## 10 12    Florida              15982378 1712358     10.7   2000
+## # … with 42 more rows
+## 
+## [[2]]
+## # A tibble: 52 x 6
+##    GEOID NAME         P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama      4779736 1957932     41.0   2010
+##  2 02    Alaska        710231  241338     34.0   2010
+##  3 04    Arizona      6392017  651358     10.2   2010
+##  4 05    Arkansas     2915918 1278329     43.8   2010
+##  5 06    California  37253956 1880350      5.05  2010
+##  6 22    Louisiana    4533372 1215567     26.8   2010
+##  7 21    Kentucky     4339367 1806024     41.6   2010
+##  8 08    Colorado     5029196  696435     13.8   2010
+##  9 09    Connecticut  3574097  429155     12.0   2010
+## 10 10    Delaware      897934  149985     16.7   2010
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="advanced-data-retrieval.html#cb78-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 52 x 6
+##    GEOID NAME                  P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama               4447100 1981427     44.6   2000
+##  2 02    Alaska                 626932  215675     34.4   2000
+##  3 04    Arizona               5130632  607097     11.8   2000
+##  4 05    Arkansas              2673400 1269221     47.5   2000
+##  5 06    California           33871648 1881985      5.56  2000
+##  6 08    Colorado              4301261  668076     15.5   2000
+##  7 09    Connecticut           3405565  417506     12.3   2000
+##  8 10    Delaware               783600  155842     19.9   2000
+##  9 11    District of Columbia   572059       0      0     2000
+## 10 12    Florida              15982378 1712358     10.7   2000
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="advanced-data-retrieval.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(population_rural_2000_2010_list)<span class="ot">&lt;-</span>my_years</span>
+<span id="cb80-2"><a href="advanced-data-retrieval.html#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="advanced-data-retrieval.html#cb80-3" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list</span></code></pre></div>
 <pre><code>## $`2000`
 ## # A tibble: 52 x 6
 ##    GEOID NAME                  P001001 P002005 rural_pct  year
@@ -270,41 +335,471 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 09    Connecticut  3574097  429155     12.0   2010
 ## 10 10    Delaware      897934  149985     16.7   2010
 ## # … with 42 more rows</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="advanced-data-retrieval.html#cb76-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;2000&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="advanced-data-retrieval.html#cb82-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;2010&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 52 x 6
-##    GEOID NAME                  P001001 P002005 rural_pct  year
-##    &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1 01    Alabama               4447100 1981427     44.6   2000
-##  2 02    Alaska                 626932  215675     34.4   2000
-##  3 04    Arizona               5130632  607097     11.8   2000
-##  4 05    Arkansas              2673400 1269221     47.5   2000
-##  5 06    California           33871648 1881985      5.56  2000
-##  6 08    Colorado              4301261  668076     15.5   2000
-##  7 09    Connecticut           3405565  417506     12.3   2000
-##  8 10    Delaware               783600  155842     19.9   2000
-##  9 11    District of Columbia   572059       0      0     2000
-## 10 12    Florida              15982378 1712358     10.7   2000
+##    GEOID NAME         P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama      4779736 1957932     41.0   2010
+##  2 02    Alaska        710231  241338     34.0   2010
+##  3 04    Arizona      6392017  651358     10.2   2010
+##  4 05    Arkansas     2915918 1278329     43.8   2010
+##  5 06    California  37253956 1880350      5.05  2010
+##  6 22    Louisiana    4533372 1215567     26.8   2010
+##  7 21    Kentucky     4339367 1806024     41.6   2010
+##  8 08    Colorado     5029196  696435     13.8   2010
+##  9 09    Connecticut  3574097  429155     12.0   2010
+## 10 10    Delaware      897934  149985     16.7   2010
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="advanced-data-retrieval.html#cb84-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list[[<span class="st">&quot;2010&quot;</span>]]</span></code></pre></div>
+<pre><code>## # A tibble: 52 x 6
+##    GEOID NAME         P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama      4779736 1957932     41.0   2010
+##  2 02    Alaska        710231  241338     34.0   2010
+##  3 04    Arizona      6392017  651358     10.2   2010
+##  4 05    Arkansas     2915918 1278329     43.8   2010
+##  5 06    California  37253956 1880350      5.05  2010
+##  6 22    Louisiana    4533372 1215567     26.8   2010
+##  7 21    Kentucky     4339367 1806024     41.6   2010
+##  8 08    Colorado     5029196  696435     13.8   2010
+##  9 09    Connecticut  3574097  429155     12.0   2010
+## 10 10    Delaware      897934  149985     16.7   2010
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="advanced-data-retrieval.html#cb86-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 52 x 6
+##    GEOID NAME         P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama      4779736 1957932     41.0   2010
+##  2 02    Alaska        710231  241338     34.0   2010
+##  3 04    Arizona      6392017  651358     10.2   2010
+##  4 05    Arkansas     2915918 1278329     43.8   2010
+##  5 06    California  37253956 1880350      5.05  2010
+##  6 22    Louisiana    4533372 1215567     26.8   2010
+##  7 21    Kentucky     4339367 1806024     41.6   2010
+##  8 08    Colorado     5029196  696435     13.8   2010
+##  9 09    Connecticut  3574097  429155     12.0   2010
+## 10 10    Delaware      897934  149985     16.7   2010
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="advanced-data-retrieval.html#cb88-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## # A tibble: 52 x 6
+##    GEOID NAME         P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama      4779736 1957932     41.0   2010
+##  2 02    Alaska        710231  241338     34.0   2010
+##  3 04    Arizona      6392017  651358     10.2   2010
+##  4 05    Arkansas     2915918 1278329     43.8   2010
+##  5 06    California  37253956 1880350      5.05  2010
+##  6 22    Louisiana    4533372 1215567     26.8   2010
+##  7 21    Kentucky     4339367 1806024     41.6   2010
+##  8 08    Colorado     5029196  696435     13.8   2010
+##  9 09    Connecticut  3574097  429155     12.0   2010
+## 10 10    Delaware      897934  149985     16.7   2010
 ## # … with 42 more rows</code></pre>
 </div>
 <div id="retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame" class="section level3" number="8.1.2">
 <h3><span class="header-section-number">8.1.2</span> Retrieving different census year datasets and placing them in a single data frame</h3>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="advanced-data-retrieval.html#cb78-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df<span class="ot">&lt;-</span><span class="fu">map_dfr</span>(my_years, census_query, <span class="at">.id=</span><span class="st">&quot;year&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(GEOID)</span>
-<span id="cb78-2"><a href="advanced-data-retrieval.html#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="advanced-data-retrieval.html#cb78-3" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="advanced-data-retrieval.html#cb90-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df<span class="ot">&lt;-</span><span class="fu">map_dfr</span>(my_years, census_query) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(GEOID)</span>
+<span id="cb90-2"><a href="advanced-data-retrieval.html#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="advanced-data-retrieval.html#cb90-3" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_df</span></code></pre></div>
 <pre><code>## # A tibble: 104 x 6
-##    GEOID NAME        P001001 P002005 rural_pct year 
-##    &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;
-##  1 01    Alabama     4447100 1981427     44.6  2000 
-##  2 01    Alabama     4779736 1957932     41.0  2010 
-##  3 02    Alaska       626932  215675     34.4  2000 
-##  4 02    Alaska       710231  241338     34.0  2010 
-##  5 04    Arizona     5130632  607097     11.8  2000 
-##  6 04    Arizona     6392017  651358     10.2  2010 
-##  7 05    Arkansas    2673400 1269221     47.5  2000 
-##  8 05    Arkansas    2915918 1278329     43.8  2010 
-##  9 06    California 33871648 1881985      5.56 2000 
-## 10 06    California 37253956 1880350      5.05 2010 
+##    GEOID NAME        P001001 P002005 rural_pct  year
+##    &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 01    Alabama     4447100 1981427     44.6   2000
+##  2 01    Alabama     4779736 1957932     41.0   2010
+##  3 02    Alaska       626932  215675     34.4   2000
+##  4 02    Alaska       710231  241338     34.0   2010
+##  5 04    Arizona     5130632  607097     11.8   2000
+##  6 04    Arizona     6392017  651358     10.2   2010
+##  7 05    Arkansas    2673400 1269221     47.5   2000
+##  8 05    Arkansas    2915918 1278329     43.8   2010
+##  9 06    California 33871648 1881985      5.56  2000
+## 10 06    California 37253956 1880350      5.05  2010
 ## # … with 94 more rows</code></pre>
+</div>
+</div>
+<div id="retrieving-microgeography-data-from-multiple-states" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Retrieving microgeography data from multiple states</h2>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="advanced-data-retrieval.html#cb92-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>, </span>
+<span id="cb92-2"><a href="advanced-data-retrieval.html#cb92-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">state=</span><span class="fu">c</span>(<span class="st">&quot;CO&quot;</span>,<span class="st">&quot;UT&quot;</span>),</span>
+<span id="cb92-3"><a href="advanced-data-retrieval.html#cb92-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb92-4"><a href="advanced-data-retrieval.html#cb92-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb92-5"><a href="advanced-data-retrieval.html#cb92-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">year=</span><span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-6"><a href="advanced-data-retrieval.html#cb92-6" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-7"><a href="advanced-data-retrieval.html#cb92-7" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">mutate</span>(<span class="at">year=</span>my_years)                 </span></code></pre></div>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
+<pre><code>## Error: Problem with `mutate()` input `year`.
+## x Input `year` can&#39;t be recycled to size 1558.
+## ℹ Input `year` is `my_years`.
+## ℹ Input `year` must be size 1558 or 1, not 2.</code></pre>
+<div id="list" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> List</h3>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="advanced-data-retrieval.html#cb95-1" aria-hidden="true" tabindex="-1"></a>my_states<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;CO&quot;</span>, <span class="st">&quot;UT&quot;</span>)</span>
+<span id="cb95-2"><a href="advanced-data-retrieval.html#cb95-2" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT<span class="ot">&lt;-</span><span class="cf">function</span>(my_states){</span>
+<span id="cb95-3"><a href="advanced-data-retrieval.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>, </span>
+<span id="cb95-4"><a href="advanced-data-retrieval.html#cb95-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">state=</span>my_states,</span>
+<span id="cb95-5"><a href="advanced-data-retrieval.html#cb95-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb95-6"><a href="advanced-data-retrieval.html#cb95-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb95-7"><a href="advanced-data-retrieval.html#cb95-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">year=</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb95-8"><a href="advanced-data-retrieval.html#cb95-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb95-9"><a href="advanced-data-retrieval.html#cb95-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb95-10"><a href="advanced-data-retrieval.html#cb95-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">STATE=</span>my_states)</span>
+<span id="cb95-11"><a href="advanced-data-retrieval.html#cb95-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb95-12"><a href="advanced-data-retrieval.html#cb95-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-13"><a href="advanced-data-retrieval.html#cb95-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-14"><a href="advanced-data-retrieval.html#cb95-14" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_list<span class="ot">&lt;-</span><span class="fu">map</span>(my_states, population_rural_CO_UT)</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;49&#39; for state &#39;UT&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="advanced-data-retrieval.html#cb102-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_list</span></code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows
+## 
+## [[2]]
+## # A tibble: 588 x 7
+##    GEOID       NAME                                     P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49011125805 Census Tract 1258.05, Davis County, Utah    6167       0         0  2010 UT   
+##  2 49011125301 Census Tract 1253.01, Davis County, Utah    5108       0         0  2010 UT   
+##  3 49011125305 Census Tract 1253.05, Davis County, Utah    6152       0         0  2010 UT   
+##  4 49011125702 Census Tract 1257.02, Davis County, Utah    3839       0         0  2010 UT   
+##  5 49011125801 Census Tract 1258.01, Davis County, Utah    6703       0         0  2010 UT   
+##  6 49011125804 Census Tract 1258.04, Davis County, Utah    6377       0         0  2010 UT   
+##  7 49011125807 Census Tract 1258.07, Davis County, Utah    3114       0         0  2010 UT   
+##  8 49011125808 Census Tract 1258.08, Davis County, Utah    5616       0         0  2010 UT   
+##  9 49011125905 Census Tract 1259.05, Davis County, Utah    6156       0         0  2010 UT   
+## 10 49011125906 Census Tract 1259.06, Davis County, Utah    6987       0         0  2010 UT   
+## # … with 578 more rows</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="advanced-data-retrieval.html#cb104-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="advanced-data-retrieval.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(population_rural_CO_UT_list)<span class="ot">&lt;-</span>my_states</span>
+<span id="cb106-2"><a href="advanced-data-retrieval.html#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-3"><a href="advanced-data-retrieval.html#cb106-3" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_list</span></code></pre></div>
+<pre><code>## $CO
+## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows
+## 
+## $UT
+## # A tibble: 588 x 7
+##    GEOID       NAME                                     P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49011125805 Census Tract 1258.05, Davis County, Utah    6167       0         0  2010 UT   
+##  2 49011125301 Census Tract 1253.01, Davis County, Utah    5108       0         0  2010 UT   
+##  3 49011125305 Census Tract 1253.05, Davis County, Utah    6152       0         0  2010 UT   
+##  4 49011125702 Census Tract 1257.02, Davis County, Utah    3839       0         0  2010 UT   
+##  5 49011125801 Census Tract 1258.01, Davis County, Utah    6703       0         0  2010 UT   
+##  6 49011125804 Census Tract 1258.04, Davis County, Utah    6377       0         0  2010 UT   
+##  7 49011125807 Census Tract 1258.07, Davis County, Utah    3114       0         0  2010 UT   
+##  8 49011125808 Census Tract 1258.08, Davis County, Utah    5616       0         0  2010 UT   
+##  9 49011125905 Census Tract 1259.05, Davis County, Utah    6156       0         0  2010 UT   
+## 10 49011125906 Census Tract 1259.06, Davis County, Utah    6987       0         0  2010 UT   
+## # … with 578 more rows</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="advanced-data-retrieval.html#cb108-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;UT&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 588 x 7
+##    GEOID       NAME                                     P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49011125805 Census Tract 1258.05, Davis County, Utah    6167       0         0  2010 UT   
+##  2 49011125301 Census Tract 1253.01, Davis County, Utah    5108       0         0  2010 UT   
+##  3 49011125305 Census Tract 1253.05, Davis County, Utah    6152       0         0  2010 UT   
+##  4 49011125702 Census Tract 1257.02, Davis County, Utah    3839       0         0  2010 UT   
+##  5 49011125801 Census Tract 1258.01, Davis County, Utah    6703       0         0  2010 UT   
+##  6 49011125804 Census Tract 1258.04, Davis County, Utah    6377       0         0  2010 UT   
+##  7 49011125807 Census Tract 1258.07, Davis County, Utah    3114       0         0  2010 UT   
+##  8 49011125808 Census Tract 1258.08, Davis County, Utah    5616       0         0  2010 UT   
+##  9 49011125905 Census Tract 1259.05, Davis County, Utah    6156       0         0  2010 UT   
+## 10 49011125906 Census Tract 1259.06, Davis County, Utah    6987       0         0  2010 UT   
+## # … with 578 more rows</code></pre>
+</div>
+<div id="df" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> df</h3>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="advanced-data-retrieval.html#cb110-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_df<span class="ot">&lt;-</span><span class="fu">map_dfr</span>(my_states, population_rural_CO_UT)</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;49&#39; for state &#39;UT&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="advanced-data-retrieval.html#cb117-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_df</span></code></pre></div>
+<pre><code>## # A tibble: 1,837 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  Year STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,827 more rows</code></pre>
+</div>
+</div>
+<div id="retrieving-microgeography-data-from-multiple-states-and-multiple-years" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Retrieving microgeography data from multiple states AND multiple years</h2>
+<div id="list-1" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> List</h3>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="advanced-data-retrieval.html#cb119-1" aria-hidden="true" tabindex="-1"></a>my_states<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;CO&quot;</span>, <span class="st">&quot;CO&quot;</span>, <span class="st">&quot;UT&quot;</span>, <span class="st">&quot;UT&quot;</span>)</span>
+<span id="cb119-2"><a href="advanced-data-retrieval.html#cb119-2" aria-hidden="true" tabindex="-1"></a>my_years<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2010</span>, <span class="dv">2000</span>, <span class="dv">2010</span>)</span>
+<span id="cb119-3"><a href="advanced-data-retrieval.html#cb119-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="advanced-data-retrieval.html#cb119-4" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010<span class="ot">&lt;-</span><span class="cf">function</span>(my_states, my_years){</span>
+<span id="cb119-5"><a href="advanced-data-retrieval.html#cb119-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>, </span>
+<span id="cb119-6"><a href="advanced-data-retrieval.html#cb119-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">state=</span>my_states,</span>
+<span id="cb119-7"><a href="advanced-data-retrieval.html#cb119-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;P001001&quot;</span>, <span class="st">&quot;P002005&quot;</span>),</span>
+<span id="cb119-8"><a href="advanced-data-retrieval.html#cb119-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb119-9"><a href="advanced-data-retrieval.html#cb119-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">year=</span>my_years) <span class="sc">%&gt;%</span> </span>
+<span id="cb119-10"><a href="advanced-data-retrieval.html#cb119-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rural_pct=</span>(P002005<span class="sc">/</span>P001001)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb119-11"><a href="advanced-data-retrieval.html#cb119-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">YEAR=</span>my_years) <span class="sc">%&gt;%</span> </span>
+<span id="cb119-12"><a href="advanced-data-retrieval.html#cb119-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">STATE=</span>my_states)</span>
+<span id="cb119-13"><a href="advanced-data-retrieval.html#cb119-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb119-14"><a href="advanced-data-retrieval.html#cb119-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-15"><a href="advanced-data-retrieval.html#cb119-15" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_list<span class="ot">&lt;-</span><span class="fu">map2</span>(my_states, my_years, population_rural_CO_UT_2000_2010)</span></code></pre></div>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;49&#39; for state &#39;UT&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;49&#39; for state &#39;UT&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="advanced-data-retrieval.html#cb132-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_list</span></code></pre></div>
+<pre><code>## [[1]]
+## # A tibble: 1,062 x 7
+##    GEOID       NAME                                       P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                        &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08001007800 Census Tract 78, Adams County, Colorado       8378       0      0     2000 CO   
+##  2 08001007900 Census Tract 79, Adams County, Colorado       6617       0      0     2000 CO   
+##  3 08001008000 Census Tract 80, Adams County, Colorado       6183       0      0     2000 CO   
+##  4 08001008100 Census Tract 81, Adams County, Colorado       1050       0      0     2000 CO   
+##  5 08001008200 Census Tract 82, Adams County, Colorado       5393       0      0     2000 CO   
+##  6 08001008308 Census Tract 83.08, Adams County, Colorado    4972       0      0     2000 CO   
+##  7 08001008309 Census Tract 83.09, Adams County, Colorado    3052      50      1.64  2000 CO   
+##  8 08001008353 Census Tract 83.53, Adams County, Colorado    4612     174      3.77  2000 CO   
+##  9 08001008385 Census Tract 83.85, Adams County, Colorado       0       0    NaN     2000 CO   
+## 10 08001008401 Census Tract 84.01, Adams County, Colorado    3261    3261    100     2000 CO   
+## # … with 1,052 more rows
+## 
+## [[2]]
+## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows
+## 
+## [[3]]
+## # A tibble: 496 x 7
+##    GEOID       NAME                                         P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49001100100 Census Tract 1001, Beaver County, Utah          3314    3314    100     2000 UT   
+##  2 49001100200 Census Tract 1002, Beaver County, Utah          2691    2691    100     2000 UT   
+##  3 49003960100 Census Tract 9601, Box Elder County, Utah       2712    2712    100     2000 UT   
+##  4 49003960200 Census Tract 9602, Box Elder County, Utah       6037    4134     68.5   2000 UT   
+##  5 49003960300 Census Tract 9603, Box Elder County, Utah       6223     889     14.3   2000 UT   
+##  6 49003960400 Census Tract 9604, Box Elder County, Utah       4521    4521    100     2000 UT   
+##  7 49003960500 Census Tract 9605, Box Elder County, Utah       4567     435      9.52  2000 UT   
+##  8 49003960600 Census Tract 9606, Box Elder County, Utah       6543     182      2.78  2000 UT   
+##  9 49003960701 Census Tract 9607.01, Box Elder County, Utah    4396       0      0     2000 UT   
+## 10 49003960702 Census Tract 9607.02, Box Elder County, Utah    2225       0      0     2000 UT   
+## # … with 486 more rows
+## 
+## [[4]]
+## # A tibble: 588 x 7
+##    GEOID       NAME                                     P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49011125805 Census Tract 1258.05, Davis County, Utah    6167       0         0  2010 UT   
+##  2 49011125301 Census Tract 1253.01, Davis County, Utah    5108       0         0  2010 UT   
+##  3 49011125305 Census Tract 1253.05, Davis County, Utah    6152       0         0  2010 UT   
+##  4 49011125702 Census Tract 1257.02, Davis County, Utah    3839       0         0  2010 UT   
+##  5 49011125801 Census Tract 1258.01, Davis County, Utah    6703       0         0  2010 UT   
+##  6 49011125804 Census Tract 1258.04, Davis County, Utah    6377       0         0  2010 UT   
+##  7 49011125807 Census Tract 1258.07, Davis County, Utah    3114       0         0  2010 UT   
+##  8 49011125808 Census Tract 1258.08, Davis County, Utah    5616       0         0  2010 UT   
+##  9 49011125905 Census Tract 1259.05, Davis County, Utah    6156       0         0  2010 UT   
+## 10 49011125906 Census Tract 1259.06, Davis County, Utah    6987       0         0  2010 UT   
+## # … with 578 more rows</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="advanced-data-retrieval.html#cb134-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="advanced-data-retrieval.html#cb136-1" aria-hidden="true" tabindex="-1"></a>name_vector<span class="ot">&lt;-</span><span class="fu">paste0</span>(my_states, <span class="st">&quot;_&quot;</span>, my_years)</span>
+<span id="cb136-2"><a href="advanced-data-retrieval.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="advanced-data-retrieval.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(population_rural_CO_UT_2000_2010_list)<span class="ot">&lt;-</span>name_vector</span>
+<span id="cb136-4"><a href="advanced-data-retrieval.html#cb136-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-5"><a href="advanced-data-retrieval.html#cb136-5" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_list</span></code></pre></div>
+<pre><code>## $CO_2000
+## # A tibble: 1,062 x 7
+##    GEOID       NAME                                       P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                        &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08001007800 Census Tract 78, Adams County, Colorado       8378       0      0     2000 CO   
+##  2 08001007900 Census Tract 79, Adams County, Colorado       6617       0      0     2000 CO   
+##  3 08001008000 Census Tract 80, Adams County, Colorado       6183       0      0     2000 CO   
+##  4 08001008100 Census Tract 81, Adams County, Colorado       1050       0      0     2000 CO   
+##  5 08001008200 Census Tract 82, Adams County, Colorado       5393       0      0     2000 CO   
+##  6 08001008308 Census Tract 83.08, Adams County, Colorado    4972       0      0     2000 CO   
+##  7 08001008309 Census Tract 83.09, Adams County, Colorado    3052      50      1.64  2000 CO   
+##  8 08001008353 Census Tract 83.53, Adams County, Colorado    4612     174      3.77  2000 CO   
+##  9 08001008385 Census Tract 83.85, Adams County, Colorado       0       0    NaN     2000 CO   
+## 10 08001008401 Census Tract 84.01, Adams County, Colorado    3261    3261    100     2000 CO   
+## # … with 1,052 more rows
+## 
+## $CO_2010
+## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows
+## 
+## $UT_2000
+## # A tibble: 496 x 7
+##    GEOID       NAME                                         P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                          &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49001100100 Census Tract 1001, Beaver County, Utah          3314    3314    100     2000 UT   
+##  2 49001100200 Census Tract 1002, Beaver County, Utah          2691    2691    100     2000 UT   
+##  3 49003960100 Census Tract 9601, Box Elder County, Utah       2712    2712    100     2000 UT   
+##  4 49003960200 Census Tract 9602, Box Elder County, Utah       6037    4134     68.5   2000 UT   
+##  5 49003960300 Census Tract 9603, Box Elder County, Utah       6223     889     14.3   2000 UT   
+##  6 49003960400 Census Tract 9604, Box Elder County, Utah       4521    4521    100     2000 UT   
+##  7 49003960500 Census Tract 9605, Box Elder County, Utah       4567     435      9.52  2000 UT   
+##  8 49003960600 Census Tract 9606, Box Elder County, Utah       6543     182      2.78  2000 UT   
+##  9 49003960701 Census Tract 9607.01, Box Elder County, Utah    4396       0      0     2000 UT   
+## 10 49003960702 Census Tract 9607.02, Box Elder County, Utah    2225       0      0     2000 UT   
+## # … with 486 more rows
+## 
+## $UT_2010
+## # A tibble: 588 x 7
+##    GEOID       NAME                                     P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 49011125805 Census Tract 1258.05, Davis County, Utah    6167       0         0  2010 UT   
+##  2 49011125301 Census Tract 1253.01, Davis County, Utah    5108       0         0  2010 UT   
+##  3 49011125305 Census Tract 1253.05, Davis County, Utah    6152       0         0  2010 UT   
+##  4 49011125702 Census Tract 1257.02, Davis County, Utah    3839       0         0  2010 UT   
+##  5 49011125801 Census Tract 1258.01, Davis County, Utah    6703       0         0  2010 UT   
+##  6 49011125804 Census Tract 1258.04, Davis County, Utah    6377       0         0  2010 UT   
+##  7 49011125807 Census Tract 1258.07, Davis County, Utah    3114       0         0  2010 UT   
+##  8 49011125808 Census Tract 1258.08, Davis County, Utah    5616       0         0  2010 UT   
+##  9 49011125905 Census Tract 1259.05, Davis County, Utah    6156       0         0  2010 UT   
+## 10 49011125906 Census Tract 1259.06, Davis County, Utah    6987       0         0  2010 UT   
+## # … with 578 more rows</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="advanced-data-retrieval.html#cb138-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;CO_2010&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1,249 x 7
+##    GEOID       NAME                                          P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                           &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08013013602 Census Tract 136.02, Boulder County, Colorado     912     912    100     2010 CO   
+##  2 08013013701 Census Tract 137.01, Boulder County, Colorado    6334    5095     80.4   2010 CO   
+##  3 08013013702 Census Tract 137.02, Boulder County, Colorado    5952    5952    100     2010 CO   
+##  4 08013060600 Census Tract 606, Boulder County, Colorado       5325     231      4.34  2010 CO   
+##  5 08013060700 Census Tract 607, Boulder County, Colorado       3091     111      3.59  2010 CO   
+##  6 08013060800 Census Tract 608, Boulder County, Colorado       6107     192      3.14  2010 CO   
+##  7 08013060900 Census Tract 609, Boulder County, Colorado       4139       0      0     2010 CO   
+##  8 08013061300 Census Tract 613, Boulder County, Colorado       3417       0      0     2010 CO   
+##  9 08013061400 Census Tract 614, Boulder County, Colorado       3990       0      0     2010 CO   
+## 10 08014030000 Census Tract 300, Broomfield County, Colorado    3378       0      0     2010 CO   
+## # … with 1,239 more rows</code></pre>
+</div>
+<div id="df-1" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> df</h3>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="advanced-data-retrieval.html#cb140-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_df<span class="ot">&lt;-</span><span class="fu">map2_dfr</span>(my_states, my_years, population_rural_CO_UT_2000_2010)</span></code></pre></div>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2000 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;49&#39; for state &#39;UT&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;49&#39; for state &#39;UT&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="advanced-data-retrieval.html#cb153-1" aria-hidden="true" tabindex="-1"></a>population_rural_CO_UT_2000_2010_df</span></code></pre></div>
+<pre><code>## # A tibble: 3,395 x 7
+##    GEOID       NAME                                       P001001 P002005 rural_pct  YEAR STATE
+##    &lt;chr&gt;       &lt;chr&gt;                                        &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1 08001007800 Census Tract 78, Adams County, Colorado       8378       0      0     2000 CO   
+##  2 08001007900 Census Tract 79, Adams County, Colorado       6617       0      0     2000 CO   
+##  3 08001008000 Census Tract 80, Adams County, Colorado       6183       0      0     2000 CO   
+##  4 08001008100 Census Tract 81, Adams County, Colorado       1050       0      0     2000 CO   
+##  5 08001008200 Census Tract 82, Adams County, Colorado       5393       0      0     2000 CO   
+##  6 08001008308 Census Tract 83.08, Adams County, Colorado    4972       0      0     2000 CO   
+##  7 08001008309 Census Tract 83.09, Adams County, Colorado    3052      50      1.64  2000 CO   
+##  8 08001008353 Census Tract 83.53, Adams County, Colorado    4612     174      3.77  2000 CO   
+##  9 08001008385 Census Tract 83.85, Adams County, Colorado       0       0    NaN     2000 CO   
+## 10 08001008401 Census Tract 84.01, Adams County, Colorado    3261    3261    100     2000 CO   
+## # … with 3,385 more rows</code></pre>
 <p><a href="https://mattherman.info/blog/tidycensus-mult-year/">https://mattherman.info/blog/tidycensus-mult-year/</a></p>
 <p>median age by county colorado
 vis and map</p>

@@ -28,3 +28,9 @@ advanced-data-retrieval
 retrieving-data-from-multiple-census-years
 retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list
 retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame
+retrieving-microgeography-data-from-multiple-states
+list
+df
+retrieving-microgeography-data-from-multiple-states-and-multiple-years
+list-1
+df-1
