@@ -23,16 +23,16 @@ population_rural_2000_2010<-get_decennial(geography = "state",
 
 ```{r, message=F, warning=F}
 my_years<-c(2000,2010)
-census_query<-function(my_years){
+census_query<-function(desired_year){
   get_decennial(geography = "state", 
                   variables = c("P001001", "P002005"),
                   output="wide",
-                  year=my_years) %>% 
+                  year=desired_year) %>% 
     mutate(rural_pct=(P002005/P001001)*100) %>% 
-    mutate(year=my_years)
+    mutate(year=desired_year)
 }
 
-population_rural_2000_2010_list<-map(my_years, census_query)
+population_rural_2000_2010_list<-map(.x=my_years, .f=census_query)
 
 population_rural_2000_2010_list
 
@@ -55,7 +55,7 @@ population_rural_2000_2010_list[[2]]
 ### Retrieving different census year datasets and placing them in a single data frame
 
 ```{r, message=F, warning=F}
-population_rural_2000_2010_df<-map_dfr(my_years, census_query) %>% arrange(GEOID)
+population_rural_2000_2010_df<-map_dfr(.x=my_years, .f=census_query) %>% arrange(GEOID)
 
 population_rural_2000_2010_df
 ```
@@ -77,19 +77,19 @@ population_rural_CO_UT<-get_decennial(geography = "tract",
 
 ```{r}
 my_states<-c("CO", "UT")
-population_rural_CO_UT<-function(my_states){
+population_rural_CO_UT<-function(desired_state){
   get_decennial(geography = "tract", 
-                state=my_states,
+                state=desired_state,
                 variables = c("P001001", "P002005"),
                 output="wide",
                 year=2010) %>% 
     mutate(rural_pct=(P002005/P001001)*100) %>% 
     mutate(Year=2010) %>% 
-    mutate(STATE=my_states)
+    mutate(STATE=desired_state)
 }
 
 
-population_rural_CO_UT_list<-map(my_states, population_rural_CO_UT)
+population_rural_CO_UT_list<-map(.x=my_states, .f=population_rural_CO_UT)
 population_rural_CO_UT_list
 population_rural_CO_UT_list %>% pluck(1)
 
@@ -103,7 +103,7 @@ population_rural_CO_UT_list %>% pluck("UT")
 ### df 
 
 ```{r}
-population_rural_CO_UT_df<-map_dfr(my_states, population_rural_CO_UT)
+population_rural_CO_UT_df<-map_dfr(.x=my_states, .f=population_rural_CO_UT)
 population_rural_CO_UT_df
 ```
 
@@ -115,18 +115,18 @@ population_rural_CO_UT_df
 my_states<-c("CO", "CO", "UT", "UT")
 my_years<-c(2000, 2010, 2000, 2010)
 
-population_rural_CO_UT_2000_2010<-function(my_states, my_years){
+population_rural_CO_UT_2000_2010<-function(desired_state, desired_year){
   get_decennial(geography = "tract", 
-                state=my_states,
+                state=desired_state,
                 variables = c("P001001", "P002005"),
                 output="wide",
-                year=my_years) %>% 
+                year=desired_year) %>% 
     mutate(rural_pct=(P002005/P001001)*100) %>% 
-    mutate(YEAR=my_years) %>% 
-    mutate(STATE=my_states)
+    mutate(YEAR=desired_year) %>% 
+    mutate(STATE=desired_state)
 }
 
-population_rural_CO_UT_2000_2010_list<-map2(my_states, my_years, population_rural_CO_UT_2000_2010)
+population_rural_CO_UT_2000_2010_list<-map2(.x=my_states, .y=my_years, .f=population_rural_CO_UT_2000_2010)
 
 population_rural_CO_UT_2000_2010_list
 
@@ -144,7 +144,7 @@ population_rural_CO_UT_2000_2010_list %>% pluck("CO_2010")
 ### df
 
 ```{r}
-population_rural_CO_UT_2000_2010_df<-map2_dfr(my_states, my_years, population_rural_CO_UT_2000_2010)
+population_rural_CO_UT_2000_2010_df<-map2_dfr(.x=my_states, .y=my_years, .f=population_rural_CO_UT_2000_2010)
 ```
 
 ```{r}
