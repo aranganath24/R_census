@@ -1,4 +1,4 @@
-fig:unnamed-chunk-8
+fig:unnamed-chunk-7
 introduction
 preliminaries
 basic-data-retrieval
@@ -22,8 +22,12 @@ elementary-visualization
 census-data-visualization-with-ggplot
 spatial-visualization-with-tmap
 functions-and-iteration
-automate-creation-of-median-age-graphs
+automate-creation-of-county-level-median-age-graphs
+write-county-level-median-age-graph-function
+iteratively-apply-median_age_graph-function-to-multiple-input-elements
 automate-creation-of-median-age-maps
+write-function-to-create-county-level-median-age-maps
+iteratively-apply-median_age_map-function-to-multiple-input-elements
 advanced-data-retrieval
 retrieving-data-from-multiple-census-years
 retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list

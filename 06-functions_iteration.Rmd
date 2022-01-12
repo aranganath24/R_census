@@ -1,77 +1,116 @@
 # Functions and Iteration
 
-## Automate creation of median age graphs
+## Automate creation of county-level median age graphs
+
+### Write county-level median age graph function
+
+Write a function to create a median age graph for a given state, based on two inputs: the 2 letter state abbreviation (used in the tidycensus call) and state name (used to label the graph)
 
 ```{r, warning=F, message=F}
-state_codes<-c("NM", "UT", "AZ", "WY")
-state_names<-c("New Mexico", "Utah", "Arizona", "Wyoming")
 
-median_age_graph<-function(state_codes, state_names){
+# Write median age graph function
+median_age_graph<-function(state_abbrev, state_full_name){
   census_call<-get_decennial(geography = "county",
-                             state=state_codes,
+                             state=state_abbrev,
                              variables = "P013001", 
                              geometry=TRUE,
                              year = 2010) %>% 
     rename(median_age=value) %>% 
-    mutate(County=str_remove(NAME, paste0(" County,", " ", state_names))) %>% 
+    mutate(County=str_remove(NAME, paste0(" County,", " ", state_full_name))) %>% 
     select(-NAME)
   
   median_age_ggplot<-
     census_call %>%
     ggplot(aes(x = median_age, y = reorder(County, median_age))) + 
     geom_point()+
-    labs(title=paste0("Median Age by County", " ", state_names), x="Median Age", y="County")+
+    labs(title=paste0("Median Age by County,", " ", state_full_name), x="Median Age", y="County")+
     theme(plot.title=element_text(hjust=0.5))
   
   return(median_age_ggplot)
 }
 
+# Test function for New Mexico
 median_age_graph("NM", "New Mexico")
 
-county_age_graphs_list<-map2(state_codes, state_names, median_age_graph)
-
-county_age_graphs_list
-
-county_age_graphs_list %>% pluck(3)
 ```
 
-## Automate creation of median-age maps 
+### Iteratively apply ```median_age_graph``` function to multiple input elements
 
-```{r, fig.asp=0.5, message=F, warning=F}
+Apply the ```median_age_graph``` function iteratively to New Mexico, Utah, Arizona, and Wyoming, thereby creating median age graphs for all these states; create a list to contain each of these output graphs as a separate list element
 
+```{r}
+# Create input vectors
 state_codes<-c("NM", "UT", "AZ", "WY")
 state_names<-c("New Mexico", "Utah", "Arizona", "Wyoming")
 
+# Applies the "median_age_graph" function to multiple inputs (specified by the input vectors), and then places the outputs (i.e. median age graphs for New Mexico, Utah, Arizona, and Wyoming) in a list assigned to an object named "county_age_graphs_list"
+county_age_graphs_list<-map2(.x=state_codes, .y=state_names, .f=median_age_graph)
 
-median_age_map<-function(state_codes, state_names){
+# Open the list that contains the median age graphs
+county_age_graphs_list
+
+# Extract the Arizona map by its index
+county_age_graphs_list %>% pluck(3)
+```
+
+## Automate creation of median-age maps
+
+### Write function to create county-level median age maps
+
+Write a function to create a county-level median age map for a given state, based on two inputs: the 2 letter state abbreviation (used in the tidycensus call) and state name (used to label the map)
+
+```{r, fig.asp=0.5, message=F, warning=F}
+
+# Write function to create county-level median age map for a given state 
+
+median_age_map<-function(state_abbrev, state_full_name){
   census_call<-get_decennial(geography = "county",
-                              state=state_codes,
+                              state=state_abbrev,
                               variables = "P013001", 
                               geometry=TRUE,
                               year = 2010) %>% 
   rename(median_age=value) %>% 
-  mutate(County=str_remove(NAME, paste0(" County,", " ", state_names))) %>% 
+  mutate(County=str_remove(NAME, paste0(" County,", " ", state_full_name))) %>% 
   select(-NAME)
   
-  median_age_map<-
+  county_median_age_map<-
     tm_shape(census_call)+
     tm_polygons(col="median_age",
                style="jenks",
                 palette="YlGnBu", 
                 midpoint=TRUE)+
     tm_layout(frame=FALSE, 
-              main.title=paste0("Median Age by County,\n", state_names),  
+              main.title=paste0("Median Age by County,\n", state_full_name),  
               main.title.position="left", 
               legend.outside=TRUE)
-return(median_age_map)
+return(county_median_age_map)
 }
 
+# Test function for New Mexico
 median_age_map("NM", "New Mexico")
 
-county_age_maps<-map2(state_codes, state_names,median_age_map)
-
-county_age_maps
-
-county_age_maps %>% pluck(2)
-
 ```
+
+### Iteratively apply ```median_age_map``` function to multiple input elements
+
+```{r}
+# Create input vectors
+state_codes<-c("NM", "UT", "AZ", "WY")
+state_names<-c("New Mexico", "Utah", "Arizona", "Wyoming")
+
+# Applies the "median_age_map" function to multiple inputs (specified by the input vectors), and then places the outputs (i.e. median age maps for New Mexico, Utah, Arizona, and Wyoming) in a list assigned to an object named "county_age_maps_list"
+county_age_maps_list<-map2(.x=state_codes, .y=state_names,median_age_map)
+
+# Open the list that contains the median age maps
+county_age_maps_list
+
+# Extract the Utah map by its index
+county_age_maps_list %>% pluck(2)
+```
+
+
+
+
+
+
+
