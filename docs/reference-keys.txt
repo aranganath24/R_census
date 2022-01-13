@@ -1,4 +1,4 @@
-fig:unnamed-chunk-7
+fig:unnamed-chunk-5
 introduction
 preliminaries
 basic-data-retrieval
@@ -38,3 +38,5 @@ df
 retrieving-microgeography-data-from-multiple-states-and-multiple-years
 list-1
 df-1
+analysis-with-multiple-datasets
+acs-data-retrieval

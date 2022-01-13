@@ -49,8 +49,14 @@ county_age_graphs_list<-map2(.x=state_codes, .y=state_names, .f=median_age_graph
 # Open the list that contains the median age graphs
 county_age_graphs_list
 
-# Extract the Arizona map by its index
+# Extract the Arizona graph by its index
 county_age_graphs_list %>% pluck(3)
+
+# Attach names to list elements and extract by name; for convenience, we'll name list elements based on "state_codes" vector
+names(county_age_graphs_list)<-state_codes
+
+# Extract the Wyoming graph by its name
+county_age_graphs_list %>% pluck("WY")
 ```
 
 ## Automate creation of median-age maps
@@ -106,6 +112,12 @@ county_age_maps_list
 
 # Extract the Utah map by its index
 county_age_maps_list %>% pluck(2)
+
+# Attach names (based on "state_codes" vector) to "county_age_maps_list" list elements 
+names(county_age_maps_list)<-state_codes
+
+# Extract the Arizona map by name
+county_age_maps_list %>% pluck("AZ")
 ```
 
 

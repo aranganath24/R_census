@@ -1,0 +1,30 @@
+# Analysis with multiple datasets 
+
+```{r}
+urban<-function(x){
+  final<-x %>% mutate(urban_pct=100-rural_pct)
+  return(final)
+}
+
+map(population_rural_2000_2010_list, urban)  
+```
+
+```{r}
+population_rural_2000_2010_list
+```
+
+```{r}
+name_edit<-function(x){
+  year_vector<-x$year
+  year_extracted<-year_vector[1]
+  desired_name<-paste0("rural_pct", "_", year_extracted)
+  names(x)[5]<-desired_name
+  final<-x %>% select(-c(P001001, P002005, year))
+  return(final)
+}
+
+population_rural_2000_2010_list_edited<-map(population_rural_2000_2010_list, name_edit)
+
+population_rural_2000_2010_list_edited
+```
+
