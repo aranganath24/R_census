@@ -1,30 +1,74 @@
-# Analysis with multiple datasets 
+# Working with multiple datasets
+
+It is often useful to bring separate datasets together in order to carry out a given analytic task. For instance, one might want to compare change over time by bringing together census datasets from different years (though it's worth noting that temporal analysis with census data can be tricky, and must be undertaken with caution, due to changes in calculation methods or geographic borders across different census years). 
+
+For example, let's say we want to visualize the percentage point change in every state's rural population share between 2000 and 2010. In other words, how did the percentage of each states rural population (with respect to its overall population) change across the first decade of the 2000s? Which states saw the greatest degree of rural depopulation, and which states saw the lowest degree of rural depopulation? 
+
+Let's begin with the ```population_rural_2000_2010_list``` object that we created in the previous section. It's a list that contains information on the percentage of each state's population living in rural areas; the first list element contains information on states' rural population share from the 2000 census, while the second contains analogous information from the 2010 census.
 
 ```{r}
-urban<-function(x){
-  final<-x %>% mutate(urban_pct=100-rural_pct)
-  return(final)
-}
-
-map(population_rural_2000_2010_list, urban)  
-```
-
-```{r}
+# Prints contents of "population_rural_2000_2010_list"
 population_rural_2000_2010_list
 ```
 
+In order to visualize the percentage point difference in state-level rural population shares between 2010 and 2000, we can join the two datasets in ```population_rural_2000_2010_list```, compute the difference between "rural_pct" in the 2010 dataset and "rural_pct" in the 2000 dataset, and then use now-familiar visualization techniques to visualize this difference. 
+
+Before joining the two datasets, it might make sense to clean them up to avoid any confusion after we implement the join. First, it would be nice to rename the "rural_pct" variable in the two datasets to indicate the relevant year, i.e. in the form "rural_pct_YEAR" where YEAR takes on the value in the existing "year" column. After renaming the "rural_pct" variable in this way, we can go ahead and delete the "P001001", "P002005", and "year" columns, since they do not contain necessary information, and will simply clutter the final (joined) dataset. 
+
+To clean up the datasets in this way, let's write a function that makes these changes, and use now-familiar iteration techniques to apply the changes to both of the list elements in ```population_rural_2000_2010_list```.
+
 ```{r}
-name_edit<-function(x){
-  year_vector<-x$year
-  year_extracted<-year_vector[1]
-  desired_name<-paste0("rural_pct", "_", year_extracted)
-  names(x)[5]<-desired_name
-  final<-x %>% select(-c(P001001, P002005, year))
-  return(final)
+# Write function to clean dataset according to the requirements specified above and assign to an object named "cleaning_function" 
+cleaning_function<-function(dataset){
+  year_vector<-dataset$year # extracts the "year" column as a vector
+  year_extracted<-year_vector[1] # plucks out the first element of "year_vector"
+  desired_name<-paste0("rural_pct", "_", year_extracted) # creates desired name string
+  names(dataset)[5]<-desired_name # renames "rural_pct" with "desired_name" 
+  final<-dataset %>% select(-c(P001001, P002005, year)) # deletes specified columns
+  return(final) # returns cleaned dataset
 }
-
-population_rural_2000_2010_list_edited<-map(population_rural_2000_2010_list, name_edit)
-
-population_rural_2000_2010_list_edited
 ```
+
+
+```{r}
+# applies "cleaning_function" to both of the list elements in ```population_rural_2000_2010_list``` and assigns the result to a new object named "population_rural_2000_2010_list_cleaned"
+population_rural_2000_2010_list_cleaned<-map(population_rural_2000_2010_list, cleaning_function)
+```
+
+
+```{r}
+# Prints contents of "population_rural_2000_2010_list_cleaned"
+population_rural_2000_2010_list_cleaned
+```
+
+Now, let's merge these datasets together, using "GEOID" as the join variable:
+
+```{r}
+# Joins datasets in list and assigns joined dataset to object named "rural_change"
+rural_change<-full_join(population_rural_2000_2010_list_cleaned[["2010"]], population_rural_2000_2010_list_cleaned[["2000"]], by="GEOID")
+  
+```
+
+
+
+```{r}
+# cleans "rural_change" by deleting "NAME.y" and renaming "NAME.x", and then creates new variable that captures the difference between "rural_pct_2010" and "rural_pct_2000"
+rural_change<-rural_change %>% 
+                select(-(NAME.y)) %>% 
+                rename(NAME=NAME.x) %>% 
+                mutate(rural_share_change=rural_pct_2010-rural_pct_2000)
+```
+
+
+```{r}
+# prints modified "rural_change" object
+rural_change
+```
+
+
+
+
+
+
+
 

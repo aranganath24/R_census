@@ -81,21 +81,21 @@ population_rural_2000_2010_df
 ## Retrieving microgeography data from multiple states
 
 ```{r, error=TRUE}
+# Attempts to retrieve tract-level data on overall population (P001001) and rural population (P002005) from Colorado and Utah, based on the 2000 decennial census; then, creates a new variable named "rural_pct" that captures each tracts rural share of the overall population, as well as a new variable named "rural_pct"
 population_rural_CO_UT<-get_decennial(geography = "tract", 
                                       state=c("CO","UT"),
                                       variables = c("P001001", "P002005"),
                                       output="wide",
                                       year=2000) %>% 
-                        mutate(rural_pct=(P002005/P001001)*100) %>% 
-                        mutate(year=my_years)                 
+                        mutate(rural_pct=(P002005/P001001)*100)         
 
 ```
 
-### List
+### Retrieving microgeography datasets for multiple states and placing datasets into a list
 
 ```{r}
-my_states<-c("CO", "UT")
-population_rural_CO_UT<-function(desired_state){
+# Creates a function assigned to an object named "population_rural_statetract" that takes a given state input ("desired_state), and passes this state into tidycensus's "get_decennial" function to retrieve a tract-level dataset for that state containing data on overall population (P001001) and rural population (P002005) based on the 2010 decennial census, while also creating three new variables: "rural_pct" (the percentage of the overall population that is rural), "Year" (a varaiable that takes on the value 2010, so that we can readily identify that the data corresponds to the year 2010), and "STATE" (an ID variable that will take on the value of the state input, so that we can readily identify the state for which the data has been extracted)
+population_rural_statetract<-function(desired_state){
   get_decennial(geography = "tract", 
                 state=desired_state,
                 variables = c("P001001", "P002005"),
@@ -106,34 +106,55 @@ population_rural_CO_UT<-function(desired_state){
     mutate(STATE=desired_state)
 }
 
+# Test the function for a given state; here, California ("CA)
+population_rural_statetract("CA")
+```
 
-population_rural_CO_UT_list<-map(.x=my_states, .f=population_rural_CO_UT)
+Now that we know the function works, let's apply it to extract our desired dataset for Colorado and Utah, and place these datasets into a list:
+
+```{r}
+# define a vector of desired states and assign it to an object named "my_states"
+my_states<-c("CO", "UT")
+
+# Applies the "population_rural_state_tract" function to the inputs specified by the "my_states" vector, and deposits the two resulting datasets (one for CO, and the other for UT) as distinct elements in a list assigned to an object named population_rural_CO_UT_list
+population_rural_CO_UT_list<-map(.x=my_states, .f=population_rural_statetract)
+
+# Prints the contents of "population_rural_CO_UT_list"
 population_rural_CO_UT_list
+
+# Use the "pluck" function to extract the Colorado dataset from "population_rural_CO_UT_list" by its index
 population_rural_CO_UT_list %>% pluck(1)
 
+# Name the list elements in "population_rural_CO_UT_list" based on the "my_states" vector
 names(population_rural_CO_UT_list)<-my_states
 
+# Print "population_rural_CO_UT_list" list contents; notice that they're now named based on the state
 population_rural_CO_UT_list
 
+# Use the "pluck" function to extract the Utah dataset from "population_rural_CO_UT_list" by name
 population_rural_CO_UT_list %>% pluck("UT")
 ```
 
-### df 
+### Retrieving microgeography data from multiple states and placing them into the same data frame
 
 ```{r}
-population_rural_CO_UT_df<-map_dfr(.x=my_states, .f=population_rural_CO_UT)
+# Applies the "population_rural_statetract" function to the inputs specified by the "my_states" vector, and deposits the resulting census datasets (one CO and the other UT) into a single data frame assigned to an object named "population_rural_CO_UT_df"
+population_rural_CO_UT_df<-map_dfr(.x=my_states, .f=population_rural_statetract)
+
+# Prints the contents of "population_rural_CO_UT_df"
 population_rural_CO_UT_df
 ```
 
-## Retrieving microgeography data from multiple states AND multiple years  
+## Retrieving microgeography data from multiple states AND multiple years
 
-### List
+We can use the same principles to extract census datasets at sub-state geographies for multiple states, across from multiple years. 
+
+### Retrieving data from multiple years, for multiple states, and placing the datasets from the various state/year combinations into a list
 
 ```{r}
-my_states<-c("CO", "CO", "UT", "UT")
-my_years<-c(2000, 2010, 2000, 2010)
+# Define a function (assigned to an object named "population_rural_statetract_year") that takes a state input ("desired_state") and a year input ("desired_year), and returns a tract level dataset for that state and census year which contains variables specifying the total population, and the rural population, while also creating three new variables: "rural_pct" (the percentage of the overall tract population that is rural), "YEAR" (a varaiable that takes on the value of the input, so that we can readily identify what year the data corresponds to), and "STATE" (an ID variable that will take on the value of the state input, so that we can readily identify the state for which the data has been extracted)
 
-population_rural_CO_UT_2000_2010<-function(desired_state, desired_year){
+population_rural_statetract_year<-function(desired_state, desired_year){
   get_decennial(geography = "tract", 
                 state=desired_state,
                 variables = c("P001001", "P002005"),
@@ -144,28 +165,54 @@ population_rural_CO_UT_2000_2010<-function(desired_state, desired_year){
     mutate(STATE=desired_state)
 }
 
-population_rural_CO_UT_2000_2010_list<-map2(.x=my_states, .y=my_years, .f=population_rural_CO_UT_2000_2010)
+# Tests the "population_rural_CO_UT_2000_2010" function for Virginia, for the 2010 census
+population_rural_statetract_year("VA", 2010) 
 
+```
+
+Now, we can iteratively apply the ```population_rural_statetract_year``` function to multiple state/year inputs. In the example below, we use ```population_rural_statetract_year``` to extract data from the 2000 and 2010 censuses, for both Colorado and Utah, and deposit the resulting four datasets (CO/2000, CO/2010, UT/2000, UT/2010) into a list
+
+```{r}
+# define a vector of desired states to iterate over, and assign it to an obejct named "my_states"
+my_states<-c("CO", "CO", "UT", "UT")
+
+# define a vector of desired years to iterate over, and assign it to an object named "my_years"
+my_years<-c(2000, 2010, 2000, 2010)
+
+# Applies the "population_rural_statetract_year" function to the inputs specified by the "my_states" and "my_year" vectors, and deposits the resulting four census datasets (one for CO 2000; one for CO 2010; one for UT 2000; one for UT 2010)  as distinct elements in a list that is assigned to an object named "population_rural_CO_UT_2000_2010_list"
+population_rural_CO_UT_2000_2010_list<-map2(.x=my_states, .y=my_years, .f=population_rural_statetract_year)
+
+# Prints contents of "population_rural_CO_UT_2000_2010_list"
 population_rural_CO_UT_2000_2010_list
 
+# Uses the ```pluck``` function to extract the Colorado/2010 dataset from "population_rural_CO_UT_2000_2010_list" 
 population_rural_CO_UT_2000_2010_list %>% pluck(2)
 
+# Creates a name vector in which the four different state/year combinations are connected by an underscore ("_") and assigns the resulting vector to an object named "name_vector"
 name_vector<-paste0(my_states, "_", my_years)
 
+# Prints "name_vector" to inspect contents
+name_vector
+
+# Assigns the names in "name_vector" to the list elements
 names(population_rural_CO_UT_2000_2010_list)<-name_vector
 
+# Prints the contents of "population_rural_CO_UT_2000_2010_list"; note that the list elements are now named according to the state/year inputs upon which they are based
 population_rural_CO_UT_2000_2010_list
 
+# Uses the ```pluck``` function to extract the 2010 Colorado dataset by name
 population_rural_CO_UT_2000_2010_list %>% pluck("CO_2010")
 ```
 
-### df
+### Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame
 
 ```{r}
-population_rural_CO_UT_2000_2010_df<-map2_dfr(.x=my_states, .y=my_years, .f=population_rural_CO_UT_2000_2010)
+# # Applies the "population_rural_statetract_year" function to the inputs specified by the "my_states" and "my_years" vectors, and deposits the resulting four census datasets (CO/2000, CO/2010, UT/2000, UT/2010) into a single data frame assigned to an object named "population_rural_CO_UT_2000_2010_df"
+population_rural_CO_UT_2000_2010_df<-map2_dfr(.x=my_states, .y=my_years, .f=population_rural_statetract_year)
 ```
 
 ```{r}
+# Prints the contents of "population_rural_CO_UT_2000_2010_df" 
 population_rural_CO_UT_2000_2010_df
 ```
 

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Exporting R Objects | Working with Census Data in R</title>
+  <meta name="description" content="10 Exporting R Objects | Working with Census Data in R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Exporting R Objects | Working with Census Data in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Exporting R Objects | Working with Census Data in R" />
+  
+  
+  
+
+<meta name="author" content="Aditya Ranganath" />
+
+
+<meta name="date" content="2022-01-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="working-with-multiple-datasets.html"/>
+<link rel="next" href="acs-data-retrieval.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Census Data in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>2</b> Preliminaries</a></li>
+<li class="part"><span><b>I Decennial Census</b></span></li>
+<li class="chapter" data-level="3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html"><i class="fa fa-check"></i><b>3</b> Basic Data Retrieval</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#load-table-of-variables"><i class="fa fa-check"></i><b>3.1</b> Load table of variables</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#query-the-census-api-and-retrieve-data-using-tidycensus"><i class="fa fa-check"></i><b>3.2</b> Query the census API, and retrieve data using tidycensus</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-retrieval.html"><a href="basic-data-retrieval.html#modify-a-census-api-call-by-altering-arguments-to-the-get_decennial-function"><i class="fa fa-check"></i><b>3.3</b> Modify a census API call by altering arguments to the “get_decennial” function</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>4</b> Basic data cleaning and manipulation with <em>dplyr</em></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#renaming-and-deleting-columns"><i class="fa fa-check"></i><b>4.1</b> Renaming and deleting columns</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-rename-and-select-functions"><i class="fa fa-check"></i><b>4.1.1</b> The <code>rename</code> and <code>select</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#modifying-columns"><i class="fa fa-check"></i><b>4.2</b> Modifying columns</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#columns-and-string-operations"><i class="fa fa-check"></i><b>4.2.1</b> Columns and string operations</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-relocate-function"><i class="fa fa-check"></i><b>4.2.2</b> The <code>relocate</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#subsetting-data"><i class="fa fa-check"></i><b>4.3</b> Subsetting Data</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#the-filter-function"><i class="fa fa-check"></i><b>4.3.1</b> The <code>filter</code> function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#slice-functions"><i class="fa fa-check"></i><b>4.3.2</b> <code>slice</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="basic-data-cleaning-and-manipulation-with-dplyr.html"><a href="basic-data-cleaning-and-manipulation-with-dplyr.html#creating-new-variables"><i class="fa fa-check"></i><b>4.4</b> Creating new variables</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html"><i class="fa fa-check"></i><b>5</b> Grouping operations and summary statistics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html#aggregate-summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Aggregate summary statistics</a></li>
+<li class="chapter" data-level="5.2" data-path="grouping-operations-and-summary-statistics.html"><a href="grouping-operations-and-summary-statistics.html#summary-statistics-by-group"><i class="fa fa-check"></i><b>5.2</b> Summary statistics by group</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="elementary-visualization.html"><a href="elementary-visualization.html"><i class="fa fa-check"></i><b>6</b> Elementary Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="elementary-visualization.html"><a href="elementary-visualization.html#census-data-visualization-with-ggplot"><i class="fa fa-check"></i><b>6.1</b> Census data visualization with <em>ggplot</em></a></li>
+<li class="chapter" data-level="6.2" data-path="elementary-visualization.html"><a href="elementary-visualization.html#spatial-visualization-with-tmap"><i class="fa fa-check"></i><b>6.2</b> Spatial visualization with <em>tmap</em></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html"><i class="fa fa-check"></i><b>7</b> Functions and Iteration</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html#automate-creation-of-county-level-median-age-graphs"><i class="fa fa-check"></i><b>7.1</b> Automate creation of county-level median age graphs</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html#write-county-level-median-age-graph-function"><i class="fa fa-check"></i><b>7.1.1</b> Write county-level median age graph function</a></li>
+<li class="chapter" data-level="7.1.2" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html#iteratively-apply-median_age_graph-function-to-multiple-input-elements"><i class="fa fa-check"></i><b>7.1.2</b> Iteratively apply <code>median_age_graph</code> function to multiple input elements</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html#automate-creation-of-median-age-maps"><i class="fa fa-check"></i><b>7.2</b> Automate creation of median-age maps</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html#write-function-to-create-county-level-median-age-maps"><i class="fa fa-check"></i><b>7.2.1</b> Write function to create county-level median age maps</a></li>
+<li class="chapter" data-level="7.2.2" data-path="functions-and-iteration.html"><a href="functions-and-iteration.html#iteratively-apply-median_age_map-function-to-multiple-input-elements"><i class="fa fa-check"></i><b>7.2.2</b> Iteratively apply <code>median_age_map</code> function to multiple input elements</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html"><i class="fa fa-check"></i><b>8</b> Advanced data retrieval</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-census-years"><i class="fa fa-check"></i><b>8.1</b> Retrieving data from multiple census years</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-different-census-year-datasets-and-placing-them-as-separate-elements-in-a-list"><i class="fa fa-check"></i><b>8.1.1</b> Retrieving different census year datasets and placing them as separate elements in a list</a></li>
+<li class="chapter" data-level="8.1.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-different-census-year-datasets-and-placing-them-in-a-single-data-frame"><i class="fa fa-check"></i><b>8.1.2</b> Retrieving different census year datasets and placing them in a single data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states"><i class="fa fa-check"></i><b>8.2</b> Retrieving microgeography data from multiple states</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-datasets-for-multiple-states-and-placing-datasets-into-a-list"><i class="fa fa-check"></i><b>8.2.1</b> Retrieving microgeography datasets for multiple states and placing datasets into a list</a></li>
+<li class="chapter" data-level="8.2.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states-and-placing-them-into-the-same-data-frame"><i class="fa fa-check"></i><b>8.2.2</b> Retrieving microgeography data from multiple states and placing them into the same data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states-and-multiple-years"><i class="fa fa-check"></i><b>8.3</b> Retrieving microgeography data from multiple states AND multiple years</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-the-datasets-from-the-various-stateyear-combinations-into-a-list"><i class="fa fa-check"></i><b>8.3.1</b> Retrieving data from multiple years, for multiple states, and placing the datasets from the various state/year combinations into a list</a></li>
+<li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a></li>
+<li class="chapter" data-level="10" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Exporting R Objects</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#writing-out-census-datasets-as-csv-files"><i class="fa fa-check"></i><b>10.1</b> Writing out census datasets as CSV files</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#write-out-multiple-census-datasets-stored-a-list-to-disk-in-csv-format"><i class="fa fa-check"></i><b>10.1.1</b> Write out multiple census datasets stored a list to disk (in CSV format)</a></li>
+<li class="chapter" data-level="10.1.2" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#write-out-multiple-census-datasets-stored-as-separate-objects-to-disk-in-csv-format"><i class="fa fa-check"></i><b>10.1.2</b> Write out multiple census datasets stored as separate objects to disk (in CSV format)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#writing-out-other-objects-i.e.-maps-visualizations-etc.-to-disk"><i class="fa fa-check"></i><b>10.2</b> Writing out other objects (i.e. maps, visualizations etc.) to disk</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#using-plot-devices-to-write-out-multiple-visualizations-to-a-single-file"><i class="fa fa-check"></i><b>10.2.1</b> Using plot devices to write out multiple visualizations to a single file</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II American Community Survey (ACS)</b></span></li>
+<li class="chapter" data-level="11" data-path="acs-data-retrieval.html"><a href="acs-data-retrieval.html"><i class="fa fa-check"></i><b>11</b> ACS Data Retrieval</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exporting-r-objects" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Exporting R Objects</h1>
+<div id="writing-out-census-datasets-as-csv-files" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Writing out census datasets as CSV files</h2>
+<div id="write-out-multiple-census-datasets-stored-a-list-to-disk-in-csv-format" class="section level3" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Write out multiple census datasets stored a list to disk (in CSV format)</h3>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="exporting-r-objects.html#cb215-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_cleaned</span></code></pre></div>
+<pre><code>## $`2000`
+## # A tibble: 52 x 3
+##    GEOID NAME                 rural_pct_2000
+##    &lt;chr&gt; &lt;chr&gt;                         &lt;dbl&gt;
+##  1 01    Alabama                       44.6 
+##  2 02    Alaska                        34.4 
+##  3 04    Arizona                       11.8 
+##  4 05    Arkansas                      47.5 
+##  5 06    California                     5.56
+##  6 08    Colorado                      15.5 
+##  7 09    Connecticut                   12.3 
+##  8 10    Delaware                      19.9 
+##  9 11    District of Columbia           0   
+## 10 12    Florida                       10.7 
+## # … with 42 more rows
+## 
+## $`2010`
+## # A tibble: 52 x 3
+##    GEOID NAME        rural_pct_2010
+##    &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1 01    Alabama              41.0 
+##  2 02    Alaska               34.0 
+##  3 04    Arizona              10.2 
+##  4 05    Arkansas             43.8 
+##  5 06    California            5.05
+##  6 22    Louisiana            26.8 
+##  7 21    Kentucky             41.6 
+##  8 08    Colorado             13.8 
+##  9 09    Connecticut          12.0 
+## 10 10    Delaware             16.7 
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="exporting-r-objects.html#cb217-1" aria-hidden="true" tabindex="-1"></a>writeout_function<span class="ot">&lt;-</span><span class="cf">function</span>(object, filename){</span>
+<span id="cb217-2"><a href="exporting-r-objects.html#cb217-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets&quot;</span>)</span>
+<span id="cb217-3"><a href="exporting-r-objects.html#cb217-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, <span class="st">&quot;.csv&quot;</span>)</span>
+<span id="cb217-4"><a href="exporting-r-objects.html#cb217-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(object, filename)</span>
+<span id="cb217-5"><a href="exporting-r-objects.html#cb217-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb217-6"><a href="exporting-r-objects.html#cb217-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-7"><a href="exporting-r-objects.html#cb217-7" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(population_rural_2000_2010_list_cleaned, <span class="fu">names</span>(population_rural_2000_2010_list_cleaned), </span>
+<span id="cb217-8"><a href="exporting-r-objects.html#cb217-8" aria-hidden="true" tabindex="-1"></a>     writeout_function)</span></code></pre></div>
+</div>
+<div id="write-out-multiple-census-datasets-stored-as-separate-objects-to-disk-in-csv-format" class="section level3" number="10.1.2">
+<h3><span class="header-section-number">10.1.2</span> Write out multiple census datasets stored as separate objects to disk (in CSV format)</h3>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="exporting-r-objects.html#cb218-1" aria-hidden="true" tabindex="-1"></a>state_total_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography=</span><span class="st">&quot;state&quot;</span>, </span>
+<span id="cb218-2"><a href="exporting-r-objects.html#cb218-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb218-3"><a href="exporting-r-objects.html#cb218-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="exporting-r-objects.html#cb221-1" aria-hidden="true" tabindex="-1"></a>state_rural_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb221-2"><a href="exporting-r-objects.html#cb221-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">variables =</span> <span class="st">&quot;P002005&quot;</span>,</span>
+<span id="cb221-3"><a href="exporting-r-objects.html#cb221-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census
+## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="exporting-r-objects.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put objects to export in a named list</span></span>
+<span id="cb223-2"><a href="exporting-r-objects.html#cb223-2" aria-hidden="true" tabindex="-1"></a>objects_to_export<span class="ot">&lt;-</span><span class="fu">lst</span>(state_total_2010, state_rural_2010)</span>
+<span id="cb223-3"><a href="exporting-r-objects.html#cb223-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb223-4"><a href="exporting-r-objects.html#cb223-4" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(objects_to_export, <span class="fu">names</span>(objects_to_export), writeout_function)</span></code></pre></div>
+</div>
+</div>
+<div id="writing-out-other-objects-i.e.-maps-visualizations-etc.-to-disk" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Writing out other objects (i.e. maps, visualizations etc.) to disk</h2>
+<div id="using-plot-devices-to-write-out-multiple-visualizations-to-a-single-file" class="section level3" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Using plot devices to write out multiple visualizations to a single file</h3>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="exporting-r-objects.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf&quot;</span>)</span>
+<span id="cb224-2"><a href="exporting-r-objects.html#cb224-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list</span></code></pre></div>
+<pre><code>## $NM</code></pre>
+<pre><code>## 
+## $UT</code></pre>
+<pre><code>## 
+## $AZ</code></pre>
+<pre><code>## 
+## $WY</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a>dev.off</span></code></pre></div>
+<pre><code>## function (which = dev.cur()) 
+## {
+##     if (which == 1) 
+##         stop(&quot;cannot shut down device 1 (the null device)&quot;)
+##     .External(C_devoff, as.integer(which))
+##     dev.cur()
+## }
+## &lt;bytecode: 0x7f96077f8950&gt;
+## &lt;environment: namespace:grDevices&gt;</code></pre>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="working-with-multiple-datasets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="acs-data-retrieval.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aranganath24/R_Census/edit/master/09-data-export.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aranganath24/R_Census/blob/master/09-data-export.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

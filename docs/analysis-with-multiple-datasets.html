@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-13" />
+<meta name="date" content="2022-01-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -197,13 +197,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states"><i class="fa fa-check"></i><b>8.2</b> Retrieving microgeography data from multiple states</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#list"><i class="fa fa-check"></i><b>8.2.1</b> List</a></li>
-<li class="chapter" data-level="8.2.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#df"><i class="fa fa-check"></i><b>8.2.2</b> df</a></li>
+<li class="chapter" data-level="8.2.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-datasets-for-multiple-states-and-placing-datasets-into-a-list"><i class="fa fa-check"></i><b>8.2.1</b> Retrieving microgeography datasets for multiple states and placing datasets into a list</a></li>
+<li class="chapter" data-level="8.2.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states-and-placing-them-into-the-same-data-frame"><i class="fa fa-check"></i><b>8.2.2</b> Retrieving microgeography data from multiple states and placing them into the same data frame</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-microgeography-data-from-multiple-states-and-multiple-years"><i class="fa fa-check"></i><b>8.3</b> Retrieving microgeography data from multiple states AND multiple years</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#list-1"><i class="fa fa-check"></i><b>8.3.1</b> List</a></li>
-<li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#df-1"><i class="fa fa-check"></i><b>8.3.2</b> df</a></li>
+<li class="chapter" data-level="8.3.1" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-the-datasets-from-the-various-stateyear-combinations-into-a-list"><i class="fa fa-check"></i><b>8.3.1</b> Retrieving data from multiple years, for multiple states, and placing the datasets from the various state/year combinations into a list</a></li>
+<li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="analysis-with-multiple-datasets.html"><a href="analysis-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Analysis with multiple datasets</a></li>
@@ -230,12 +230,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="analysis-with-multiple-datasets" class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Analysis with multiple datasets</h1>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="analysis-with-multiple-datasets.html#cb194-1" aria-hidden="true" tabindex="-1"></a>urban<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
-<span id="cb194-2"><a href="analysis-with-multiple-datasets.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  final<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">urban_pct=</span><span class="dv">100</span><span class="sc">-</span>rural_pct)</span>
-<span id="cb194-3"><a href="analysis-with-multiple-datasets.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(final)</span>
-<span id="cb194-4"><a href="analysis-with-multiple-datasets.html#cb194-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb194-5"><a href="analysis-with-multiple-datasets.html#cb194-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-6"><a href="analysis-with-multiple-datasets.html#cb194-6" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(population_rural_2000_2010_list, urban)  </span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="analysis-with-multiple-datasets.html#cb205-1" aria-hidden="true" tabindex="-1"></a>urban<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb205-2"><a href="analysis-with-multiple-datasets.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  final<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">urban_pct=</span><span class="dv">100</span><span class="sc">-</span>rural_pct)</span>
+<span id="cb205-3"><a href="analysis-with-multiple-datasets.html#cb205-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(final)</span>
+<span id="cb205-4"><a href="analysis-with-multiple-datasets.html#cb205-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb205-5"><a href="analysis-with-multiple-datasets.html#cb205-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-6"><a href="analysis-with-multiple-datasets.html#cb205-6" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(population_rural_2000_2010_list, urban)  </span></code></pre></div>
 <pre><code>## $`2000`
 ## # A tibble: 52 x 7
 ##    GEOID NAME                  P001001 P002005 rural_pct  year urban_pct
@@ -267,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 09    Connecticut  3574097  429155     12.0   2010      88.0
 ## 10 10    Delaware      897934  149985     16.7   2010      83.3
 ## # … with 42 more rows</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="analysis-with-multiple-datasets.html#cb196-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="analysis-with-multiple-datasets.html#cb207-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list</span></code></pre></div>
 <pre><code>## $`2000`
 ## # A tibble: 52 x 6
 ##    GEOID NAME                  P001001 P002005 rural_pct  year
@@ -299,18 +299,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 09    Connecticut  3574097  429155     12.0   2010
 ## 10 10    Delaware      897934  149985     16.7   2010
 ## # … with 42 more rows</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="analysis-with-multiple-datasets.html#cb198-1" aria-hidden="true" tabindex="-1"></a>name_edit<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
-<span id="cb198-2"><a href="analysis-with-multiple-datasets.html#cb198-2" aria-hidden="true" tabindex="-1"></a>  year_vector<span class="ot">&lt;-</span>x<span class="sc">$</span>year</span>
-<span id="cb198-3"><a href="analysis-with-multiple-datasets.html#cb198-3" aria-hidden="true" tabindex="-1"></a>  year_extracted<span class="ot">&lt;-</span>year_vector[<span class="dv">1</span>]</span>
-<span id="cb198-4"><a href="analysis-with-multiple-datasets.html#cb198-4" aria-hidden="true" tabindex="-1"></a>  desired_name<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;rural_pct&quot;</span>, <span class="st">&quot;_&quot;</span>, year_extracted)</span>
-<span id="cb198-5"><a href="analysis-with-multiple-datasets.html#cb198-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(x)[<span class="dv">5</span>]<span class="ot">&lt;-</span>desired_name</span>
-<span id="cb198-6"><a href="analysis-with-multiple-datasets.html#cb198-6" aria-hidden="true" tabindex="-1"></a>  final<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(P001001, P002005, year))</span>
-<span id="cb198-7"><a href="analysis-with-multiple-datasets.html#cb198-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(final)</span>
-<span id="cb198-8"><a href="analysis-with-multiple-datasets.html#cb198-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb198-9"><a href="analysis-with-multiple-datasets.html#cb198-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb198-10"><a href="analysis-with-multiple-datasets.html#cb198-10" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_edited<span class="ot">&lt;-</span><span class="fu">map</span>(population_rural_2000_2010_list, name_edit)</span>
-<span id="cb198-11"><a href="analysis-with-multiple-datasets.html#cb198-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb198-12"><a href="analysis-with-multiple-datasets.html#cb198-12" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_edited</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="analysis-with-multiple-datasets.html#cb209-1" aria-hidden="true" tabindex="-1"></a>name_edit<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb209-2"><a href="analysis-with-multiple-datasets.html#cb209-2" aria-hidden="true" tabindex="-1"></a>  year_vector<span class="ot">&lt;-</span>x<span class="sc">$</span>year</span>
+<span id="cb209-3"><a href="analysis-with-multiple-datasets.html#cb209-3" aria-hidden="true" tabindex="-1"></a>  year_extracted<span class="ot">&lt;-</span>year_vector[<span class="dv">1</span>]</span>
+<span id="cb209-4"><a href="analysis-with-multiple-datasets.html#cb209-4" aria-hidden="true" tabindex="-1"></a>  desired_name<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;rural_pct&quot;</span>, <span class="st">&quot;_&quot;</span>, year_extracted)</span>
+<span id="cb209-5"><a href="analysis-with-multiple-datasets.html#cb209-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(x)[<span class="dv">5</span>]<span class="ot">&lt;-</span>desired_name</span>
+<span id="cb209-6"><a href="analysis-with-multiple-datasets.html#cb209-6" aria-hidden="true" tabindex="-1"></a>  final<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(P001001, P002005, year))</span>
+<span id="cb209-7"><a href="analysis-with-multiple-datasets.html#cb209-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(final)</span>
+<span id="cb209-8"><a href="analysis-with-multiple-datasets.html#cb209-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb209-9"><a href="analysis-with-multiple-datasets.html#cb209-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-10"><a href="analysis-with-multiple-datasets.html#cb209-10" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_edited<span class="ot">&lt;-</span><span class="fu">map</span>(population_rural_2000_2010_list, name_edit)</span>
+<span id="cb209-11"><a href="analysis-with-multiple-datasets.html#cb209-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-12"><a href="analysis-with-multiple-datasets.html#cb209-12" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_edited</span></code></pre></div>
 <pre><code>## $`2000`
 ## # A tibble: 52 x 3
 ##    GEOID NAME                 rural_pct_2000

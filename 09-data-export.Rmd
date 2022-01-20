@@ -1,0 +1,57 @@
+# Exporting R Objects
+
+## Writing out census datasets as CSV files 
+
+### Write out multiple census datasets stored a list to disk (in CSV format)
+
+```{r}
+population_rural_2000_2010_list_cleaned
+```
+
+```{r}
+writeout_function<-function(object, filename){
+  setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets")
+  filename<-paste0(filename, ".csv")
+  write_csv(object, filename)
+}
+
+walk2(population_rural_2000_2010_list_cleaned, names(population_rural_2000_2010_list_cleaned), 
+     writeout_function)
+```
+
+
+### Write out multiple census datasets stored as separate objects to disk (in CSV format)
+
+```{r}
+state_total_2010<-get_decennial(geography="state", 
+                                variables = "P001001",
+                                year = 2010)
+
+state_rural_2010<-get_decennial(geography = "state", 
+                                variables = "P002005",
+                                 year = 2010)
+
+```
+
+
+```{r}
+# put objects to export in a named list
+objects_to_export<-lst(state_total_2010, state_rural_2010)
+
+walk2(objects_to_export, names(objects_to_export), writeout_function)
+```
+
+
+## Writing out other objects (i.e. maps, visualizations etc.) to disk
+
+### Using plot devices to write out multiple visualizations to a single file
+
+```{r}
+pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf")
+county_age_maps_list
+dev.off
+```
+
+
+
+
