@@ -52,6 +52,17 @@ county_age_maps_list
 dev.off
 ```
 
+### writing out multiple maps
+
+```{r}
+map_to_write<-function(map_object, map_name){
+  path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
+  filename<-paste0(path, map_name, ".png" )
+  tmap_save(map_object, filename)
+}
+
+map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write)
+```
 
 
 

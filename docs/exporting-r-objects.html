@@ -217,6 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#writing-out-other-objects-i.e.-maps-visualizations-etc.-to-disk"><i class="fa fa-check"></i><b>10.2</b> Writing out other objects (i.e. maps, visualizations etc.) to disk</a>
 <ul>
 <li class="chapter" data-level="10.2.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#using-plot-devices-to-write-out-multiple-visualizations-to-a-single-file"><i class="fa fa-check"></i><b>10.2.1</b> Using plot devices to write out multiple visualizations to a single file</a></li>
+<li class="chapter" data-level="10.2.2" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#writing-out-multiple-maps"><i class="fa fa-check"></i><b>10.2.2</b> writing out multiple maps</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II American Community Survey (ACS)</b></span></li>
@@ -326,8 +327,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     .External(C_devoff, as.integer(which))
 ##     dev.cur()
 ## }
-## &lt;bytecode: 0x7f96077f8950&gt;
+## &lt;bytecode: 0x7ff21e927180&gt;
 ## &lt;environment: namespace:grDevices&gt;</code></pre>
+</div>
+<div id="writing-out-multiple-maps" class="section level3" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> writing out multiple maps</h3>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="exporting-r-objects.html#cb231-1" aria-hidden="true" tabindex="-1"></a>map_to_write<span class="ot">&lt;-</span><span class="cf">function</span>(map_object, map_name){</span>
+<span id="cb231-2"><a href="exporting-r-objects.html#cb231-2" aria-hidden="true" tabindex="-1"></a>  path<span class="ot">&lt;-</span><span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/&quot;</span></span>
+<span id="cb231-3"><a href="exporting-r-objects.html#cb231-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(path, map_name, <span class="st">&quot;.png&quot;</span> )</span>
+<span id="cb231-4"><a href="exporting-r-objects.html#cb231-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tmap_save</span>(map_object, filename)</span>
+<span id="cb231-5"><a href="exporting-r-objects.html#cb231-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb231-6"><a href="exporting-r-objects.html#cb231-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-7"><a href="exporting-r-objects.html#cb231-7" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(<span class="at">.x=</span>county_age_maps_list, <span class="fu">names</span>(county_age_maps_list), <span class="at">.f=</span>map_to_write)</span></code></pre></div>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM.png</code></pre>
+<pre><code>## Resolution: 1973.246 by 2234.897 pixels</code></pre>
+<pre><code>## Size: 6.577485 by 7.449655 inches (300 dpi)</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT.png</code></pre>
+<pre><code>## Resolution: 1846.219 by 2388.666 pixels</code></pre>
+<pre><code>## Size: 6.154063 by 7.96222 inches (300 dpi)</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ.png</code></pre>
+<pre><code>## Resolution: 1926.395 by 2289.251 pixels</code></pre>
+<pre><code>## Size: 6.421315 by 7.630835 inches (300 dpi)</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY.png</code></pre>
+<pre><code>## Resolution: 2373.245 by 1858.215 pixels</code></pre>
+<pre><code>## Size: 7.910818 by 6.19405 inches (300 dpi)</code></pre>
+<pre><code>## $NM
+## NULL
+## 
+## $UT
+## NULL
+## 
+## $AZ
+## NULL
+## 
+## $WY
+## NULL</code></pre>
 
 </div>
 </div>
