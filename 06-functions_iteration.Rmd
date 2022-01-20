@@ -120,9 +120,3 @@ names(county_age_maps_list)<-state_codes
 county_age_maps_list %>% pluck("AZ")
 ```
 
-
-
-
-
-
-

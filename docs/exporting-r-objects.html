@@ -321,16 +321,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $AZ</code></pre>
 <pre><code>## 
 ## $WY</code></pre>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a>dev.off</span></code></pre></div>
-<pre><code>## function (which = dev.cur()) 
-## {
-##     if (which == 1) 
-##         stop(&quot;cannot shut down device 1 (the null device)&quot;)
-##     .External(C_devoff, as.integer(which))
-##     dev.cur()
-## }
-## &lt;bytecode: 0x7ff21e927180&gt;
-## &lt;environment: namespace:grDevices&gt;</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## pdf 
+##   5</code></pre>
 </div>
 <div id="writing-out-multiple-maps-png" class="section level3" number="10.2.2">
 <h3><span class="header-section-number">10.2.2</span> writing out multiple maps (PNG)</h3>
@@ -458,6 +451,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## $WY
 ## NULL</code></pre>
+<p>Use pdf viewer to write out multiple visualizations to a single pdf</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="exporting-r-objects.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_viz.pdf&quot;</span>)</span>
+<span id="cb283-2"><a href="exporting-r-objects.html#cb283-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list</span></code></pre></div>
+<pre><code>## $NM</code></pre>
+<pre><code>## 
+## $UT</code></pre>
+<pre><code>## 
+## $AZ</code></pre>
+<pre><code>## 
+## $WY</code></pre>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="exporting-r-objects.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## pdf 
+##   5</code></pre>
+<p>Write out ggplot visualizations as separate png files</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="exporting-r-objects.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># separate pngs</span></span>
+<span id="cb290-2"><a href="exporting-r-objects.html#cb290-2" aria-hidden="true" tabindex="-1"></a>plot_save<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename){</span>
+<span id="cb290-3"><a href="exporting-r-objects.html#cb290-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations&quot;</span>)</span>
+<span id="cb290-4"><a href="exporting-r-objects.html#cb290-4" aria-hidden="true" tabindex="-1"></a>  filename_string<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, <span class="st">&quot;.png&quot;</span>)</span>
+<span id="cb290-5"><a href="exporting-r-objects.html#cb290-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(filename_string)</span>
+<span id="cb290-6"><a href="exporting-r-objects.html#cb290-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
+<span id="cb290-7"><a href="exporting-r-objects.html#cb290-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb290-8"><a href="exporting-r-objects.html#cb290-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb290-9"><a href="exporting-r-objects.html#cb290-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb290-10"><a href="exporting-r-objects.html#cb290-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb290-11"><a href="exporting-r-objects.html#cb290-11" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(county_age_graphs_list, <span class="fu">names</span>(county_age_graphs_list), plot_save)</span></code></pre></div>
+<p>Write out ggplot visualizations as separate pdf files</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="exporting-r-objects.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="co"># separate pdfs </span></span>
+<span id="cb291-2"><a href="exporting-r-objects.html#cb291-2" aria-hidden="true" tabindex="-1"></a>plot_save<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename){</span>
+<span id="cb291-3"><a href="exporting-r-objects.html#cb291-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations&quot;</span>)</span>
+<span id="cb291-4"><a href="exporting-r-objects.html#cb291-4" aria-hidden="true" tabindex="-1"></a>  filename_string<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, <span class="st">&quot;.pdf&quot;</span>)</span>
+<span id="cb291-5"><a href="exporting-r-objects.html#cb291-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(filename_string)</span>
+<span id="cb291-6"><a href="exporting-r-objects.html#cb291-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
+<span id="cb291-7"><a href="exporting-r-objects.html#cb291-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb291-8"><a href="exporting-r-objects.html#cb291-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb291-9"><a href="exporting-r-objects.html#cb291-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb291-10"><a href="exporting-r-objects.html#cb291-10" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(county_age_graphs_list, <span class="fu">names</span>(county_age_graphs_list), plot_save)</span></code></pre></div>
 
 </div>
 </div>

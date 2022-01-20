@@ -49,7 +49,7 @@ walk2(objects_to_export, names(objects_to_export), writeout_function)
 ```{r}
 pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf")
 county_age_maps_list
-dev.off
+dev.off()
 ```
 
 ### writing out multiple maps (PNG)
@@ -99,6 +99,56 @@ inputlist<-list(county_age_maps_list, names(county_age_maps_list), ".jpeg")
 pmap(inputlist, map_to_write)
 
 ```
+
+
+Use pdf viewer to write out multiple visualizations to a single pdf
+```{r}
+pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_viz.pdf")
+county_age_graphs_list
+dev.off()
+```
+
+Write out ggplot visualizations as separate png files 
+```{r}
+# separate pngs
+plot_save<-function(plot, filename){
+  setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations")
+  filename_string<-paste0(filename, ".png")
+  png(filename_string)
+  print(plot)
+  dev.off()
+}
+
+
+walk2(county_age_graphs_list, names(county_age_graphs_list), plot_save)
+
+```
+
+
+Write out ggplot visualizations as separate pdf files 
+
+```{r}
+# separate pdfs 
+plot_save<-function(plot, filename){
+  setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations")
+  filename_string<-paste0(filename, ".pdf")
+  pdf(filename_string)
+  print(plot)
+  dev.off()
+}
+
+walk2(county_age_graphs_list, names(county_age_graphs_list), plot_save)
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
