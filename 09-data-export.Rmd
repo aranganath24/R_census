@@ -44,7 +44,7 @@ walk2(objects_to_export, names(objects_to_export), writeout_function)
 
 ## Writing out other objects (i.e. maps, visualizations etc.) to disk
 
-### Using plot devices to write out multiple visualizations to a single file
+### Using plot devices to write out multiple maps to a single file
 
 ```{r}
 pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf")
@@ -52,16 +52,52 @@ county_age_maps_list
 dev.off
 ```
 
-### writing out multiple maps
+### writing out multiple maps (PNG)
 
 ```{r}
-map_to_write<-function(map_object, map_name){
+map_to_write_png<-function(map_object, map_name){
   path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
   filename<-paste0(path, map_name, ".png" )
   tmap_save(map_object, filename)
 }
 
-map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write)
+map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write_png)
+```
+
+### writing out multiple maps (PDF)
+
+```{r}
+map_to_write_pdf<-function(map_object, map_name){
+  path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
+  filename<-paste0(path, map_name, ".pdf" )
+  tmap_save(map_object, filename)
+}
+
+map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write_pdf)
+```
+
+
+### generalizing function
+
+```{r}
+map_to_write<-function(map_object, map_name, extension){
+  path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
+  filename<-paste0(path, map_name, extension)
+  tmap_save(map_object, filename)
+}
+
+# inputlist
+inputlist<-list(county_age_maps_list, names(county_age_maps_list), ".png")
+
+# writes png files
+pmap(inputlist, map_to_write)
+
+# inputlist
+inputlist<-list(county_age_maps_list, names(county_age_maps_list), ".jpeg")
+
+# writes jpeg files
+pmap(inputlist, map_to_write)
+
 ```
 
 

@@ -44,6 +44,8 @@ writing-out-census-datasets-as-csv-files
 write-out-multiple-census-datasets-stored-a-list-to-disk-in-csv-format
 write-out-multiple-census-datasets-stored-as-separate-objects-to-disk-in-csv-format
 writing-out-other-objects-i.e.-maps-visualizations-etc.-to-disk
-using-plot-devices-to-write-out-multiple-visualizations-to-a-single-file
-writing-out-multiple-maps
+using-plot-devices-to-write-out-multiple-maps-to-a-single-file
+writing-out-multiple-maps-png
+writing-out-multiple-maps-pdf
+generalizing-function
 acs-data-retrieval
