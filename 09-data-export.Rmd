@@ -57,7 +57,7 @@ dev.off()
 ```{r}
 map_to_write_png<-function(map_object, map_name){
   path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
-  filename<-paste0(path, map_name, ".png" )
+  filename<-paste0(path, map_name, "_age_map", ".png" )
   tmap_save(map_object, filename)
 }
 
@@ -69,7 +69,7 @@ map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write_png)
 ```{r}
 map_to_write_pdf<-function(map_object, map_name){
   path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
-  filename<-paste0(path, map_name, ".pdf" )
+  filename<-paste0(path, map_name, "_age_map", ".pdf" )
   tmap_save(map_object, filename)
 }
 
@@ -141,6 +141,29 @@ walk2(county_age_graphs_list, names(county_age_graphs_list), plot_save)
 ```
 
 
+```{r}
+plot_save_general<-function(plot, filename, extension){
+  setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations")
+  filename_string<-paste0(filename, extension)
+  if(extension==".pdf"){
+    pdf(filename_string)
+  } else {
+    if (extension==".png"){
+      png(filename_string)
+    } else {
+      if (extension==".jpeg"){
+        jpeg(filename_string)
+      }
+    }
+  }
+print(plot)
+dev.off()
+}
+
+inputlist<-list(county_age_graphs_list, names(county_age_maps_list), ".jpeg")
+pmap(inputlist, plot_save_general)
+
+```
 
 
 

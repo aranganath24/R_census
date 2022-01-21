@@ -323,7 +323,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $WY</code></pre>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## pdf 
-##   5</code></pre>
+##   7</code></pre>
 </div>
 <div id="writing-out-multiple-maps-png" class="section level3" number="10.2.2">
 <h3><span class="header-section-number">10.2.2</span> writing out multiple maps (PNG)</h3>
@@ -463,7 +463,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $WY</code></pre>
 <div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="exporting-r-objects.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## pdf 
-##   5</code></pre>
+##   7</code></pre>
 <p>Write out ggplot visualizations as separate png files</p>
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="exporting-r-objects.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># separate pngs</span></span>
 <span id="cb290-2"><a href="exporting-r-objects.html#cb290-2" aria-hidden="true" tabindex="-1"></a>plot_save<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename){</span>
@@ -487,6 +487,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb291-8"><a href="exporting-r-objects.html#cb291-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb291-9"><a href="exporting-r-objects.html#cb291-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb291-10"><a href="exporting-r-objects.html#cb291-10" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(county_age_graphs_list, <span class="fu">names</span>(county_age_graphs_list), plot_save)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="exporting-r-objects.html#cb292-1" aria-hidden="true" tabindex="-1"></a>plot_save_general<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename, extension){</span>
+<span id="cb292-2"><a href="exporting-r-objects.html#cb292-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations&quot;</span>)</span>
+<span id="cb292-3"><a href="exporting-r-objects.html#cb292-3" aria-hidden="true" tabindex="-1"></a>  filename_string<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, extension)</span>
+<span id="cb292-4"><a href="exporting-r-objects.html#cb292-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(extension<span class="sc">==</span><span class="st">&quot;.pdf&quot;</span>){</span>
+<span id="cb292-5"><a href="exporting-r-objects.html#cb292-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(filename_string)</span>
+<span id="cb292-6"><a href="exporting-r-objects.html#cb292-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb292-7"><a href="exporting-r-objects.html#cb292-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (extension<span class="sc">==</span><span class="st">&quot;.png&quot;</span>){</span>
+<span id="cb292-8"><a href="exporting-r-objects.html#cb292-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">png</span>(filename_string)</span>
+<span id="cb292-9"><a href="exporting-r-objects.html#cb292-9" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb292-10"><a href="exporting-r-objects.html#cb292-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (extension<span class="sc">==</span><span class="st">&quot;.jpeg&quot;</span>){</span>
+<span id="cb292-11"><a href="exporting-r-objects.html#cb292-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">jpeg</span>(filename_string)</span>
+<span id="cb292-12"><a href="exporting-r-objects.html#cb292-12" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb292-13"><a href="exporting-r-objects.html#cb292-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb292-14"><a href="exporting-r-objects.html#cb292-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb292-15"><a href="exporting-r-objects.html#cb292-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot)</span>
+<span id="cb292-16"><a href="exporting-r-objects.html#cb292-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb292-17"><a href="exporting-r-objects.html#cb292-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb292-18"><a href="exporting-r-objects.html#cb292-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-19"><a href="exporting-r-objects.html#cb292-19" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, <span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;.jpeg&quot;</span>)</span>
+<span id="cb292-20"><a href="exporting-r-objects.html#cb292-20" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(inputlist, plot_save_general)</span></code></pre></div>
+<pre><code>## $NM
+## pdf 
+##   7 
+## 
+## $UT
+## pdf 
+##   7 
+## 
+## $AZ
+## pdf 
+##   7 
+## 
+## $WY
+## pdf 
+##   7</code></pre>
 
 </div>
 </div>
