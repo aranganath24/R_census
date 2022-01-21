@@ -76,7 +76,6 @@ map_to_write_pdf<-function(map_object, map_name){
 map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write_pdf)
 ```
 
-
 ### generalizing function
 
 ```{r}
@@ -86,20 +85,23 @@ map_to_write<-function(map_object, map_name, extension){
   tmap_save(map_object, filename)
 }
 
+# create name vector
+listnames<-names(county_age_maps_list)
+mapnames<-paste0(listnames, "_age_map")
+
 # inputlist
-inputlist<-list(county_age_maps_list, names(county_age_maps_list), ".png")
+inputlist<-list(county_age_maps_list, mapnames, ".png")
 
 # writes png files
 pmap(inputlist, map_to_write)
 
 # inputlist
-inputlist<-list(county_age_maps_list, names(county_age_maps_list), ".jpeg")
+inputlist<-list(county_age_maps_list, mapnames, ".jpeg")
 
 # writes jpeg files
 pmap(inputlist, map_to_write)
 
 ```
-
 
 Use pdf viewer to write out multiple visualizations to a single pdf
 ```{r}

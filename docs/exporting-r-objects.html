@@ -322,28 +322,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 
 ## $WY</code></pre>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## pdf 
-##   7</code></pre>
+<pre><code>## quartz_off_screen 
+##                 2</code></pre>
 </div>
 <div id="writing-out-multiple-maps-png" class="section level3" number="10.2.2">
 <h3><span class="header-section-number">10.2.2</span> writing out multiple maps (PNG)</h3>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="exporting-r-objects.html#cb231-1" aria-hidden="true" tabindex="-1"></a>map_to_write_png<span class="ot">&lt;-</span><span class="cf">function</span>(map_object, map_name){</span>
 <span id="cb231-2"><a href="exporting-r-objects.html#cb231-2" aria-hidden="true" tabindex="-1"></a>  path<span class="ot">&lt;-</span><span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/&quot;</span></span>
-<span id="cb231-3"><a href="exporting-r-objects.html#cb231-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(path, map_name, <span class="st">&quot;.png&quot;</span> )</span>
+<span id="cb231-3"><a href="exporting-r-objects.html#cb231-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(path, map_name, <span class="st">&quot;_age_map&quot;</span>, <span class="st">&quot;.png&quot;</span> )</span>
 <span id="cb231-4"><a href="exporting-r-objects.html#cb231-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tmap_save</span>(map_object, filename)</span>
 <span id="cb231-5"><a href="exporting-r-objects.html#cb231-5" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb231-6"><a href="exporting-r-objects.html#cb231-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb231-7"><a href="exporting-r-objects.html#cb231-7" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(<span class="at">.x=</span>county_age_maps_list, <span class="fu">names</span>(county_age_maps_list), <span class="at">.f=</span>map_to_write_png)</span></code></pre></div>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM_age_map.png</code></pre>
 <pre><code>## Resolution: 1973.246 by 2234.897 pixels</code></pre>
 <pre><code>## Size: 6.577485 by 7.449655 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT_age_map.png</code></pre>
 <pre><code>## Resolution: 1846.219 by 2388.666 pixels</code></pre>
 <pre><code>## Size: 6.154063 by 7.96222 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ_age_map.png</code></pre>
 <pre><code>## Resolution: 1926.395 by 2289.251 pixels</code></pre>
 <pre><code>## Size: 6.421315 by 7.630835 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY_age_map.png</code></pre>
 <pre><code>## Resolution: 2373.245 by 1858.215 pixels</code></pre>
 <pre><code>## Size: 7.910818 by 6.19405 inches (300 dpi)</code></pre>
 <pre><code>## $NM
@@ -362,18 +362,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">10.2.3</span> writing out multiple maps (PDF)</h3>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="exporting-r-objects.html#cb245-1" aria-hidden="true" tabindex="-1"></a>map_to_write_pdf<span class="ot">&lt;-</span><span class="cf">function</span>(map_object, map_name){</span>
 <span id="cb245-2"><a href="exporting-r-objects.html#cb245-2" aria-hidden="true" tabindex="-1"></a>  path<span class="ot">&lt;-</span><span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/&quot;</span></span>
-<span id="cb245-3"><a href="exporting-r-objects.html#cb245-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(path, map_name, <span class="st">&quot;.pdf&quot;</span> )</span>
+<span id="cb245-3"><a href="exporting-r-objects.html#cb245-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(path, map_name, <span class="st">&quot;_age_map&quot;</span>, <span class="st">&quot;.pdf&quot;</span> )</span>
 <span id="cb245-4"><a href="exporting-r-objects.html#cb245-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tmap_save</span>(map_object, filename)</span>
 <span id="cb245-5"><a href="exporting-r-objects.html#cb245-5" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb245-6"><a href="exporting-r-objects.html#cb245-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb245-7"><a href="exporting-r-objects.html#cb245-7" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(<span class="at">.x=</span>county_age_maps_list, <span class="fu">names</span>(county_age_maps_list), <span class="at">.f=</span>map_to_write_pdf)</span></code></pre></div>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM.pdf</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM_age_map.pdf</code></pre>
 <pre><code>## Size: 6.569444 by 7.444444 inches</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT.pdf</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT_age_map.pdf</code></pre>
 <pre><code>## Size: 6.152778 by 7.958333 inches</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ.pdf</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ_age_map.pdf</code></pre>
 <pre><code>## Size: 6.416667 by 7.625 inches</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY.pdf</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY_age_map.pdf</code></pre>
 <pre><code>## Size: 7.902778 by 6.180556 inches</code></pre>
 <pre><code>## $NM
 ## NULL
@@ -395,21 +395,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb255-4"><a href="exporting-r-objects.html#cb255-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tmap_save</span>(map_object, filename)</span>
 <span id="cb255-5"><a href="exporting-r-objects.html#cb255-5" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb255-6"><a href="exporting-r-objects.html#cb255-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-7"><a href="exporting-r-objects.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="co"># inputlist</span></span>
-<span id="cb255-8"><a href="exporting-r-objects.html#cb255-8" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, <span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;.png&quot;</span>)</span>
-<span id="cb255-9"><a href="exporting-r-objects.html#cb255-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-10"><a href="exporting-r-objects.html#cb255-10" aria-hidden="true" tabindex="-1"></a><span class="co"># writes png files</span></span>
-<span id="cb255-11"><a href="exporting-r-objects.html#cb255-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(inputlist, map_to_write)</span></code></pre></div>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM.png</code></pre>
+<span id="cb255-7"><a href="exporting-r-objects.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create name vector</span></span>
+<span id="cb255-8"><a href="exporting-r-objects.html#cb255-8" aria-hidden="true" tabindex="-1"></a>listnames<span class="ot">&lt;-</span><span class="fu">names</span>(county_age_maps_list)</span>
+<span id="cb255-9"><a href="exporting-r-objects.html#cb255-9" aria-hidden="true" tabindex="-1"></a>mapnames<span class="ot">&lt;-</span><span class="fu">paste0</span>(listnames, <span class="st">&quot;_age_map&quot;</span>)</span>
+<span id="cb255-10"><a href="exporting-r-objects.html#cb255-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-11"><a href="exporting-r-objects.html#cb255-11" aria-hidden="true" tabindex="-1"></a><span class="co"># inputlist</span></span>
+<span id="cb255-12"><a href="exporting-r-objects.html#cb255-12" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, mapnames, <span class="st">&quot;.png&quot;</span>)</span>
+<span id="cb255-13"><a href="exporting-r-objects.html#cb255-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-14"><a href="exporting-r-objects.html#cb255-14" aria-hidden="true" tabindex="-1"></a><span class="co"># writes png files</span></span>
+<span id="cb255-15"><a href="exporting-r-objects.html#cb255-15" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(inputlist, map_to_write)</span></code></pre></div>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM_age_map.png</code></pre>
 <pre><code>## Resolution: 1973.246 by 2234.897 pixels</code></pre>
 <pre><code>## Size: 6.577485 by 7.449655 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT_age_map.png</code></pre>
 <pre><code>## Resolution: 1846.219 by 2388.666 pixels</code></pre>
 <pre><code>## Size: 6.154063 by 7.96222 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ_age_map.png</code></pre>
 <pre><code>## Resolution: 1926.395 by 2289.251 pixels</code></pre>
 <pre><code>## Size: 6.421315 by 7.630835 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY_age_map.png</code></pre>
 <pre><code>## Resolution: 2373.245 by 1858.215 pixels</code></pre>
 <pre><code>## Size: 7.910818 by 6.19405 inches (300 dpi)</code></pre>
 <pre><code>## $NM
@@ -424,20 +428,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $WY
 ## NULL</code></pre>
 <div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="exporting-r-objects.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inputlist</span></span>
-<span id="cb269-2"><a href="exporting-r-objects.html#cb269-2" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, <span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;.jpeg&quot;</span>)</span>
+<span id="cb269-2"><a href="exporting-r-objects.html#cb269-2" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, mapnames, <span class="st">&quot;.jpeg&quot;</span>)</span>
 <span id="cb269-3"><a href="exporting-r-objects.html#cb269-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb269-4"><a href="exporting-r-objects.html#cb269-4" aria-hidden="true" tabindex="-1"></a><span class="co"># writes jpeg files</span></span>
 <span id="cb269-5"><a href="exporting-r-objects.html#cb269-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(inputlist, map_to_write)</span></code></pre></div>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM.jpeg</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/NM_age_map.jpeg</code></pre>
 <pre><code>## Resolution: 1973.246 by 2234.897 pixels</code></pre>
 <pre><code>## Size: 6.577485 by 7.449655 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT.jpeg</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/UT_age_map.jpeg</code></pre>
 <pre><code>## Resolution: 1846.219 by 2388.666 pixels</code></pre>
 <pre><code>## Size: 6.154063 by 7.96222 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ.jpeg</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/AZ_age_map.jpeg</code></pre>
 <pre><code>## Resolution: 1926.395 by 2289.251 pixels</code></pre>
 <pre><code>## Size: 6.421315 by 7.630835 inches (300 dpi)</code></pre>
-<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY.jpeg</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/WY_age_map.jpeg</code></pre>
 <pre><code>## Resolution: 2373.245 by 1858.215 pixels</code></pre>
 <pre><code>## Size: 7.910818 by 6.19405 inches (300 dpi)</code></pre>
 <pre><code>## $NM
@@ -462,8 +466,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 
 ## $WY</code></pre>
 <div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="exporting-r-objects.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## pdf 
-##   7</code></pre>
+<pre><code>## quartz_off_screen 
+##                 2</code></pre>
 <p>Write out ggplot visualizations as separate png files</p>
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="exporting-r-objects.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="co"># separate pngs</span></span>
 <span id="cb290-2"><a href="exporting-r-objects.html#cb290-2" aria-hidden="true" tabindex="-1"></a>plot_save<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename){</span>
@@ -508,20 +512,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb292-19"><a href="exporting-r-objects.html#cb292-19" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, <span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;.jpeg&quot;</span>)</span>
 <span id="cb292-20"><a href="exporting-r-objects.html#cb292-20" aria-hidden="true" tabindex="-1"></a><span class="fu">pmap</span>(inputlist, plot_save_general)</span></code></pre></div>
 <pre><code>## $NM
-## pdf 
-##   7 
+## quartz_off_screen 
+##                 2 
 ## 
 ## $UT
-## pdf 
-##   7 
+## quartz_off_screen 
+##                 2 
 ## 
 ## $AZ
-## pdf 
-##   7 
+## quartz_off_screen 
+##                 2 
 ## 
 ## $WY
-## pdf 
-##   7</code></pre>
+## quartz_off_screen 
+##                 2</code></pre>
 
 </div>
 </div>
