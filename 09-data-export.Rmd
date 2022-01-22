@@ -30,12 +30,16 @@ median_age_CO_map
 tmap_save(median_age_CO_map, "median_age_CO_map.png")
 ```
 
-```{r}
-tmap_save(median_age_CO_map, "/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.png")
+```{r, fig.cap="Colorado median age map exported to working directory as png file", echo=FALSE}
+knitr::include_graphics("pictures/pic4.png")
 ```
 
 ```{r}
 tmap_save(median_age_CO_map, "/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf")
+```
+
+```{r, fig.cap=" Colorado median age map exported to dedicated directory as PDF file", echo=FALSE}
+knitr::include_graphics("pictures/pic5.png")
 ```
 
 ### Exporting a single ggplot visualization to disk as a png, jpeg, or PDF file with "ggsave"
@@ -48,8 +52,16 @@ median_age_CO_cleaned_visualization
 ggsave("CO_median_age_graph.png", median_age_CO_cleaned_visualization)
 ```
 
+```{r, fig.cap=" Colorado median age map graph exported to working directory as png file", echo=FALSE}
+knitr::include_graphics("pictures/pic6.png")
+```
+
 ```{r}
 ggsave("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg", median_age_CO_cleaned_visualization)
+```
+
+```{r, fig.cap=" Colorado median age map graph exported to dedicated directory as jpeg file", echo=FALSE}
+knitr::include_graphics("pictures/pic7.png")
 ```
 
 ### Exporting a single ggplot or tmap visualization with a graphics device
@@ -57,7 +69,7 @@ ggsave("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/vis
 Exporting a single ```tmap``` visualization as a pdf file using a pdf device
 
 ```{r}
-pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.pdf")
+pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.pdf")
 median_age_CO_map
 dev.off()
 ```
@@ -65,7 +77,7 @@ dev.off()
 Exporting a single ```tmap``` visualization as a png file using a png device
 
 ```{r}
-png("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.png")
+png("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.png")
 median_age_CO_map
 dev.off()
 ```
