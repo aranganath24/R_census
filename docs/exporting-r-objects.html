@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-21" />
+<meta name="date" content="2022-01-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-object"><i class="fa fa-check"></i><b>10.1</b> Exporting a single object</a>
 <ul>
 <li class="chapter" data-level="10.1.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-dataset-to-disk-as-a-csv-file"><i class="fa fa-check"></i><b>10.1.1</b> Exporting a single dataset to disk as a CSV file</a></li>
-<li class="chapter" data-level="10.1.2" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-map-to-disk-as-a-png-jpeg-or-pdf-file-with-tmap_save"><i class="fa fa-check"></i><b>10.1.2</b> Exporting a single map to disk as a png, jpeg, or PDF file with “tmap_save”</a></li>
+<li class="chapter" data-level="10.1.2" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-map-to-disk-as-a-png-jpeg-or-pdf-file-with-tmap_save"><i class="fa fa-check"></i><b>10.1.2</b> Exporting a single map to disk as a png, jpeg, or PDF file with <code>tmap_save</code></a></li>
 <li class="chapter" data-level="10.1.3" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-ggplot-visualization-to-disk-as-a-png-jpeg-or-pdf-file-with-ggsave"><i class="fa fa-check"></i><b>10.1.3</b> Exporting a single ggplot visualization to disk as a png, jpeg, or PDF file with “ggsave”</a></li>
 <li class="chapter" data-level="10.1.4" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-ggplot-or-tmap-visualization-with-a-graphics-device"><i class="fa fa-check"></i><b>10.1.4</b> Exporting a single ggplot or tmap visualization with a graphics device</a></li>
 </ul></li>
@@ -252,28 +252,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exporting-a-single-dataset-to-disk-as-a-csv-file" class="section level3" number="10.1.1">
 <h3><span class="header-section-number">10.1.1</span> Exporting a single dataset to disk as a CSV file</h3>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="exporting-r-objects.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(state_population_2010, <span class="st">&quot;state_population_2010.csv&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-87"></span>
+<img src="pictures/pic2.png" alt="'state_population_2010' exported as CSV file to working directory" width="976" />
+<p class="caption">
+Figure 10.1: ‘state_population_2010’ exported as CSV file to working directory
+</p>
+</div>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="exporting-r-objects.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(state_population_2010, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets/state_population_2010.csv&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-89"></span>
+<img src="pictures/pic3.png" alt="'state_population_2010' exported as CSV file to dedicated directory named 'exported_datasets" width="961" />
+<p class="caption">
+Figure 10.2: ‘state_population_2010’ exported as CSV file to dedicated directory named ’exported_datasets
+</p>
+</div>
 </div>
 <div id="exporting-a-single-map-to-disk-as-a-png-jpeg-or-pdf-file-with-tmap_save" class="section level3" number="10.1.2">
-<h3><span class="header-section-number">10.1.2</span> Exporting a single map to disk as a png, jpeg, or PDF file with “tmap_save”</h3>
+<h3><span class="header-section-number">10.1.2</span> Exporting a single map to disk as a png, jpeg, or PDF file with <code>tmap_save</code></h3>
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="exporting-r-objects.html#cb217-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span></code></pre></div>
-<pre><code>## Warning: Values have found that are higher than the highest break</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="exporting-r-objects.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;median_age_CO_map.png&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="exporting-r-objects.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;median_age_CO_map.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Values have found that are higher than the highest break
 
 ## Warning: Values have found that are higher than the highest break</code></pre>
-<pre><code>## Map saved to median_age_CO_map.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/median_age_CO_map.png</code></pre>
 <pre><code>## Resolution: 2448.944 by 1800.776 pixels</code></pre>
 <pre><code>## Size: 8.163147 by 6.002587 inches (300 dpi)</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="exporting-r-objects.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="exporting-r-objects.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Values have found that are higher than the highest break
 
 ## Warning: Values have found that are higher than the highest break</code></pre>
 <pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.png</code></pre>
 <pre><code>## Resolution: 2448.944 by 1800.776 pixels</code></pre>
 <pre><code>## Size: 8.163147 by 6.002587 inches (300 dpi)</code></pre>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="exporting-r-objects.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Values have found that are higher than the highest break
 
 ## Warning: Values have found that are higher than the highest break</code></pre>
@@ -282,6 +293,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exporting-a-single-ggplot-visualization-to-disk-as-a-png-jpeg-or-pdf-file-with-ggsave" class="section level3" number="10.1.3">
 <h3><span class="header-section-number">10.1.3</span> Exporting a single ggplot visualization to disk as a png, jpeg, or PDF file with “ggsave”</h3>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="exporting-r-objects.html#cb232-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="exporting-r-objects.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;CO_median_age_graph.png&quot;</span>, median_age_CO_cleaned_visualization)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="exporting-r-objects.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg&quot;</span>, median_age_CO_cleaned_visualization)</span></code></pre></div>

@@ -8,13 +8,21 @@
 write_csv(state_population_2010, "state_population_2010.csv")
 ```
 
+```{r, fig.cap="'state_population_2010' exported as CSV file to working directory", echo=FALSE}
+knitr::include_graphics("pictures/pic2.png")
+```
+
 ```{r}
 write_csv(state_population_2010, "/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets/state_population_2010.csv")
 ```
 
-### Exporting a single map to disk as a png, jpeg, or PDF file with "tmap_save"
+```{r, fig.cap="'state_population_2010' exported as CSV file to dedicated directory named 'exported_datasets", echo=FALSE}
+knitr::include_graphics("pictures/pic3.png")
+```
 
-```{r}
+### Exporting a single map to disk as a png, jpeg, or PDF file with ```tmap_save```
+
+```{r, warning=FALSE, message=FALSE, fig.asp=0.5}
 median_age_CO_map
 ```
 
@@ -31,6 +39,10 @@ tmap_save(median_age_CO_map, "/Users/adra7980/Documents/git_repositories/R_censu
 ```
 
 ### Exporting a single ggplot visualization to disk as a png, jpeg, or PDF file with "ggsave"
+
+```{r}
+median_age_CO_cleaned_visualization
+```
 
 ```{r}
 ggsave("CO_median_age_graph.png", median_age_CO_cleaned_visualization)

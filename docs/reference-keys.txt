@@ -1,4 +1,6 @@
-fig:unnamed-chunk-38
+fig:unnamed-chunk-5
+fig:unnamed-chunk-87
+fig:unnamed-chunk-89
 introduction
 preliminaries
 basic-data-retrieval
