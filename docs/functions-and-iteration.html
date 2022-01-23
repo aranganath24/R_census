@@ -276,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-22"><a href="functions-and-iteration.html#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-23"><a href="functions-and-iteration.html#cb52-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Test function for New Mexico</span></span>
 <span id="cb52-24"><a href="functions-and-iteration.html#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="fu">median_age_graph</span>(<span class="st">&quot;NM&quot;</span>, <span class="st">&quot;New Mexico&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 </div>
 <div id="iteratively-apply-median_age_graph-function-to-multiple-input-elements" class="section level3" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Iteratively apply <code>median_age_graph</code> function to multiple input elements</h3>
@@ -306,25 +306,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="functions-and-iteration.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the list that contains the median age graphs</span></span>
 <span id="cb70-2"><a href="functions-and-iteration.html#cb70-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-3.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-4.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-4.png" width="672" /></p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="functions-and-iteration.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Arizona graph by its index</span></span>
 <span id="cb75-2"><a href="functions-and-iteration.html#cb75-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-5.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-5.png" width="672" /></p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="functions-and-iteration.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach names to list elements and extract by name; for convenience, we&#39;ll name list elements based on &quot;state_codes&quot; vector</span></span>
 <span id="cb76-2"><a href="functions-and-iteration.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(county_age_graphs_list)<span class="ot">&lt;-</span>state_codes</span>
 <span id="cb76-3"><a href="functions-and-iteration.html#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-4"><a href="functions-and-iteration.html#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Wyoming graph by its name</span></span>
 <span id="cb76-5"><a href="functions-and-iteration.html#cb76-5" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;WY&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-6.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-6.png" width="672" /></p>
 </div>
 </div>
 <div id="automate-creation-of-median-age-maps" class="section level2" number="7.2">
@@ -362,7 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-28"><a href="functions-and-iteration.html#cb77-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb77-29"><a href="functions-and-iteration.html#cb77-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Test function for New Mexico</span></span>
 <span id="cb77-30"><a href="functions-and-iteration.html#cb77-30" aria-hidden="true" tabindex="-1"></a><span class="fu">median_age_map</span>(<span class="st">&quot;NM&quot;</span>, <span class="st">&quot;New Mexico&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 </div>
 <div id="iteratively-apply-median_age_map-function-to-multiple-input-elements" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Iteratively apply <code>median_age_map</code> function to multiple input elements</h3>
@@ -391,25 +391,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="functions-and-iteration.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the list that contains the median age maps</span></span>
 <span id="cb95-2"><a href="functions-and-iteration.html#cb95-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-3.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-4.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-4.png" width="672" /></p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="functions-and-iteration.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Utah map by its index</span></span>
 <span id="cb100-2"><a href="functions-and-iteration.html#cb100-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-5.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-5.png" width="672" /></p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="functions-and-iteration.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach names (based on &quot;state_codes&quot; vector) to &quot;county_age_maps_list&quot; list elements </span></span>
 <span id="cb101-2"><a href="functions-and-iteration.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(county_age_maps_list)<span class="ot">&lt;-</span>state_codes</span>
 <span id="cb101-3"><a href="functions-and-iteration.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-4"><a href="functions-and-iteration.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Arizona map by name</span></span>
 <span id="cb101-5"><a href="functions-and-iteration.html#cb101-5" aria-hidden="true" tabindex="-1"></a>county_age_maps_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;AZ&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-6.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-6.png" width="672" /></p>
 
 </div>
 </div>
