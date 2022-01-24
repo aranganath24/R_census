@@ -2,3 +2,17 @@
 
 # ACS Data Retrieval
 
+To inspect the variable list for the ACS, use the “load variables” function. Let’s say we want to work with the 5-year ACS ending in 2019:
+
+```{r}
+ACS_5_2019<-load_variables(2019,"acs5")
+```
+
+```{r}
+ACS_5_2019
+```
+
+```{r}
+
+```
+

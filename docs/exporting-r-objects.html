@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Exporting R Objects | Working with Census Data in R</title>
-  <meta name="description" content="10 Exporting R Objects | Working with Census Data in R" />
+  <title>10 Exporting R Objects | Working with Census Data in R Studio</title>
+  <meta name="description" content="10 Exporting R Objects | Working with Census Data in R Studio" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Exporting R Objects | Working with Census Data in R" />
+  <meta property="og:title" content="10 Exporting R Objects | Working with Census Data in R Studio" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Exporting R Objects | Working with Census Data in R" />
+  <meta name="twitter:title" content="10 Exporting R Objects | Working with Census Data in R Studio" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-22" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a></li>
+<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#using-functions-and-iteration-to-clean-multiple-datasets"><i class="fa fa-check"></i><b>9.1</b> Using functions and iteration to clean multiple datasets</a></li>
+<li class="chapter" data-level="9.2" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#joining-datasets"><i class="fa fa-check"></i><b>9.2</b> Joining datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Exporting R Objects</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-object"><i class="fa fa-check"></i><b>10.1</b> Exporting a single object</a>
@@ -237,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R Studio</a>
           </h1>
         </div>
 
@@ -251,15 +255,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">10.1</span> Exporting a single object</h2>
 <div id="exporting-a-single-dataset-to-disk-as-a-csv-file" class="section level3" number="10.1.1">
 <h3><span class="header-section-number">10.1.1</span> Exporting a single dataset to disk as a CSV file</h3>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="exporting-r-objects.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(state_population_2010, <span class="st">&quot;state_population_2010.csv&quot;</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-99"></span>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="exporting-r-objects.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(state_population_2010, <span class="st">&quot;state_population_2010.csv&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-132"></span>
 <img src="pictures/pic2.png" alt="'state_population_2010' exported as CSV file to working directory" width="976" />
 <p class="caption">
 Figure 10.1: ‘state_population_2010’ exported as CSV file to working directory
 </p>
 </div>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="exporting-r-objects.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(state_population_2010, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets/state_population_2010.csv&quot;</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-101"></span>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="exporting-r-objects.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(state_population_2010, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets/state_population_2010.csv&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-134"></span>
 <img src="pictures/pic3.png" alt="'state_population_2010' exported as CSV file to dedicated directory named 'exported_datasets" width="961" />
 <p class="caption">
 Figure 10.2: ‘state_population_2010’ exported as CSV file to dedicated directory named ’exported_datasets
@@ -268,22 +272,22 @@ Figure 10.2: ‘state_population_2010’ exported as CSV file to dedicated direc
 </div>
 <div id="exporting-a-single-map-to-disk-as-a-png-jpeg-or-pdf-file-with-tmap_save" class="section level3" number="10.1.2">
 <h3><span class="header-section-number">10.1.2</span> Exporting a single map to disk as a png, jpeg, or PDF file with <code>tmap_save</code></h3>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="exporting-r-objects.html#cb217-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="exporting-r-objects.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;median_age_CO_map.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="exporting-r-objects.html#cb229-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="exporting-r-objects.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;median_age_CO_map.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/median_age_CO_map.png</code></pre>
 <pre><code>## Resolution: 2448.944 by 1800.776 pixels</code></pre>
 <pre><code>## Size: 8.163147 by 6.002587 inches (300 dpi)</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-104"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-137"></span>
 <img src="pictures/pic4.png" alt="Colorado median age map exported to working directory as png file" width="960" />
 <p class="caption">
 Figure 10.3: Colorado median age map exported to working directory as png file
 </p>
 </div>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="exporting-r-objects.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="exporting-r-objects.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(median_age_CO_map, <span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf&quot;</span>)</span></code></pre></div>
 <pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf</code></pre>
 <pre><code>## Size: 8.152778 by 6 inches</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-106"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-139"></span>
 <img src="pictures/pic5.png" alt=" Colorado median age map exported to dedicated directory as PDF file" width="956" />
 <p class="caption">
 Figure 10.4:  Colorado median age map exported to dedicated directory as PDF file
@@ -292,19 +296,19 @@ Figure 10.4:  Colorado median age map exported to dedicated directory as PDF fil
 </div>
 <div id="exporting-a-single-ggplot-visualization-to-disk-as-a-png-jpeg-or-pdf-file-with-ggsave" class="section level3" number="10.1.3">
 <h3><span class="header-section-number">10.1.3</span> Exporting a single ggplot visualization to disk as a png, jpeg, or PDF file with “ggsave”</h3>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="exporting-r-objects.html#cb225-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="exporting-r-objects.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;CO_median_age_graph.png&quot;</span>, median_age_CO_cleaned_visualization)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="exporting-r-objects.html#cb237-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="exporting-r-objects.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;CO_median_age_graph.png&quot;</span>, median_age_CO_cleaned_visualization)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-109"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-142"></span>
 <img src="pictures/pic6.png" alt=" Colorado median age map graph exported to working directory as png file" width="919" />
 <p class="caption">
 Figure 10.5:  Colorado median age map graph exported to working directory as png file
 </p>
 </div>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="exporting-r-objects.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg&quot;</span>, median_age_CO_cleaned_visualization)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="exporting-r-objects.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg&quot;</span>, median_age_CO_cleaned_visualization)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-111"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-144"></span>
 <img src="pictures/pic7.png" alt=" Colorado median age map graph exported to dedicated directory as jpeg file" width="886" />
 <p class="caption">
 Figure 10.6:  Colorado median age map graph exported to dedicated directory as jpeg file
@@ -314,21 +318,21 @@ Figure 10.6:  Colorado median age map graph exported to dedicated directory as j
 <div id="exporting-a-single-ggplot-or-tmap-visualization-with-a-graphics-device" class="section level3" number="10.1.4">
 <h3><span class="header-section-number">10.1.4</span> Exporting a single ggplot or tmap visualization with a graphics device</h3>
 <p>Exporting a single <code>tmap</code> visualization as a pdf file using a pdf device</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="exporting-r-objects.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.pdf&quot;</span>)</span>
-<span id="cb230-2"><a href="exporting-r-objects.html#cb230-2" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span>
-<span id="cb230-3"><a href="exporting-r-objects.html#cb230-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="exporting-r-objects.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.pdf&quot;</span>)</span>
+<span id="cb242-2"><a href="exporting-r-objects.html#cb242-2" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span>
+<span id="cb242-3"><a href="exporting-r-objects.html#cb242-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 <p>Exporting a single <code>tmap</code> visualization as a png file using a png device</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="exporting-r-objects.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.png&quot;</span>)</span>
-<span id="cb232-2"><a href="exporting-r-objects.html#cb232-2" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span>
-<span id="cb232-3"><a href="exporting-r-objects.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="exporting-r-objects.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.png&quot;</span>)</span>
+<span id="cb244-2"><a href="exporting-r-objects.html#cb244-2" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span>
+<span id="cb244-3"><a href="exporting-r-objects.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 <p>Exporting a single <code>ggplot</code> visualization as a jpeg file using a jpeg device</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="exporting-r-objects.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg&quot;</span>)</span>
-<span id="cb234-2"><a href="exporting-r-objects.html#cb234-2" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span>
-<span id="cb234-3"><a href="exporting-r-objects.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="exporting-r-objects.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg&quot;</span>)</span>
+<span id="cb246-2"><a href="exporting-r-objects.html#cb246-2" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span>
+<span id="cb246-3"><a href="exporting-r-objects.html#cb246-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 </div>
@@ -337,7 +341,7 @@ Figure 10.6:  Colorado median age map graph exported to dedicated directory as j
 <h2><span class="header-section-number">10.2</span> Exporting multiple objects</h2>
 <div id="exporting-multiple-csv-files-stored-in-a-list" class="section level3" number="10.2.1">
 <h3><span class="header-section-number">10.2.1</span> Exporting multiple csv files stored in a list</h3>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="exporting-r-objects.html#cb236-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_cleaned</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="exporting-r-objects.html#cb248-1" aria-hidden="true" tabindex="-1"></a>population_rural_2000_2010_list_cleaned</span></code></pre></div>
 <pre><code>## $`2000`
 ## # A tibble: 52 x 3
 ##    GEOID NAME                 rural_pct_2000
@@ -369,18 +373,18 @@ Figure 10.6:  Colorado median age map graph exported to dedicated directory as j
 ##  9 09    Connecticut          12.0 
 ## 10 10    Delaware             16.7 
 ## # … with 42 more rows</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="exporting-r-objects.html#cb238-1" aria-hidden="true" tabindex="-1"></a>writeout_function<span class="ot">&lt;-</span><span class="cf">function</span>(object, filename){</span>
-<span id="cb238-2"><a href="exporting-r-objects.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets&quot;</span>)</span>
-<span id="cb238-3"><a href="exporting-r-objects.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, <span class="st">&quot;.csv&quot;</span>)</span>
-<span id="cb238-4"><a href="exporting-r-objects.html#cb238-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(object, filename)</span>
-<span id="cb238-5"><a href="exporting-r-objects.html#cb238-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb238-6"><a href="exporting-r-objects.html#cb238-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb238-7"><a href="exporting-r-objects.html#cb238-7" aria-hidden="true" tabindex="-1"></a>filename_vector<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;rural_pct_&quot;</span>, <span class="fu">names</span>(population_rural_2000_2010_list_cleaned))</span>
-<span id="cb238-8"><a href="exporting-r-objects.html#cb238-8" aria-hidden="true" tabindex="-1"></a>filename_vector</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="exporting-r-objects.html#cb250-1" aria-hidden="true" tabindex="-1"></a>writeout_function<span class="ot">&lt;-</span><span class="cf">function</span>(object, filename){</span>
+<span id="cb250-2"><a href="exporting-r-objects.html#cb250-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets&quot;</span>)</span>
+<span id="cb250-3"><a href="exporting-r-objects.html#cb250-3" aria-hidden="true" tabindex="-1"></a>  filename<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, <span class="st">&quot;.csv&quot;</span>)</span>
+<span id="cb250-4"><a href="exporting-r-objects.html#cb250-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(object, filename)</span>
+<span id="cb250-5"><a href="exporting-r-objects.html#cb250-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb250-6"><a href="exporting-r-objects.html#cb250-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-7"><a href="exporting-r-objects.html#cb250-7" aria-hidden="true" tabindex="-1"></a>filename_vector<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;rural_pct_&quot;</span>, <span class="fu">names</span>(population_rural_2000_2010_list_cleaned))</span>
+<span id="cb250-8"><a href="exporting-r-objects.html#cb250-8" aria-hidden="true" tabindex="-1"></a>filename_vector</span></code></pre></div>
 <pre><code>## [1] &quot;rural_pct_2000&quot; &quot;rural_pct_2010&quot;</code></pre>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="exporting-r-objects.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(population_rural_2000_2010_list_cleaned, filename_vector, </span>
-<span id="cb240-2"><a href="exporting-r-objects.html#cb240-2" aria-hidden="true" tabindex="-1"></a>     writeout_function)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-117"></span>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="exporting-r-objects.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(population_rural_2000_2010_list_cleaned, filename_vector, </span>
+<span id="cb252-2"><a href="exporting-r-objects.html#cb252-2" aria-hidden="true" tabindex="-1"></a>     writeout_function)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-150"></span>
 <img src="pictures/pic8.png" alt="Rural pct by state, for 2000 and 2010, exported to dedicated directory as CSV files" width="1054" />
 <p class="caption">
 Figure 10.7: Rural pct by state, for 2000 and 2010, exported to dedicated directory as CSV files
@@ -389,25 +393,25 @@ Figure 10.7: Rural pct by state, for 2000 and 2010, exported to dedicated direct
 </div>
 <div id="exporting-multiple-csv-files-stored-as-separate-objects-in-the-global-environment" class="section level3" number="10.2.2">
 <h3><span class="header-section-number">10.2.2</span> Exporting multiple csv files stored as separate objects in the global environment</h3>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="exporting-r-objects.html#cb241-1" aria-hidden="true" tabindex="-1"></a>state_total_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography=</span><span class="st">&quot;state&quot;</span>, </span>
-<span id="cb241-2"><a href="exporting-r-objects.html#cb241-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
-<span id="cb241-3"><a href="exporting-r-objects.html#cb241-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="exporting-r-objects.html#cb253-1" aria-hidden="true" tabindex="-1"></a>state_total_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography=</span><span class="st">&quot;state&quot;</span>, </span>
+<span id="cb253-2"><a href="exporting-r-objects.html#cb253-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb253-3"><a href="exporting-r-objects.html#cb253-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
 <pre><code>## Getting data from the 2010 decennial Census</code></pre>
 <pre><code>## Using Census Summary File 1</code></pre>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="exporting-r-objects.html#cb244-1" aria-hidden="true" tabindex="-1"></a>state_rural_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
-<span id="cb244-2"><a href="exporting-r-objects.html#cb244-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">variables =</span> <span class="st">&quot;P002005&quot;</span>,</span>
-<span id="cb244-3"><a href="exporting-r-objects.html#cb244-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="exporting-r-objects.html#cb256-1" aria-hidden="true" tabindex="-1"></a>state_rural_2010<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb256-2"><a href="exporting-r-objects.html#cb256-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">variables =</span> <span class="st">&quot;P002005&quot;</span>,</span>
+<span id="cb256-3"><a href="exporting-r-objects.html#cb256-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div>
 <pre><code>## Getting data from the 2010 decennial Census
 ## Using Census Summary File 1</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="exporting-r-objects.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put objects to export in a named list</span></span>
-<span id="cb246-2"><a href="exporting-r-objects.html#cb246-2" aria-hidden="true" tabindex="-1"></a>objects_to_export<span class="ot">&lt;-</span><span class="fu">lst</span>(state_total_2010, state_rural_2010)</span>
-<span id="cb246-3"><a href="exporting-r-objects.html#cb246-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb246-4"><a href="exporting-r-objects.html#cb246-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create filename vector</span></span>
-<span id="cb246-5"><a href="exporting-r-objects.html#cb246-5" aria-hidden="true" tabindex="-1"></a>filename_vector<span class="ot">&lt;-</span><span class="fu">names</span>(objects_to_export)</span>
-<span id="cb246-6"><a href="exporting-r-objects.html#cb246-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb246-7"><a href="exporting-r-objects.html#cb246-7" aria-hidden="true" tabindex="-1"></a><span class="co"># write out census datasets as CSV files</span></span>
-<span id="cb246-8"><a href="exporting-r-objects.html#cb246-8" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(objects_to_export, filename_vector, writeout_function)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-120"></span>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="exporting-r-objects.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put objects to export in a named list</span></span>
+<span id="cb258-2"><a href="exporting-r-objects.html#cb258-2" aria-hidden="true" tabindex="-1"></a>objects_to_export<span class="ot">&lt;-</span><span class="fu">lst</span>(state_total_2010, state_rural_2010)</span>
+<span id="cb258-3"><a href="exporting-r-objects.html#cb258-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-4"><a href="exporting-r-objects.html#cb258-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create filename vector</span></span>
+<span id="cb258-5"><a href="exporting-r-objects.html#cb258-5" aria-hidden="true" tabindex="-1"></a>filename_vector<span class="ot">&lt;-</span><span class="fu">names</span>(objects_to_export)</span>
+<span id="cb258-6"><a href="exporting-r-objects.html#cb258-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-7"><a href="exporting-r-objects.html#cb258-7" aria-hidden="true" tabindex="-1"></a><span class="co"># write out census datasets as CSV files</span></span>
+<span id="cb258-8"><a href="exporting-r-objects.html#cb258-8" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(objects_to_export, filename_vector, writeout_function)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-153"></span>
 <img src="pictures/pic9.png" alt="'state_total_2010, and 'state_rural_2010', exported to dedicated directory as CSV files" width="1092" />
 <p class="caption">
 Figure 10.8: ‘state_total_2010, and ’state_rural_2010’, exported to dedicated directory as CSV files
@@ -417,8 +421,8 @@ Figure 10.8: ‘state_total_2010, and ’state_rural_2010’, exported to dedica
 <div id="using-a-graphics-device-to-export-multiple-objects-from-a-list-into-a-single-pdf-file" class="section level3" number="10.2.3">
 <h3><span class="header-section-number">10.2.3</span> Using a graphics device to export multiple objects from a list into a single PDF file</h3>
 <p>Use PDF viewer to write out multiple <code>tmap</code> visualizations stored in a list to a single PDF file</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="exporting-r-objects.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf&quot;</span>)</span>
-<span id="cb247-2"><a href="exporting-r-objects.html#cb247-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="exporting-r-objects.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf&quot;</span>)</span>
+<span id="cb259-2"><a href="exporting-r-objects.html#cb259-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list</span></code></pre></div>
 <pre><code>## $NM</code></pre>
 <pre><code>## 
 ## $UT</code></pre>
@@ -426,12 +430,12 @@ Figure 10.8: ‘state_total_2010, and ’state_rural_2010’, exported to dedica
 ## $AZ</code></pre>
 <pre><code>## 
 ## $WY</code></pre>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="exporting-r-objects.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="exporting-r-objects.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 <p>Use PDF viewer to write out multiple <code>ggplot</code> visualizations stored in a list to a single PDF file</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="exporting-r-objects.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_graphs.pdf&quot;</span>)</span>
-<span id="cb254-2"><a href="exporting-r-objects.html#cb254-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="exporting-r-objects.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_graphs.pdf&quot;</span>)</span>
+<span id="cb266-2"><a href="exporting-r-objects.html#cb266-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list</span></code></pre></div>
 <pre><code>## $NM</code></pre>
 <pre><code>## 
 ## $UT</code></pre>
@@ -439,10 +443,10 @@ Figure 10.8: ‘state_total_2010, and ’state_rural_2010’, exported to dedica
 ## $AZ</code></pre>
 <pre><code>## 
 ## $WY</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="exporting-r-objects.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="exporting-r-objects.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-123"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-156"></span>
 <img src="pictures/pic10.png" alt="All of the graphs in `county_age_graphs_list` written to a single PDF file, and all of the maps in `county_age_maps_list` written to a single PDF file; the displayed file is the first graph in `county_age_graphs_list`, depicting the median age in New Mexico counties" width="892" />
 <p class="caption">
 Figure 10.9: All of the graphs in <code>county_age_graphs_list</code> written to a single PDF file, and all of the maps in <code>county_age_maps_list</code> written to a single PDF file; the displayed file is the first graph in <code>county_age_graphs_list</code>, depicting the median age in New Mexico counties
@@ -451,63 +455,63 @@ Figure 10.9: All of the graphs in <code>county_age_graphs_list</code> written to
 </div>
 <div id="writing-out-multiple-tmap-or-ggplot-objects-as-separate-files" class="section level3" number="10.2.4">
 <h3><span class="header-section-number">10.2.4</span> Writing out multiple “tmap” or “ggplot” objects as separate files</h3>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="exporting-r-objects.html#cb261-1" aria-hidden="true" tabindex="-1"></a>viz_save_general<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename, extension){</span>
-<span id="cb261-2"><a href="exporting-r-objects.html#cb261-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations&quot;</span>)</span>
-<span id="cb261-3"><a href="exporting-r-objects.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  filename_string<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, extension)</span>
-<span id="cb261-4"><a href="exporting-r-objects.html#cb261-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(extension<span class="sc">==</span><span class="st">&quot;.pdf&quot;</span>){</span>
-<span id="cb261-5"><a href="exporting-r-objects.html#cb261-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(filename_string)</span>
-<span id="cb261-6"><a href="exporting-r-objects.html#cb261-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb261-7"><a href="exporting-r-objects.html#cb261-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (extension<span class="sc">==</span><span class="st">&quot;.png&quot;</span>){</span>
-<span id="cb261-8"><a href="exporting-r-objects.html#cb261-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">png</span>(filename_string)</span>
-<span id="cb261-9"><a href="exporting-r-objects.html#cb261-9" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb261-10"><a href="exporting-r-objects.html#cb261-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (extension<span class="sc">==</span><span class="st">&quot;.jpeg&quot;</span>){</span>
-<span id="cb261-11"><a href="exporting-r-objects.html#cb261-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">jpeg</span>(filename_string)</span>
-<span id="cb261-12"><a href="exporting-r-objects.html#cb261-12" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb261-13"><a href="exporting-r-objects.html#cb261-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb261-14"><a href="exporting-r-objects.html#cb261-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb261-15"><a href="exporting-r-objects.html#cb261-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot)</span>
-<span id="cb261-16"><a href="exporting-r-objects.html#cb261-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
-<span id="cb261-17"><a href="exporting-r-objects.html#cb261-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="exporting-r-objects.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># writes out tmap objects from &quot;county_age_maps_list&quot; as separate jpeg files</span></span>
-<span id="cb262-2"><a href="exporting-r-objects.html#cb262-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_MAP&quot;</span>)</span>
-<span id="cb262-3"><a href="exporting-r-objects.html#cb262-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, filenames, <span class="st">&quot;.jpeg&quot;</span>)</span>
-<span id="cb262-4"><a href="exporting-r-objects.html#cb262-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-126"></span>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="exporting-r-objects.html#cb273-1" aria-hidden="true" tabindex="-1"></a>viz_save_general<span class="ot">&lt;-</span><span class="cf">function</span>(plot, filename, extension){</span>
+<span id="cb273-2"><a href="exporting-r-objects.html#cb273-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations&quot;</span>)</span>
+<span id="cb273-3"><a href="exporting-r-objects.html#cb273-3" aria-hidden="true" tabindex="-1"></a>  filename_string<span class="ot">&lt;-</span><span class="fu">paste0</span>(filename, extension)</span>
+<span id="cb273-4"><a href="exporting-r-objects.html#cb273-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(extension<span class="sc">==</span><span class="st">&quot;.pdf&quot;</span>){</span>
+<span id="cb273-5"><a href="exporting-r-objects.html#cb273-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(filename_string)</span>
+<span id="cb273-6"><a href="exporting-r-objects.html#cb273-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb273-7"><a href="exporting-r-objects.html#cb273-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (extension<span class="sc">==</span><span class="st">&quot;.png&quot;</span>){</span>
+<span id="cb273-8"><a href="exporting-r-objects.html#cb273-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">png</span>(filename_string)</span>
+<span id="cb273-9"><a href="exporting-r-objects.html#cb273-9" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb273-10"><a href="exporting-r-objects.html#cb273-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (extension<span class="sc">==</span><span class="st">&quot;.jpeg&quot;</span>){</span>
+<span id="cb273-11"><a href="exporting-r-objects.html#cb273-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">jpeg</span>(filename_string)</span>
+<span id="cb273-12"><a href="exporting-r-objects.html#cb273-12" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb273-13"><a href="exporting-r-objects.html#cb273-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb273-14"><a href="exporting-r-objects.html#cb273-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb273-15"><a href="exporting-r-objects.html#cb273-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(plot)</span>
+<span id="cb273-16"><a href="exporting-r-objects.html#cb273-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb273-17"><a href="exporting-r-objects.html#cb273-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="exporting-r-objects.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="co"># writes out tmap objects from &quot;county_age_maps_list&quot; as separate jpeg files</span></span>
+<span id="cb274-2"><a href="exporting-r-objects.html#cb274-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_MAP&quot;</span>)</span>
+<span id="cb274-3"><a href="exporting-r-objects.html#cb274-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, filenames, <span class="st">&quot;.jpeg&quot;</span>)</span>
+<span id="cb274-4"><a href="exporting-r-objects.html#cb274-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-159"></span>
 <img src="pictures/pic11.png" alt="The four tmap elements in the county_age_maps_list, written out to a dedicated directory as separate jpeg files" width="1129" />
 <p class="caption">
 Figure 10.10: The four tmap elements in the county_age_maps_list, written out to a dedicated directory as separate jpeg files
 </p>
 </div>
 <p>If you want PDFs of the maps in ```county_age_maps_list", then…</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="exporting-r-objects.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="co"># writes out tmap objects from &quot;county_age_maps_list&quot; as separate PDF files</span></span>
-<span id="cb263-2"><a href="exporting-r-objects.html#cb263-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_MAP&quot;</span>)</span>
-<span id="cb263-3"><a href="exporting-r-objects.html#cb263-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, filenames, <span class="st">&quot;.pdf&quot;</span>)</span>
-<span id="cb263-4"><a href="exporting-r-objects.html#cb263-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-128"></span>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="exporting-r-objects.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="co"># writes out tmap objects from &quot;county_age_maps_list&quot; as separate PDF files</span></span>
+<span id="cb275-2"><a href="exporting-r-objects.html#cb275-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_maps_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_MAP&quot;</span>)</span>
+<span id="cb275-3"><a href="exporting-r-objects.html#cb275-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_maps_list, filenames, <span class="st">&quot;.pdf&quot;</span>)</span>
+<span id="cb275-4"><a href="exporting-r-objects.html#cb275-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-161"></span>
 <img src="pictures/pic12.png" alt="The four tmap elements in the county_age_maps_list, written out to a dedicated directory as separate PDF files" width="737" />
 <p class="caption">
 Figure 10.11: The four tmap elements in the county_age_maps_list, written out to a dedicated directory as separate PDF files
 </p>
 </div>
 <p>We can use the same function (<code>viz_save_general</code>) to write out <code>ggplot</code> objects as separate files with a specified file extension. For example, to write out the graphs in <code>county_age_graphs_list</code> as png files:</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="exporting-r-objects.html#cb264-1" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_graphs_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_GRAPH&quot;</span>)</span>
-<span id="cb264-2"><a href="exporting-r-objects.html#cb264-2" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, filenames, <span class="st">&quot;.png&quot;</span>)</span>
-<span id="cb264-3"><a href="exporting-r-objects.html#cb264-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-130"></span>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="exporting-r-objects.html#cb276-1" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_graphs_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_GRAPH&quot;</span>)</span>
+<span id="cb276-2"><a href="exporting-r-objects.html#cb276-2" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, filenames, <span class="st">&quot;.png&quot;</span>)</span>
+<span id="cb276-3"><a href="exporting-r-objects.html#cb276-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-163"></span>
 <img src="pictures/pic13.png" alt="The four ggplot elements in the county_age_graphs_list, written out to a dedicated directory as separate png files" width="1118" />
 <p class="caption">
 Figure 10.12: The four ggplot elements in the county_age_graphs_list, written out to a dedicated directory as separate png files
 </p>
 </div>
 <p>To write out the graphs in <code>county_age_graphs_list</code> as pdf or jpeg files, simply modify the file extensions:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="exporting-r-objects.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writes out elements in &quot;county_age_graphs_list&quot; as separate pdf files</span></span>
-<span id="cb265-2"><a href="exporting-r-objects.html#cb265-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_graphs_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_GRAPH&quot;</span>)</span>
-<span id="cb265-3"><a href="exporting-r-objects.html#cb265-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, filenames, <span class="st">&quot;.pdf&quot;</span>)</span>
-<span id="cb265-4"><a href="exporting-r-objects.html#cb265-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="exporting-r-objects.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writes out elements in &quot;county_age_graphs_list&quot; as separate jpeg files</span></span>
-<span id="cb266-2"><a href="exporting-r-objects.html#cb266-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_graphs_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_GRAPH&quot;</span>)</span>
-<span id="cb266-3"><a href="exporting-r-objects.html#cb266-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, filenames, <span class="st">&quot;.jpeg&quot;</span>)</span>
-<span id="cb266-4"><a href="exporting-r-objects.html#cb266-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="exporting-r-objects.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writes out elements in &quot;county_age_graphs_list&quot; as separate pdf files</span></span>
+<span id="cb277-2"><a href="exporting-r-objects.html#cb277-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_graphs_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_GRAPH&quot;</span>)</span>
+<span id="cb277-3"><a href="exporting-r-objects.html#cb277-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, filenames, <span class="st">&quot;.pdf&quot;</span>)</span>
+<span id="cb277-4"><a href="exporting-r-objects.html#cb277-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="exporting-r-objects.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writes out elements in &quot;county_age_graphs_list&quot; as separate jpeg files</span></span>
+<span id="cb278-2"><a href="exporting-r-objects.html#cb278-2" aria-hidden="true" tabindex="-1"></a>filenames<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="fu">names</span>(county_age_graphs_list), <span class="st">&quot;_&quot;</span>, <span class="st">&quot;COUNTY_AGE_GRAPH&quot;</span>)</span>
+<span id="cb278-3"><a href="exporting-r-objects.html#cb278-3" aria-hidden="true" tabindex="-1"></a>inputlist<span class="ot">&lt;-</span><span class="fu">list</span>(county_age_graphs_list, filenames, <span class="st">&quot;.jpeg&quot;</span>)</span>
+<span id="cb278-4"><a href="exporting-r-objects.html#cb278-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pwalk</span>(inputlist, viz_save_general)</span></code></pre></div>
 
 </div>
 </div>

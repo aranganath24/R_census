@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Functions and Iteration | Working with Census Data in R</title>
-  <meta name="description" content="7 Functions and Iteration | Working with Census Data in R" />
+  <title>7 Functions and Iteration | Working with Census Data in R Studio</title>
+  <meta name="description" content="7 Functions and Iteration | Working with Census Data in R Studio" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Functions and Iteration | Working with Census Data in R" />
+  <meta property="og:title" content="7 Functions and Iteration | Working with Census Data in R Studio" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Functions and Iteration | Working with Census Data in R" />
+  <meta name="twitter:title" content="7 Functions and Iteration | Working with Census Data in R Studio" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-22" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a></li>
+<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#using-functions-and-iteration-to-clean-multiple-datasets"><i class="fa fa-check"></i><b>9.1</b> Using functions and iteration to clean multiple datasets</a></li>
+<li class="chapter" data-level="9.2" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#joining-datasets"><i class="fa fa-check"></i><b>9.2</b> Joining datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Exporting R Objects</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-object"><i class="fa fa-check"></i><b>10.1</b> Exporting a single object</a>
@@ -237,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R Studio</a>
           </h1>
         </div>
 
@@ -276,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-22"><a href="functions-and-iteration.html#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-23"><a href="functions-and-iteration.html#cb52-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Test function for New Mexico</span></span>
 <span id="cb52-24"><a href="functions-and-iteration.html#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="fu">median_age_graph</span>(<span class="st">&quot;NM&quot;</span>, <span class="st">&quot;New Mexico&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 </div>
 <div id="iteratively-apply-median_age_graph-function-to-multiple-input-elements" class="section level3" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Iteratively apply <code>median_age_graph</code> function to multiple input elements</h3>
@@ -306,25 +310,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="functions-and-iteration.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the list that contains the median age graphs</span></span>
 <span id="cb70-2"><a href="functions-and-iteration.html#cb70-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-3.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-4.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-4.png" width="672" /></p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="functions-and-iteration.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Arizona graph by its index</span></span>
 <span id="cb75-2"><a href="functions-and-iteration.html#cb75-2" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-5.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-5.png" width="672" /></p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="functions-and-iteration.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach names to list elements and extract by name; for convenience, we&#39;ll name list elements based on &quot;state_codes&quot; vector</span></span>
 <span id="cb76-2"><a href="functions-and-iteration.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(county_age_graphs_list)<span class="ot">&lt;-</span>state_codes</span>
 <span id="cb76-3"><a href="functions-and-iteration.html#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-4"><a href="functions-and-iteration.html#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Wyoming graph by its name</span></span>
 <span id="cb76-5"><a href="functions-and-iteration.html#cb76-5" aria-hidden="true" tabindex="-1"></a>county_age_graphs_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;WY&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-6.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-6.png" width="672" /></p>
 </div>
 </div>
 <div id="automate-creation-of-median-age-maps" class="section level2" number="7.2">
@@ -362,7 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-28"><a href="functions-and-iteration.html#cb77-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb77-29"><a href="functions-and-iteration.html#cb77-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Test function for New Mexico</span></span>
 <span id="cb77-30"><a href="functions-and-iteration.html#cb77-30" aria-hidden="true" tabindex="-1"></a><span class="fu">median_age_map</span>(<span class="st">&quot;NM&quot;</span>, <span class="st">&quot;New Mexico&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 </div>
 <div id="iteratively-apply-median_age_map-function-to-multiple-input-elements" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Iteratively apply <code>median_age_map</code> function to multiple input elements</h3>
@@ -391,25 +395,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="functions-and-iteration.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the list that contains the median age maps</span></span>
 <span id="cb95-2"><a href="functions-and-iteration.html#cb95-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-3.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-4.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-4.png" width="672" /></p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="functions-and-iteration.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Utah map by its index</span></span>
 <span id="cb100-2"><a href="functions-and-iteration.html#cb100-2" aria-hidden="true" tabindex="-1"></a>county_age_maps_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-5.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-5.png" width="672" /></p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="functions-and-iteration.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach names (based on &quot;state_codes&quot; vector) to &quot;county_age_maps_list&quot; list elements </span></span>
 <span id="cb101-2"><a href="functions-and-iteration.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(county_age_maps_list)<span class="ot">&lt;-</span>state_codes</span>
 <span id="cb101-3"><a href="functions-and-iteration.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-4"><a href="functions-and-iteration.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the Arizona map by name</span></span>
 <span id="cb101-5"><a href="functions-and-iteration.html#cb101-5" aria-hidden="true" tabindex="-1"></a>county_age_maps_list <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="st">&quot;AZ&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-6.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-6.png" width="672" /></p>
 
 </div>
 </div>

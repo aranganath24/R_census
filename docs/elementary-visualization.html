@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Elementary Visualization | Working with Census Data in R</title>
-  <meta name="description" content="6 Elementary Visualization | Working with Census Data in R" />
+  <title>6 Elementary Visualization | Working with Census Data in R Studio</title>
+  <meta name="description" content="6 Elementary Visualization | Working with Census Data in R Studio" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Elementary Visualization | Working with Census Data in R" />
+  <meta property="og:title" content="6 Elementary Visualization | Working with Census Data in R Studio" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Elementary Visualization | Working with Census Data in R" />
+  <meta name="twitter:title" content="6 Elementary Visualization | Working with Census Data in R Studio" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-22" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a></li>
+<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#using-functions-and-iteration-to-clean-multiple-datasets"><i class="fa fa-check"></i><b>9.1</b> Using functions and iteration to clean multiple datasets</a></li>
+<li class="chapter" data-level="9.2" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#joining-datasets"><i class="fa fa-check"></i><b>9.2</b> Joining datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Exporting R Objects</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-object"><i class="fa fa-check"></i><b>10.1</b> Exporting a single object</a>
@@ -237,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R Studio</a>
           </h1>
         </div>
 
@@ -393,7 +397,7 @@ Logan
 <span id="cb49-7"><a href="elementary-visualization.html#cb49-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">5</span>))</span>
 <span id="cb49-8"><a href="elementary-visualization.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-9"><a href="elementary-visualization.html#cb49-9" aria-hidden="true" tabindex="-1"></a>median_age_CO_cleaned_visualization</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-71-1.png" width="864" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-1.png" width="864" /></p>
 </div>
 <div id="spatial-visualization-with-tmap" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Spatial visualization with <em>tmap</em></h2>
@@ -410,7 +414,7 @@ Logan
 <span id="cb50-11"><a href="elementary-visualization.html#cb50-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">attr.outside=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
 <span id="cb50-12"><a href="elementary-visualization.html#cb50-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_credits</span>(<span class="st">&quot;Source: US Census via tidycensus&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="elementary-visualization.html#cb51-1" aria-hidden="true" tabindex="-1"></a>median_age_CO_map</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 
 </div>
 </div>

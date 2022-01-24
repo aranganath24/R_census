@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>11 ACS Data Retrieval | Working with Census Data in R</title>
-  <meta name="description" content="11 ACS Data Retrieval | Working with Census Data in R" />
+  <title>11 ACS Data Retrieval | Working with Census Data in R Studio</title>
+  <meta name="description" content="11 ACS Data Retrieval | Working with Census Data in R Studio" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="11 ACS Data Retrieval | Working with Census Data in R" />
+  <meta property="og:title" content="11 ACS Data Retrieval | Working with Census Data in R Studio" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="11 ACS Data Retrieval | Working with Census Data in R" />
+  <meta name="twitter:title" content="11 ACS Data Retrieval | Working with Census Data in R Studio" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-22" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a></li>
+<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#using-functions-and-iteration-to-clean-multiple-datasets"><i class="fa fa-check"></i><b>9.1</b> Using functions and iteration to clean multiple datasets</a></li>
+<li class="chapter" data-level="9.2" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#joining-datasets"><i class="fa fa-check"></i><b>9.2</b> Joining datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Exporting R Objects</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-object"><i class="fa fa-check"></i><b>10.1</b> Exporting a single object</a>
@@ -237,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R Studio</a>
           </h1>
         </div>
 
@@ -247,6 +251,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="acs-data-retrieval" class="section level1" number="11">
 <h1><span class="header-section-number">11</span> ACS Data Retrieval</h1>
+<p>To inspect the variable list for the ACS, use the “load variables” function. Let’s say we want to work with the 5-year ACS ending in 2019:</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="acs-data-retrieval.html#cb279-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2019<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2019</span>,<span class="st">&quot;acs5&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="acs-data-retrieval.html#cb280-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2019</span></code></pre></div>
+<pre><code>## # A tibble: 27,040 x 3
+##    name       label                                    concept   
+##    &lt;chr&gt;      &lt;chr&gt;                                    &lt;chr&gt;     
+##  1 B01001_001 Estimate!!Total:                         SEX BY AGE
+##  2 B01001_002 Estimate!!Total:!!Male:                  SEX BY AGE
+##  3 B01001_003 Estimate!!Total:!!Male:!!Under 5 years   SEX BY AGE
+##  4 B01001_004 Estimate!!Total:!!Male:!!5 to 9 years    SEX BY AGE
+##  5 B01001_005 Estimate!!Total:!!Male:!!10 to 14 years  SEX BY AGE
+##  6 B01001_006 Estimate!!Total:!!Male:!!15 to 17 years  SEX BY AGE
+##  7 B01001_007 Estimate!!Total:!!Male:!!18 and 19 years SEX BY AGE
+##  8 B01001_008 Estimate!!Total:!!Male:!!20 years        SEX BY AGE
+##  9 B01001_009 Estimate!!Total:!!Male:!!21 years        SEX BY AGE
+## 10 B01001_010 Estimate!!Total:!!Male:!!22 to 24 years  SEX BY AGE
+## # … with 27,030 more rows</code></pre>
 
 </div>
             </section>

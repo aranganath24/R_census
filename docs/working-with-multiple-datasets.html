@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Working with multiple datasets | Working with Census Data in R</title>
-  <meta name="description" content="9 Working with multiple datasets | Working with Census Data in R" />
+  <title>9 Working with multiple datasets | Working with Census Data in R Studio</title>
+  <meta name="description" content="9 Working with multiple datasets | Working with Census Data in R Studio" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Working with multiple datasets | Working with Census Data in R" />
+  <meta property="og:title" content="9 Working with multiple datasets | Working with Census Data in R Studio" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Working with multiple datasets | Working with Census Data in R" />
+  <meta name="twitter:title" content="9 Working with multiple datasets | Working with Census Data in R Studio" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-22" />
+<meta name="date" content="2022-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,7 +206,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="advanced-data-retrieval.html"><a href="advanced-data-retrieval.html#retrieving-data-from-multiple-years-for-multiple-states-and-placing-all-of-the-data-into-a-single-data-frame"><i class="fa fa-check"></i><b>8.3.2</b> Retrieving data from multiple years, for multiple states, and placing all of the data into a single data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a></li>
+<li class="chapter" data-level="9" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html"><i class="fa fa-check"></i><b>9</b> Working with multiple datasets</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#using-functions-and-iteration-to-clean-multiple-datasets"><i class="fa fa-check"></i><b>9.1</b> Using functions and iteration to clean multiple datasets</a></li>
+<li class="chapter" data-level="9.2" data-path="working-with-multiple-datasets.html"><a href="working-with-multiple-datasets.html#joining-datasets"><i class="fa fa-check"></i><b>9.2</b> Joining datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html"><i class="fa fa-check"></i><b>10</b> Exporting R Objects</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="exporting-r-objects.html"><a href="exporting-r-objects.html#exporting-a-single-object"><i class="fa fa-check"></i><b>10.1</b> Exporting a single object</a>
@@ -237,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Working with Census Data in R Studio</a>
           </h1>
         </div>
 
@@ -285,6 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 42 more rows</code></pre>
 <p>In order to visualize the percentage point difference in state-level rural population shares between 2010 and 2000, we can join the two datasets in <code>population_rural_2000_2010_list</code>, compute the difference between “rural_pct” in the 2010 dataset and “rural_pct” in the 2000 dataset, and then use now-familiar visualization techniques to visualize this difference.</p>
 <p>Before joining the two datasets, it might make sense to clean them up to avoid any confusion after we implement the join. First, it would be nice to rename the “rural_pct” variable in the two datasets to indicate the relevant year, i.e. in the form “rural_pct_YEAR” where YEAR takes on the value in the existing “year” column. After renaming the “rural_pct” variable in this way, we can go ahead and delete the “P001001”, “P002005”, and “year” columns, since they do not contain necessary information, and will simply clutter the final (joined) dataset.</p>
+<div id="using-functions-and-iteration-to-clean-multiple-datasets" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Using functions and iteration to clean multiple datasets</h2>
 <p>To clean up the datasets in this way, let’s write a function that makes these changes, and use now-familiar iteration techniques to apply the changes to both of the list elements in <code>population_rural_2000_2010_list</code>.</p>
 <div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="working-with-multiple-datasets.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write function to clean dataset according to the requirements specified above and assign to an object named &quot;cleaning_function&quot; </span></span>
 <span id="cb207-2"><a href="working-with-multiple-datasets.html#cb207-2" aria-hidden="true" tabindex="-1"></a>cleaning_function<span class="ot">&lt;-</span><span class="cf">function</span>(dataset){</span>
@@ -330,6 +336,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 09    Connecticut          12.0 
 ## 10 10    Delaware             16.7 
 ## # … with 42 more rows</code></pre>
+</div>
+<div id="joining-datasets" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Joining datasets</h2>
 <p>Now, let’s merge these datasets together, using “GEOID” as the join variable:</p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="working-with-multiple-datasets.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Joins datasets in list and assigns joined dataset to object named &quot;rural_change&quot;</span></span>
 <span id="cb211-2"><a href="working-with-multiple-datasets.html#cb211-2" aria-hidden="true" tabindex="-1"></a>rural_change<span class="ot">&lt;-</span><span class="fu">full_join</span>(population_rural_2000_2010_list_cleaned[[<span class="st">&quot;2010&quot;</span>]], population_rural_2000_2010_list_cleaned[[<span class="st">&quot;2000&quot;</span>]], <span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
@@ -354,7 +363,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 09    Connecticut          12.0           12.3              -0.252
 ## 10 10    Delaware             16.7           19.9              -3.18 
 ## # … with 42 more rows</code></pre>
+<p>We can now use this joined dataset to visualize the extent of rural depopulation from 2000 to 2010, across the various states:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="working-with-multiple-datasets.html#cb215-1" aria-hidden="true" tabindex="-1"></a>rural_change_graph<span class="ot">&lt;-</span>rural_change <span class="sc">%&gt;%</span></span>
+<span id="cb215-2"><a href="working-with-multiple-datasets.html#cb215-2" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(NAME,rural_share_change), <span class="at">y=</span>rural_share_change)) <span class="sc">+</span> </span>
+<span id="cb215-3"><a href="working-with-multiple-datasets.html#cb215-3" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb215-4"><a href="working-with-multiple-datasets.html#cb215-4" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb215-5"><a href="working-with-multiple-datasets.html#cb215-5" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Rural Depopulation&quot;</span>, <span class="at">x=</span><span class="st">&quot;State Name&quot;</span>, <span class="at">y=</span><span class="st">&quot;Pct Change in Rural Population&quot;</span>)<span class="sc">+</span></span>
+<span id="cb215-6"><a href="working-with-multiple-datasets.html#cb215-6" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>))</span>
+<span id="cb215-7"><a href="working-with-multiple-datasets.html#cb215-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-8"><a href="working-with-multiple-datasets.html#cb215-8" aria-hidden="true" tabindex="-1"></a>rural_change_graph </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p>To make a map:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="working-with-multiple-datasets.html#cb216-1" aria-hidden="true" tabindex="-1"></a>state_population_2010_geo<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb216-2"><a href="working-with-multiple-datasets.html#cb216-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb216-3"><a href="working-with-multiple-datasets.html#cb216-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>,</span>
+<span id="cb216-4"><a href="working-with-multiple-datasets.html#cb216-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">geometry=</span><span class="cn">TRUE</span>)</span>
+<span id="cb216-5"><a href="working-with-multiple-datasets.html#cb216-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-6"><a href="working-with-multiple-datasets.html#cb216-6" aria-hidden="true" tabindex="-1"></a>state_population_2010_geo</span></code></pre></div>
+<pre><code>## Simple feature collection with 52 features and 4 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -179.1473 ymin: 17.88481 xmax: 179.7785 ymax: 71.35256
+## geographic CRS: NAD83
+## # A tibble: 52 x 5
+##    GEOID NAME         variable   value                                                           geometry
+##    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt;                                                 &lt;MULTIPOLYGON [°]&gt;
+##  1 23    Maine        P001001   1.33e6 (((-67.61976 44.51975, -67.61541 44.52197, -67.58774 44.5162, -67…
+##  2 25    Massachuset… P001001   6.55e6 (((-70.83204 41.6065, -70.82373 41.59857, -70.82092 41.58767, -70…
+##  3 26    Michigan     P001001   9.88e6 (((-88.68443 48.11578, -88.67563 48.12044, -88.67639 48.12488, -8…
+##  4 30    Montana      P001001   9.89e5 (((-104.0577 44.99743, -104.2501 44.99822, -104.4701 44.99845, -1…
+##  5 32    Nevada       P001001   2.70e6 (((-114.0506 37.0004, -114.05 36.95777, -114.0506 36.84313, -114.…
+##  6 34    New Jersey   P001001   8.79e6 (((-75.52684 39.65571, -75.52634 39.65641, -75.52234 39.66081, -7…
+##  7 36    New York     P001001   1.94e7 (((-71.94356 41.28667, -71.9268 41.29012, -71.93526 41.28058, -71…
+##  8 37    North Carol… P001001   9.54e6 (((-82.60288 36.03983, -82.60074 36.03742, -82.59878 36.03416, -8…
+##  9 39    Ohio         P001001   1.15e7 (((-82.81349 41.72347, -82.81049 41.72052, -82.80887 41.70833, -8…
+## 10 42    Pennsylvania P001001   1.27e7 (((-75.41504 39.80179, -75.42804 39.80921, -75.45374 39.82031, -7…
+## # … with 42 more rows</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="working-with-multiple-datasets.html#cb218-1" aria-hidden="true" tabindex="-1"></a>rural_change_geo<span class="ot">&lt;-</span><span class="fu">full_join</span>(state_population_2010_geo, rural_change, <span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span>
+<span id="cb218-2"><a href="working-with-multiple-datasets.html#cb218-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb218-3"><a href="working-with-multiple-datasets.html#cb218-3" aria-hidden="true" tabindex="-1"></a>rural_change_geo</span></code></pre></div>
+<pre><code>## Simple feature collection with 52 features and 8 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -179.1473 ymin: 17.88481 xmax: 179.7785 ymax: 71.35256
+## geographic CRS: NAD83
+## # A tibble: 52 x 9
+##    GEOID NAME.x variable  value                  geometry NAME.y rural_pct_2010 rural_pct_2000
+##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;        &lt;MULTIPOLYGON [°]&gt; &lt;chr&gt;           &lt;dbl&gt;          &lt;dbl&gt;
+##  1 23    Maine  P001001  1.33e6 (((-67.61976 44.51975, -… Maine           61.3           59.8 
+##  2 25    Massa… P001001  6.55e6 (((-70.83204 41.6065, -7… Massa…           8.03           8.63
+##  3 26    Michi… P001001  9.88e6 (((-88.68443 48.11578, -… Michi…          25.4           25.3 
+##  4 30    Monta… P001001  9.89e5 (((-104.0577 44.99743, -… Monta…          44.1           45.9 
+##  5 32    Nevada P001001  2.70e6 (((-114.0506 37.0004, -1… Nevada           5.80           8.49
+##  6 34    New J… P001001  8.79e6 (((-75.52684 39.65571, -… New J…           5.32           5.65
+##  7 36    New Y… P001001  1.94e7 (((-71.94356 41.28667, -… New Y…          12.1           12.5 
+##  8 37    North… P001001  9.54e6 (((-82.60288 36.03983, -… North…          33.9           39.8 
+##  9 39    Ohio   P001001  1.15e7 (((-82.81349 41.72347, -… Ohio            22.1           22.6 
+## 10 42    Penns… P001001  1.27e7 (((-75.41504 39.80179, -… Penns…          21.3           22.9 
+## # … with 42 more rows, and 1 more variable: rural_share_change &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="working-with-multiple-datasets.html#cb220-1" aria-hidden="true" tabindex="-1"></a>preliminary_ruralchange_map<span class="ot">&lt;-</span><span class="fu">tm_shape</span>(rural_change_geo)<span class="sc">+</span></span>
+<span id="cb220-2"><a href="working-with-multiple-datasets.html#cb220-2" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;rural_share_change&quot;</span>, <span class="at">n=</span><span class="dv">6</span>,<span class="at">style=</span><span class="st">&quot;jenks&quot;</span>,<span class="at">palette=</span><span class="st">&quot;BuGn&quot;</span>, <span class="at">midpoint=</span><span class="cn">FALSE</span>)</span>
+<span id="cb220-3"><a href="working-with-multiple-datasets.html#cb220-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb220-4"><a href="working-with-multiple-datasets.html#cb220-4" aria-hidden="true" tabindex="-1"></a>preliminary_ruralchange_map</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="working-with-multiple-datasets.html#cb221-1" aria-hidden="true" tabindex="-1"></a>state_population_2010_geo<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(<span class="at">geography =</span> <span class="st">&quot;state&quot;</span>, </span>
+<span id="cb221-2"><a href="working-with-multiple-datasets.html#cb221-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">variables =</span> <span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb221-3"><a href="working-with-multiple-datasets.html#cb221-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">year =</span> <span class="dv">2010</span>,</span>
+<span id="cb221-4"><a href="working-with-multiple-datasets.html#cb221-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">geometry=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb221-5"><a href="working-with-multiple-datasets.html#cb221-5" aria-hidden="true" tabindex="-1"></a>                            tigris<span class="sc">::</span><span class="fu">shift_geometry</span>()</span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Downloading feature geometry from the Census website.  To cache shapefiles for use in future sessions, set `options(tigris_use_cache = TRUE)`.</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="working-with-multiple-datasets.html#cb225-1" aria-hidden="true" tabindex="-1"></a>rural_change_geo<span class="ot">&lt;-</span><span class="fu">full_join</span>(state_population_2010_geo, rural_change, <span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="working-with-multiple-datasets.html#cb226-1" aria-hidden="true" tabindex="-1"></a>final_ruralchange_map<span class="ot">&lt;-</span><span class="fu">tm_shape</span>(rural_change_geo)<span class="sc">+</span></span>
+<span id="cb226-2"><a href="working-with-multiple-datasets.html#cb226-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;rural_share_change&quot;</span>, </span>
+<span id="cb226-3"><a href="working-with-multiple-datasets.html#cb226-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">4</span>,<span class="sc">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb226-4"><a href="working-with-multiple-datasets.html#cb226-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">palette=</span><span class="st">&quot;YlGnBu&quot;</span>,</span>
+<span id="cb226-5"><a href="working-with-multiple-datasets.html#cb226-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">midpoint=</span>T, </span>
+<span id="cb226-6"><a href="working-with-multiple-datasets.html#cb226-6" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">title=</span><span class="st">&quot;Percentage Point</span><span class="sc">\n</span><span class="st">Difference in Rural Population Share</span><span class="sc">\n</span><span class="st">(2010 vs 2000)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb226-7"><a href="working-with-multiple-datasets.html#cb226-7" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>, </span>
+<span id="cb226-8"><a href="working-with-multiple-datasets.html#cb226-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">main.title=</span><span class="st">&quot;Rural Depopulation by State, 2000-2010&quot;</span>,  </span>
+<span id="cb226-9"><a href="working-with-multiple-datasets.html#cb226-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">main.title.position=</span><span class="st">&quot;center&quot;</span>, </span>
+<span id="cb226-10"><a href="working-with-multiple-datasets.html#cb226-10" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">legend.outside=</span><span class="cn">TRUE</span>, </span>
+<span id="cb226-11"><a href="working-with-multiple-datasets.html#cb226-11" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">legend.title.size=</span><span class="dv">1</span>,</span>
+<span id="cb226-12"><a href="working-with-multiple-datasets.html#cb226-12" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">legend.outside.position =</span> <span class="fu">c</span>(<span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb226-13"><a href="working-with-multiple-datasets.html#cb226-13" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">attr.outside=</span>T)<span class="sc">+</span></span>
+<span id="cb226-14"><a href="working-with-multiple-datasets.html#cb226-14" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">tm_credits</span>(<span class="st">&quot;Source: US Census via tidycensus&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span>
+<span id="cb226-15"><a href="working-with-multiple-datasets.html#cb226-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-16"><a href="working-with-multiple-datasets.html#cb226-16" aria-hidden="true" tabindex="-1"></a>                                      </span>
+<span id="cb226-17"><a href="working-with-multiple-datasets.html#cb226-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-18"><a href="working-with-multiple-datasets.html#cb226-18" aria-hidden="true" tabindex="-1"></a>final_ruralchange_map</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
 
+</div>
 </div>
             </section>
 
