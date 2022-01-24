@@ -1,0 +1,149 @@
+# Data manipulation and visualization with ACS data, Case Study 1: Income 
+
+## Identifying and visualizing the counties from each state with the highest median income
+
+```{r}
+highest_income_counties<-median_income %>% 
+                          separate(NAME,c("County","State"),sep=",") %>% 
+                          group_by(State) %>% 
+                          arrange(desc(median_income)) %>% 
+                          slice_max(median_income, n=1) %>% 
+                          unite(NAME, c("County","State"), remove=FALSE, sep=",")
+
+highest_income_counties
+
+```
+ 
+```{r}
+highest_income_counties_viz<-
+  highest_income_counties %>% 
+        ggplot(aes(x=median_income,y=reorder(NAME, median_income)))+
+        geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
+        geom_point(color = "red", 
+                   size = 3)+
+        labs(title="County with Highest Median Income, by State",
+             y="",
+             x="Median Income Estimate from 5-year ACS\n(bars indicate margin of error)")+ 
+        theme(plot.title=element_text(hjust=0.5))
+
+```
+
+```{r, fig.width=9,fig.height=8}
+highest_income_counties_viz
+```
+
+## Visualizing county-level median income for Colorado
+
+```{r, fig.width=9,fig.height=8}
+median_income_CO_counties_2018<-get_acs(geography="county",
+                                     state="CO",
+                                     variables="B19013_001",
+                                     year=2018) %>% 
+                            rename(median_income=estimate) %>% 
+                            arrange(desc(median_income))
+
+median_income_CO_counties_2018_viz<-
+     median_income_CO_2018 %>% 
+        mutate(County_Name=str_remove_all(NAME,"County, Colorado")) %>% 
+          ggplot(aes(x=median_income,y=reorder(County_Name, median_income)))+
+           geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
+           geom_point(color = "blue", size = 3)+
+                      labs(title="Median Income in Colorado, by County (2018)",
+                              y="", x="Median Income Estimate from 5 year ACS\n(Bars indicate margin of error)")+
+                             theme(plot.title=element_text(hjust=0.5))
+
+```
+
+```{r}
+median_income_CO_counties_2018_viz  
+```
+
+## Writing functions to visualize ACS data
+
+```{r}
+
+county_median_income<-function(state_abbrev, state_name){
+  median_income<-get_acs(geography="county",
+                         state=state_abbrev,
+                         variables="B19013_001",
+                         year=2018) %>% 
+    rename(median_income=estimate) %>% 
+    arrange(desc(median_income))
+  
+  string_to_remove<-paste0("County", ", ", state_name)
+  chart_title<-paste0("Median Income in ", state_name, ", by County (2018)")
+  
+  median_income_viz<-median_income %>% 
+                      mutate(County_Name=str_remove_all(NAME,string_to_remove)) %>% 
+                      ggplot(aes(x=median_income,y=reorder(County_Name, median_income)))+
+                      geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
+                      geom_point(color = "blue", size = 3)+
+                      labs(title=chart_title,
+                           y="", x="Median Income Estimate from 5 year ACS\n(Bars indicate margin of error)")+
+                      theme(plot.title=element_text(hjust=0.5))+
+                      scale_x_continuous(labels=scales::comma)
+  return(median_income_viz)
+}
+```
+
+```{r, fig.width=9,fig.height=8}
+# test function 
+county_median_income("NY", "New York")
+```
+
+```{r}
+# Creates vector of state abbreviations
+state_abbrev_vector<-c("NM", "UT", "AZ", "WY")
+# Creates vector of state names
+state_name_vector<-c("New Mexico", "Utah", "Arizona", "Wyoming")
+
+# Iteratively applies "county_median_income" function to inputs specified by "state_abbrev" vector
+# and "state_name" vector, and assigns resulting visualization outputs to list named "median_income_2018_viz_list"
+median_income2018_viz_list<-map2(state_abbrev_vector, state_name_vector, county_median_income)
+
+```
+
+```{r}
+# Creates a vector of names for "median_income2018_viz_list" list elements
+names_median_income_list<-paste0(state_abbrev_vector, "_", "2018_ACS_medianincome")
+# Inspect names in "names_median_income_list" vector
+names_median_income_list
+```
+
+```{r}
+# Assigns names in 
+names(median_income2018_viz_list)<-names_median_income_list
+```
+
+```{r, fig.width=9,fig.height=8, warning=F}
+median_income2018_viz_list
+```
+
+## Dynamic mapping
+
+```{r}
+median_income_2016_states<-get_acs(geography="state",
+                                     variables="B19013_001",
+                                     year=2016,
+                                     geometry=TRUE) %>% 
+                            rename(median_income=estimate) %>% 
+                            arrange(desc(median_income)) %>% 
+                            relocate(NAME)
+```
+
+```{r}
+median_income_map<-tm_shape(median_income_2016_states)+
+                   tm_polygons(col="median_income", n=6, style="fisher", palette="YlOrBr")
+tmap_mode("view")
+
+median_income_map
+```
+
+# Data manipulation and visualization with ACS data, Case Study 2: Education
+
+# Bivariate Analysis with ACS Data
+
+# Integrating census data and external data
+
+
+blm_tweets_most_favorited<-blm_tweets %>% slice_max(favorite_count, n=10)

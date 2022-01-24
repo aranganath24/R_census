@@ -2,6 +2,8 @@
 
 # ACS Data Retrieval
 
+## Extracting variable codes for ACS data
+
 To inspect the variable list for the ACS, use the “load variables” function. Let’s say we want to work with the 5-year ACS ending in 2019:
 
 ```{r}
@@ -12,7 +14,46 @@ ACS_5_2019<-load_variables(2019,"acs5")
 ACS_5_2019
 ```
 
-```{r}
+If we wanted to view the variables for the 5-year acs ending in 2015, we'd use 
 
+```{r}
+ACS_5_2015<-load_variables(2015,"acs5")
+ACS_5_2015
 ```
+
+If we wanted to view the variables for the 1-year acs ending in 2017, we'd use:
+
+```{r}
+ACS_1_2017<-load_variables(2017, "acs1")
+ACS_1_2017
+```
+
+3-year ACS ending in 2012:
+
+```{r}
+ACS_3_2012<-load_variables(2012, "acs3")
+ACS_3_2012
+```
+
+## Calling ACS data with ```tidycensus``` 
+
+County-level median income data
+
+```{r, warning=F, message=F}
+median_income<-get_acs(geography="county",
+                       variables="B19013_001",
+                       year=2019) %>% 
+              rename(median_income=estimate) %>% 
+              arrange(desc(median_income))
+```
+
+```{r}
+median_income
+```
+
+
+
+
+
+
 
