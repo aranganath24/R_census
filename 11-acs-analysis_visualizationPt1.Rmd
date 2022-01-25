@@ -1,4 +1,4 @@
-# Data manipulation and visualization with ACS data, Case Study 1: Income 
+# Exploratory analysis and visualization with ACS data 
 
 ## Identifying and visualizing the counties from each state with the highest median income
 
@@ -139,11 +139,187 @@ tmap_mode("view")
 median_income_map
 ```
 
-# Data manipulation and visualization with ACS data, Case Study 2: Education
+# Bivariate Analysis with ACS Data: Education and Income
 
-# Bivariate Analysis with ACS Data
+What is the relationship between county median income, and county share of the over-25 population without at least a bachelor's degree? 
+
+First, let's inspect the variable codes for the 2019 ACS:
+
+```{r}
+ACS_5_2018<-load_variables(2018, "acs5")
+```
+
+```{r}
+education_variables<-ACS_5_2018 %>% filter(str_detect(name, 'B15003'))
+```
+
+```{r}
+View(education_variables)
+```
+
+```{r}
+kable(education_variables)
+```
+
+```{r}
+education_vars<-c(Bachelors="B15003_022", Masters="B15003_023", Professional="B15003_024", 
+                  Doctorate="B15003_025") 
+
+education_acs_2018<-get_acs(geography="county",
+                            year=2018,
+                            variables=education_vars,
+                            summary_var="B15003_001")
+```
+
+```{r}
+education_acs_2018
+```
+
+```{r}
+pct_less_than_BA<-education_acs_2018 %>% 
+                  group_by(GEOID, NAME) %>% 
+                  mutate(no_degree_pct=((summary_est-sum(estimate))/(summary_est)*100)) %>% 
+                  summarize(mean(no_degree_pct)) %>% 
+                  rename(no_degree_pct="mean(no_degree_pct)")
+
+pct_less_than_BA
+```
+
+
+
+```{r}
+median_income_2018<-get_acs(geography="county",
+                       variables="B19013_001",
+                       year=2018) %>% 
+                rename(median_income=estimate) %>% 
+                arrange(desc(median_income))
+```
+
+```{r}
+median_income_nodegree<-full_join(median_income_2018, pct_less_than_BA,by="GEOID")
+```
+
+
+```{r}
+median_income_nodegree
+```
+
+```{r}
+medianincome_nodegree_viz<-median_income_nodegree %>% 
+                           ggplot()+
+                           geom_point(aes(x=no_degree_pct,y=median_income))+
+                           geom_smooth(aes(x=no_degree_pct,y=median_income),method="lm")+
+                           ylab("Estimated County Median Income")+
+                           xlab("Estimated Percentage of Under-25 Population Without at least Bachelors Degree")
+```
+
+
+```{r}
+medianincome_nodegree_viz
+```
+
+```{r}
+median_income_nodegree<-median_income_nodegree %>% 
+                        separate(NAME.x,c("County","State"),sep=",")
+
+median_income_nodegree
+```
+
+```{r}
+medianincome_nodegree_statefacets_viz<-median_income_nodegree %>% 
+                                   ggplot()+
+                                   geom_point(aes(x=no_degree_pct,y=median_income))+
+                                   geom_smooth(aes(x=no_degree_pct,y=median_income),method="lm")+
+                                   ylab("County Median Income")+
+                                   xlab("Pct No Degree")+
+                                   facet_wrap(~State)
+
+```
+
+```{r}
+medianincome_nodegree_statefacets_viz
+```
+
+
+Nested dataset
+
+```{r}
+median_income_nodegree_nested<-median_income_nodegree %>% 
+  group_by(State) %>% 
+  nest() %>% 
+  arrange(State)
+
+median_income_nodegree_nested
+```
+
+```{r}
+median_income_nodegree_nested %>% pull(2) %>% pluck(1)
+```
+
+```{r}
+median_income_nodegree_nested %>% pull("data") %>% pluck(6)
+
+```
+
+Add median income range
+
+```{r}
+median_income_range<-function(x){
+  max_median_income<-x %>% slice_max(median_income, n=1)
+  min_median_income<-x %>% slice_min(median_income, n=1)
+  range<-max_median_income$median_income-min_median_income$median_income
+  return(range)
+}
+
+median_income_nodegree_nested<-median_income_nodegree_nested %>% 
+  mutate(county_income_range=map_dbl(data, median_income_range))
+
+```
+
+```{r}
+median_income_nodegree_nested
+```
+
+
+```{r}
+# Five states with highest spatial inequality with respect to county median income
+median_income_nodegree_nested %>% ungroup() %>% slice_max(county_income_range, n=5)
+```
+
+
+```{r}
+# Five states with lowest spatial inequality with respect to county median income
+median_income_nodegree_nested %>% ungroup() %>% slice_min(county_income_range, n=5)
+```
+
+
+```{r}
+correlation_income_ed<-function(x){
+  income<-x$median_income
+  education<-x$no_degree_pct
+  corr_table<-cor.test(income, education)
+  return(corr_table)
+}
+
+median_income_nodegree_nested_final<- 
+  median_income_nodegree_nested %>% 
+  filter(county_income_range>0) %>% 
+  mutate(correlation_education_income=map(data, correlation_income_ed))
+
+```
+
+```{r}
+median_income_nodegree_nested_final
+```
+
+```{r}
+# Alabama correlation coefficient table
+median_income_nodegree_nested_final %>% pull(4) %>% pluck(1)
+```
+
+```{r}
+# Colorado correlation coefficient table
+median_income_nodegree_nested_final %>% pull(4) %>% pluck(6)
+```
 
 # Integrating census data and external data
-
-
-blm_tweets_most_favorited<-blm_tweets %>% slice_max(favorite_count, n=10)

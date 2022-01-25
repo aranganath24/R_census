@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-24" />
+<meta name="date" content="2022-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -244,16 +244,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="acs-data-retrieval.html"><a href="acs-data-retrieval.html#extracting-variable-codes-for-acs-data"><i class="fa fa-check"></i><b>11.1</b> Extracting variable codes for ACS data</a></li>
 <li class="chapter" data-level="11.2" data-path="acs-data-retrieval.html"><a href="acs-data-retrieval.html#calling-acs-data-with-tidycensus"><i class="fa fa-check"></i><b>11.2</b> Calling ACS data with <code>tidycensus</code></a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html"><a href="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html"><i class="fa fa-check"></i><b>12</b> Data manipulation and visualization with ACS data, Case Study 1: Income</a>
+<li class="chapter" data-level="12" data-path="exploratory-analysis-and-visualization-with-acs-data.html"><a href="exploratory-analysis-and-visualization-with-acs-data.html"><i class="fa fa-check"></i><b>12</b> Exploratory analysis and visualization with ACS data</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html"><a href="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html#identifying-and-visualizing-the-counties-from-each-state-with-the-highest-median-income"><i class="fa fa-check"></i><b>12.1</b> Identifying and visualizing the counties from each state with the highest median income</a></li>
-<li class="chapter" data-level="12.2" data-path="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html"><a href="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html#visualizing-county-level-median-income-for-colorado"><i class="fa fa-check"></i><b>12.2</b> Visualizing county-level median income for Colorado</a></li>
-<li class="chapter" data-level="12.3" data-path="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html"><a href="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html#writing-functions-to-visualize-acs-data"><i class="fa fa-check"></i><b>12.3</b> Writing functions to visualize ACS data</a></li>
-<li class="chapter" data-level="12.4" data-path="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html"><a href="data-manipulation-and-visualization-with-acs-data-case-study-1-income.html#dynamic-mapping"><i class="fa fa-check"></i><b>12.4</b> Dynamic mapping</a></li>
+<li class="chapter" data-level="12.1" data-path="exploratory-analysis-and-visualization-with-acs-data.html"><a href="exploratory-analysis-and-visualization-with-acs-data.html#identifying-and-visualizing-the-counties-from-each-state-with-the-highest-median-income"><i class="fa fa-check"></i><b>12.1</b> Identifying and visualizing the counties from each state with the highest median income</a></li>
+<li class="chapter" data-level="12.2" data-path="exploratory-analysis-and-visualization-with-acs-data.html"><a href="exploratory-analysis-and-visualization-with-acs-data.html#visualizing-county-level-median-income-for-colorado"><i class="fa fa-check"></i><b>12.2</b> Visualizing county-level median income for Colorado</a></li>
+<li class="chapter" data-level="12.3" data-path="exploratory-analysis-and-visualization-with-acs-data.html"><a href="exploratory-analysis-and-visualization-with-acs-data.html#writing-functions-to-visualize-acs-data"><i class="fa fa-check"></i><b>12.3</b> Writing functions to visualize ACS data</a></li>
+<li class="chapter" data-level="12.4" data-path="exploratory-analysis-and-visualization-with-acs-data.html"><a href="exploratory-analysis-and-visualization-with-acs-data.html#dynamic-mapping"><i class="fa fa-check"></i><b>12.4</b> Dynamic mapping</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="data-manipulation-and-visualization-with-acs-data-case-study-2-education.html"><a href="data-manipulation-and-visualization-with-acs-data-case-study-2-education.html"><i class="fa fa-check"></i><b>13</b> Data manipulation and visualization with ACS data, Case Study 2: Education</a></li>
-<li class="chapter" data-level="14" data-path="bivariate-analysis-with-acs-data.html"><a href="bivariate-analysis-with-acs-data.html"><i class="fa fa-check"></i><b>14</b> Bivariate Analysis with ACS Data</a></li>
-<li class="chapter" data-level="15" data-path="integrating-census-data-and-external-data.html"><a href="integrating-census-data-and-external-data.html"><i class="fa fa-check"></i><b>15</b> Integrating census data and external data</a></li>
+<li class="chapter" data-level="13" data-path="bivariate-analysis-with-acs-data-education-and-income.html"><a href="bivariate-analysis-with-acs-data-education-and-income.html"><i class="fa fa-check"></i><b>13</b> Bivariate Analysis with ACS Data: Education and Income</a></li>
+<li class="chapter" data-level="14" data-path="integrating-census-data-and-external-data.html"><a href="integrating-census-data-and-external-data.html"><i class="fa fa-check"></i><b>14</b> Integrating census data and external data</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -276,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Working with Census Data in R Studio</h1>
 <p class="author"><em>Aditya Ranganath</em></p>
-<p class="date"><em>2022-01-24</em></p>
+<p class="date"><em>2022-01-25</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
