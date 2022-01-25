@@ -143,7 +143,7 @@ median_income_map
 
 What is the relationship between county median income, and county share of the over-25 population without at least a bachelor's degree? 
 
-First, let's inspect the variable codes for the 2019 ACS:
+First, let's inspect the variable codes for the 2018 ACS:
 
 ```{r}
 ACS_5_2018<-load_variables(2018, "acs5")
@@ -323,3 +323,89 @@ median_income_nodegree_nested_final %>% pull(4) %>% pluck(6)
 ```
 
 # Integrating census data and external data
+
+## Reading external data into R Studio
+
+Colorado open Covid-19 data is available here: [https://data-cdphe.opendata.arcgis.com/datasets/colorado-covid-19-positive-cases-and-rates-of-infection-by-county-of-identification/explore?location=38.997818%2C-105.550873%2C7.60&showTable=true](https://data-cdphe.opendata.arcgis.com/datasets/colorado-covid-19-positive-cases-and-rates-of-infection-by-county-of-identification/explore?location=38.997818%2C-105.550873%2C7.60&showTable=true)
+
+For the purpose of this workshop, we've also placed this data (which runs through January 23, 2022) on dropbox, available here: [https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=0](https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=0). 
+
+It is possible to read data into R Studio straight from an online source. To read in a file stored on Dropbox, simply change the "0" at the end of the link into a "1" and paste it into the ```read_csv``` function. Here, we'll read the Colorado Covid dataset into our R environment directly from the online source, and assign it to a new object named ```co_covid```. 
+
+```{r}
+co_covid<-read_csv("https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=1")
+```
+
+```{r}
+co_covid
+```
+
+Alternatively, if the dataset you want to load into R has already been downloaded to your computer, simply paste in the filename into the ```read_csv``` function. For example:
+
+```{r, eval=F}
+co_covid<-read_csv("co_covid.csv")
+```
+
+Note that reading in downloaded data with the filename (here, ```co_covid.csv```) is only possible if the file is in our working directory; if it is in another directory, we must pass the full path to the file into the ```read_csv``` function. 
+
+```{r}
+co_covid_medianincome<-inner_join(median_income_nodegree, co_covid,by="GEOID")
+```
+
+
+```{r}
+co_covid_medianincome
+```
+
+
+```{r}
+co_covid_medianincome_viz<-co_covid_medianincome %>% 
+                           ggplot()+
+                           geom_point(aes(x=median_income,y=County_Rate_Per_100_000))+
+                           ylab("County Covid+ Rate Per 100,000")+
+                           xlab("County Median Income, 2018 (ACS Estimate)")
+```
+
+
+```{r}
+co_covid_medianincome_viz
+```
+
+```{r}
+income_cases_corr<-cor.test(co_covid_medianincome$median_income, co_covid_medianincome$County_Rate_Per_100_000)
+income_cases_corr
+```
+
+
+```{r}
+acs_2019_nonwhite_COcounties<-get_acs(geography="county",
+                                      state="CO",
+                                      variables="B03002_003",
+                                      summary_var = "B03002_001",
+                                      year=2019) %>% 
+                              mutate(white_pct=(estimate/summary_est)*100) %>% 
+                              mutate(nonwhite_pct=100-white_pct)
+```
+
+
+```{r}
+co_covid_race<-inner_join(acs_2019_nonwhite_COcounties, co_covid,by="GEOID")
+```
+
+```{r}
+co_covid_race_viz<-co_covid_race %>% 
+                   ggplot()+
+                   geom_point(aes(x=nonwhite_pct,y=County_Rate_Per_100_000))+
+                   ylab("County Covid+ Rate Per 100,000")+
+                   xlab("Non-White/Non-Hispanic Share of County Population, 2019 (ACS Estimate)")
+
+nonwhite_cases_corr<-cor.test(co_covid_race$nonwhite_pct, co_covid_race$County_Rate_Per_100_000)
+
+co_covid_race_viz
+nonwhite_cases_corr
+```
+
+
+
+
+
