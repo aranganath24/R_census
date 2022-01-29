@@ -15,6 +15,7 @@ In order to visualize the percentage point difference in state-level rural popul
 
 Before joining the two datasets, it might make sense to clean them up to avoid any confusion after we implement the join. First, it would be nice to rename the "rural_pct" variable in the two datasets to indicate the relevant year, i.e. in the form "rural_pct_YEAR" where YEAR takes on the value in the existing "year" column. After renaming the "rural_pct" variable in this way, we can go ahead and delete the "P001001", "P002005", and "year" columns, since they do not contain necessary information, and will simply clutter the final (joined) dataset. 
 
+## Using functions and iteration to clean multiple datasets 
 To clean up the datasets in this way, let's write a function that makes these changes, and use now-familiar iteration techniques to apply the changes to both of the list elements in ```population_rural_2000_2010_list```.
 
 ```{r}
@@ -41,6 +42,8 @@ population_rural_2000_2010_list_cleaned<-map(population_rural_2000_2010_list, cl
 population_rural_2000_2010_list_cleaned
 ```
 
+## Joining datasets
+
 Now, let's merge these datasets together, using "GEOID" as the join variable:
 
 ```{r}
@@ -48,7 +51,6 @@ Now, let's merge these datasets together, using "GEOID" as the join variable:
 rural_change<-full_join(population_rural_2000_2010_list_cleaned[["2010"]], population_rural_2000_2010_list_cleaned[["2000"]], by="GEOID")
   
 ```
-
 
 
 ```{r}
@@ -59,11 +61,87 @@ rural_change<-rural_change %>%
                 mutate(rural_share_change=rural_pct_2010-rural_pct_2000)
 ```
 
-
 ```{r}
 # prints modified "rural_change" object
 rural_change
 ```
+
+We can now use this joined dataset to visualize the extent of rural depopulation from 2000 to 2010, across the various states:
+
+```{r}
+rural_change_graph<-rural_change %>%
+                      ggplot(aes(x = reorder(NAME,rural_share_change), y=rural_share_change)) + 
+                      geom_col()+
+                      coord_flip()+
+                      labs(title="Rural Depopulation", x="State Name", y="Pct Change in Rural Population")+
+                      theme(plot.title=element_text(hjust=0.5))
+
+rural_change_graph 
+```
+
+To make a map: 
+
+```{r, message=F, warning=F}
+state_population_2010_geo<-get_decennial(geography = "state", 
+                                     variables = "P001001",
+                                     year = 2010,
+                                     geometry=TRUE)
+
+state_population_2010_geo
+```
+
+
+```{r}
+rural_change_geo<-full_join(state_population_2010_geo, rural_change, by="GEOID")
+
+rural_change_geo
+```
+
+
+```{r}
+preliminary_ruralchange_map<-tm_shape(rural_change_geo)+
+                              tm_polygons(col="rural_share_change", n=6,style="jenks",palette="BuGn", midpoint=FALSE)
+
+preliminary_ruralchange_map
+```
+
+```{r}
+
+state_population_2010_geo<-get_decennial(geography = "state", 
+                                     variables = "P001001",
+                                     year = 2010,
+                                     geometry=TRUE) %>% 
+                            tigris::shift_geometry()
+
+rural_change_geo<-full_join(state_population_2010_geo, rural_change, by="GEOID")
+
+```
+
+
+```{r}
+final_ruralchange_map<-tm_shape(rural_change_geo)+
+                          tm_polygons(col="rural_share_change", 
+                                      breaks=c(-6,-4,-2, 0, 1, 2),
+                                      palette="YlGnBu",
+                                      midpoint=T, 
+                                      title="Percentage Point\nDifference in Rural Population Share\n(2010 vs 2000)")+
+                           tm_layout(frame=FALSE, 
+                                     main.title="Rural Depopulation by State, 2000-2010",  
+                                      main.title.position="center", 
+                                     legend.outside=TRUE, 
+                                     legend.title.size=1,
+                                     legend.outside.position = c("bottom"),
+                                     attr.outside=T)+
+                          tm_credits("Source: US Census via tidycensus", position=c("right", "bottom"))
+
+                                      
+
+final_ruralchange_map
+```
+
+
+
+
 
 
 

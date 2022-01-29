@@ -1,26 +1,124 @@
 # Exporting R Objects
 
-## Writing out census datasets as CSV files 
+## Exporting a single object
 
-### Write out multiple census datasets stored a list to disk (in CSV format)
+### Exporting a single dataset to disk as a CSV file
+
+```{r}
+write_csv(state_population_2010, "state_population_2010.csv")
+```
+
+```{r, fig.cap="'state_population_2010' exported as CSV file to working directory", echo=FALSE}
+knitr::include_graphics("pictures/pic2.png")
+```
+
+```{r}
+write_csv(state_population_2010, "/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets/state_population_2010.csv")
+```
+
+```{r, fig.cap="'state_population_2010' exported as CSV file to dedicated directory named 'exported_datasets", echo=FALSE}
+knitr::include_graphics("pictures/pic3.png")
+```
+
+### Exporting a single map to disk as a png, jpeg, or PDF file with ```tmap_save```
+
+```{r, warning=FALSE, message=FALSE, fig.asp=0.5}
+median_age_CO_map
+```
+
+```{r, warning=FALSE}
+tmap_save(median_age_CO_map, "median_age_CO_map.png")
+```
+
+```{r, fig.cap="Colorado median age map exported to working directory as png file", echo=FALSE}
+knitr::include_graphics("pictures/pic4.png")
+```
+
+```{r,warning=FALSE}
+tmap_save(median_age_CO_map, "/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/median_age_CO_map.pdf")
+```
+
+```{r, fig.cap=" Colorado median age map exported to dedicated directory as PDF file", echo=FALSE}
+knitr::include_graphics("pictures/pic5.png")
+```
+
+### Exporting a single ggplot visualization to disk as a png, jpeg, or PDF file with "ggsave"
+
+```{r, warning=FALSE}
+median_age_CO_cleaned_visualization
+```
+
+```{r, warning=FALSE}
+ggsave("CO_median_age_graph.png", median_age_CO_cleaned_visualization)
+```
+
+```{r, fig.cap=" Colorado median age map graph exported to working directory as png file", echo=FALSE}
+knitr::include_graphics("pictures/pic6.png")
+```
+
+```{r, warning=FALSE}
+ggsave("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg", median_age_CO_cleaned_visualization)
+```
+
+```{r, fig.cap=" Colorado median age map graph exported to dedicated directory as jpeg file", echo=FALSE}
+knitr::include_graphics("pictures/pic7.png")
+```
+
+### Exporting a single ggplot or tmap visualization with a graphics device
+
+Exporting a single ```tmap``` visualization as a pdf file using a pdf device
+
+```{r, warning=FALSE}
+pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.pdf")
+median_age_CO_map
+dev.off()
+```
+
+Exporting a single ```tmap``` visualization as a png file using a png device
+
+```{r, warning=FALSE}
+png("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_map.png")
+median_age_CO_map
+dev.off()
+```
+
+Exporting a single ```ggplot``` visualization as a jpeg file using a jpeg device
+
+```{r, warning=FALSE}
+jpeg("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/CO_median_age_graph.jpeg")
+median_age_CO_cleaned_visualization
+dev.off()
+```
+
+## Exporting multiple objects
+
+### Exporting multiple csv files stored in a list
 
 ```{r}
 population_rural_2000_2010_list_cleaned
 ```
 
-```{r}
+```{r, warning=FALSE}
 writeout_function<-function(object, filename){
   setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/exported_datasets")
   filename<-paste0(filename, ".csv")
   write_csv(object, filename)
 }
 
-walk2(population_rural_2000_2010_list_cleaned, names(population_rural_2000_2010_list_cleaned), 
+filename_vector<-paste0("rural_pct_", names(population_rural_2000_2010_list_cleaned))
+filename_vector
+
+
+walk2(population_rural_2000_2010_list_cleaned, filename_vector, 
      writeout_function)
 ```
 
 
-### Write out multiple census datasets stored as separate objects to disk (in CSV format)
+```{r, fig.cap="Rural pct by state, for 2000 and 2010, exported to dedicated directory as CSV files", echo=FALSE}
+knitr::include_graphics("pictures/pic8.png")
+```
+
+### Exporting multiple csv files stored as separate objects in the global environment
 
 ```{r}
 state_total_2010<-get_decennial(geography="state", 
@@ -34,117 +132,48 @@ state_rural_2010<-get_decennial(geography = "state",
 ```
 
 
-```{r}
+```{r, warning=FALSE}
 # put objects to export in a named list
 objects_to_export<-lst(state_total_2010, state_rural_2010)
 
-walk2(objects_to_export, names(objects_to_export), writeout_function)
+# create filename vector
+filename_vector<-names(objects_to_export)
+
+# write out census datasets as CSV files
+walk2(objects_to_export, filename_vector, writeout_function)
 ```
 
 
-## Writing out other objects (i.e. maps, visualizations etc.) to disk
+```{r, fig.cap="'state_total_2010, and 'state_rural_2010', exported to dedicated directory as CSV files", echo=FALSE}
+knitr::include_graphics("pictures/pic9.png")
+```
 
-### Using plot devices to write out multiple maps to a single file
+### Using a graphics device to export multiple objects from a list into a single PDF file
 
-```{r}
+Use PDF viewer to write out multiple ```tmap``` visualizations stored in a list to a single PDF file
+
+```{r, warning=FALSE}
 pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_maps.pdf")
 county_age_maps_list
 dev.off()
 ```
 
-### writing out multiple maps (PNG)
+Use PDF viewer to write out multiple ```ggplot``` visualizations stored in a list to a single PDF file
 
-```{r}
-map_to_write_png<-function(map_object, map_name){
-  path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
-  filename<-paste0(path, map_name, "_age_map", ".png" )
-  tmap_save(map_object, filename)
-}
-
-map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write_png)
-```
-
-### writing out multiple maps (PDF)
-
-```{r}
-map_to_write_pdf<-function(map_object, map_name){
-  path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
-  filename<-paste0(path, map_name, "_age_map", ".pdf" )
-  tmap_save(map_object, filename)
-}
-
-map2(.x=county_age_maps_list, names(county_age_maps_list), .f=map_to_write_pdf)
-```
-
-### generalizing function
-
-```{r}
-map_to_write<-function(map_object, map_name, extension){
-  path<-"/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/"
-  filename<-paste0(path, map_name, extension)
-  tmap_save(map_object, filename)
-}
-
-# create name vector
-listnames<-names(county_age_maps_list)
-mapnames<-paste0(listnames, "_age_map")
-
-# inputlist
-inputlist<-list(county_age_maps_list, mapnames, ".png")
-
-# writes png files
-pmap(inputlist, map_to_write)
-
-# inputlist
-inputlist<-list(county_age_maps_list, mapnames, ".jpeg")
-
-# writes jpeg files
-pmap(inputlist, map_to_write)
-
-```
-
-Use pdf viewer to write out multiple visualizations to a single pdf
-```{r}
-pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_viz.pdf")
+```{r, warning=FALSE}
+pdf("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations/age_graphs.pdf")
 county_age_graphs_list
 dev.off()
 ```
 
-Write out ggplot visualizations as separate png files 
-```{r}
-# separate pngs
-plot_save<-function(plot, filename){
-  setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations")
-  filename_string<-paste0(filename, ".png")
-  png(filename_string)
-  print(plot)
-  dev.off()
-}
-
-
-walk2(county_age_graphs_list, names(county_age_graphs_list), plot_save)
-
+```{r, fig.cap="All of the graphs in `county_age_graphs_list` written to a single PDF file, and all of the maps in `county_age_maps_list` written to a single PDF file; the displayed file is the first graph in `county_age_graphs_list`, depicting the median age in New Mexico counties"  , echo=FALSE}
+knitr::include_graphics("pictures/pic10.png")
 ```
 
-
-Write out ggplot visualizations as separate pdf files 
-
-```{r}
-# separate pdfs 
-plot_save<-function(plot, filename){
-  setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations")
-  filename_string<-paste0(filename, ".pdf")
-  pdf(filename_string)
-  print(plot)
-  dev.off()
-}
-
-walk2(county_age_graphs_list, names(county_age_graphs_list), plot_save)
-```
-
+### Writing out multiple "tmap" or "ggplot" objects as separate files
 
 ```{r}
-plot_save_general<-function(plot, filename, extension){
+viz_save_general<-function(plot, filename, extension){
   setwd("/Users/adra7980/Documents/git_repositories/R_census/exported_objects/visualizations")
   filename_string<-paste0(filename, extension)
   if(extension==".pdf"){
@@ -161,11 +190,64 @@ plot_save_general<-function(plot, filename, extension){
 print(plot)
 dev.off()
 }
-
-inputlist<-list(county_age_graphs_list, names(county_age_maps_list), ".jpeg")
-pmap(inputlist, plot_save_general)
-
 ```
+
+```{r, warning=FALSE}
+# writes out tmap objects from "county_age_maps_list" as separate jpeg files
+filenames<-paste0(names(county_age_maps_list), "_", "COUNTY_AGE_MAP")
+inputlist<-list(county_age_maps_list, filenames, ".jpeg")
+pwalk(inputlist, viz_save_general)
+```
+
+```{r, fig.cap="The four tmap elements in the county_age_maps_list, written out to a dedicated directory as separate jpeg files", echo=FALSE}
+knitr::include_graphics("pictures/pic11.png")
+```
+
+If you want PDFs of the maps in ```county_age_maps_list", then...
+
+```{r, warning=FALSE}
+# writes out tmap objects from "county_age_maps_list" as separate PDF files
+filenames<-paste0(names(county_age_maps_list), "_", "COUNTY_AGE_MAP")
+inputlist<-list(county_age_maps_list, filenames, ".pdf")
+pwalk(inputlist, viz_save_general)
+```
+
+```{r, fig.cap="The four tmap elements in the county_age_maps_list, written out to a dedicated directory as separate PDF files", echo=FALSE}
+knitr::include_graphics("pictures/pic12.png")
+```
+
+We can use the same function (```viz_save_general```) to write out ```ggplot``` objects as separate files with a specified file extension. For example, to write out the graphs in ```county_age_graphs_list``` as png files:
+
+```{r, warning=FALSE}
+filenames<-paste0(names(county_age_graphs_list), "_", "COUNTY_AGE_GRAPH")
+inputlist<-list(county_age_graphs_list, filenames, ".png")
+pwalk(inputlist, viz_save_general)
+```
+
+
+```{r, fig.cap="The four ggplot elements in the county_age_graphs_list, written out to a dedicated directory as separate png files", echo=FALSE}
+knitr::include_graphics("pictures/pic13.png")
+```
+
+To write out the graphs in ```county_age_graphs_list``` as pdf or jpeg files, simply modify the file extensions:
+
+```{r, warning=FALSE}
+# Writes out elements in "county_age_graphs_list" as separate pdf files
+filenames<-paste0(names(county_age_graphs_list), "_", "COUNTY_AGE_GRAPH")
+inputlist<-list(county_age_graphs_list, filenames, ".pdf")
+pwalk(inputlist, viz_save_general)
+```
+
+```{r, warning=FALSE}
+# Writes out elements in "county_age_graphs_list" as separate jpeg files
+filenames<-paste0(names(county_age_graphs_list), "_", "COUNTY_AGE_GRAPH")
+inputlist<-list(county_age_graphs_list, filenames, ".jpeg")
+pwalk(inputlist, viz_save_general)
+```
+
+
+
+
 
 
 

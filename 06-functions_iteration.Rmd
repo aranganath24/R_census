@@ -23,8 +23,9 @@ median_age_graph<-function(state_abbrev, state_full_name){
     census_call %>%
     ggplot(aes(x = median_age, y = reorder(County, median_age))) + 
     geom_point()+
-    labs(title=paste0("Median Age by County,", " ", state_full_name), x="Median Age", y="County")+
-    theme(plot.title=element_text(hjust=0.5))
+    labs(title=paste0("Median Age by County,", " ", state_full_name), x="Median Age", y="County", caption="Source: United States census accessed via tidycensus")+
+    theme(plot.title=element_text(hjust=0.5),
+          plot.caption=element_text(size=5))
   
   return(median_age_ggplot)
 }
@@ -88,7 +89,10 @@ median_age_map<-function(state_abbrev, state_full_name){
     tm_layout(frame=FALSE, 
               main.title=paste0("Median Age by County,\n", state_full_name),  
               main.title.position="left", 
-              legend.outside=TRUE)
+              legend.outside=TRUE,
+              attr.outside=TRUE)+
+    tm_credits("Source: US Census via tidycensus", position=c("right", "bottom"))
+
 return(county_median_age_map)
 }
 

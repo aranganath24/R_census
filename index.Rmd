@@ -1,5 +1,5 @@
 --- 
-title: "Working with Census Data in R"
+title: "Working with Census Data in R Studio"
 author: "Aditya Ranganath"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

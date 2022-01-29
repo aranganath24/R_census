@@ -1,0 +1,415 @@
+# Exploratory analysis and visualization with ACS data 
+
+## Identifying and visualizing the counties from each state with the highest median income
+
+```{r}
+highest_income_counties<-median_income %>% 
+                          separate(NAME,c("County","State"),sep=",") %>% 
+                          group_by(State) %>% 
+                          arrange(desc(median_income)) %>% 
+                          slice_max(median_income, n=1) %>% 
+                          unite(NAME, c("County","State"), remove=FALSE, sep=",")
+
+highest_income_counties
+
+```
+ 
+```{r}
+highest_income_counties_viz<-
+  highest_income_counties %>% 
+        ggplot(aes(x=median_income,y=reorder(NAME, median_income)))+
+        geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
+        geom_point(color = "red", 
+                   size = 3)+
+        labs(title="County with Highest Median Income, by State",
+             y="",
+             x="Median Income Estimate from 5-year ACS\n(bars indicate margin of error)")+ 
+        theme(plot.title=element_text(hjust=0.5))
+
+```
+
+```{r, fig.width=9,fig.height=8}
+highest_income_counties_viz
+```
+
+## Visualizing county-level median income for Colorado
+
+```{r, fig.width=9,fig.height=8}
+median_income_CO_counties_2018<-get_acs(geography="county",
+                                     state="CO",
+                                     variables="B19013_001",
+                                     year=2018) %>% 
+                            rename(median_income=estimate) %>% 
+                            arrange(desc(median_income))
+
+median_income_CO_counties_2018_viz<-
+     median_income_CO_counties_2018 %>% 
+        mutate(County_Name=str_remove_all(NAME,"County, Colorado")) %>% 
+          ggplot(aes(x=median_income,y=reorder(County_Name, median_income)))+
+           geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
+           geom_point(color = "blue", size = 3)+
+                      labs(title="Median Income in Colorado, by County (2018)",
+                              y="", x="Median Income Estimate from 5 year ACS\n(Bars indicate margin of error)")+
+                             theme(plot.title=element_text(hjust=0.5))
+
+```
+
+```{r}
+median_income_CO_counties_2018_viz  
+```
+
+## Writing functions to visualize ACS data
+
+```{r}
+
+county_median_income<-function(state_abbrev, state_name){
+  median_income<-get_acs(geography="county",
+                         state=state_abbrev,
+                         variables="B19013_001",
+                         year=2018) %>% 
+    rename(median_income=estimate) %>% 
+    arrange(desc(median_income))
+  
+  string_to_remove<-paste0("County", ", ", state_name)
+  chart_title<-paste0("Median Income in ", state_name, ", by County (2018)")
+  
+  median_income_viz<-median_income %>% 
+                      mutate(County_Name=str_remove_all(NAME,string_to_remove)) %>% 
+                      ggplot(aes(x=median_income,y=reorder(County_Name, median_income)))+
+                      geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
+                      geom_point(color = "blue", size = 3)+
+                      labs(title=chart_title,
+                           y="", x="Median Income Estimate from 5 year ACS\n(Bars indicate margin of error)")+
+                      theme(plot.title=element_text(hjust=0.5))+
+                      scale_x_continuous(labels=scales::comma)
+  return(median_income_viz)
+}
+```
+
+```{r, fig.width=9,fig.height=8}
+# test function 
+county_median_income("NY", "New York")
+```
+
+```{r}
+# Creates vector of state abbreviations
+state_abbrev_vector<-c("NM", "UT", "AZ", "WY")
+# Creates vector of state names
+state_name_vector<-c("New Mexico", "Utah", "Arizona", "Wyoming")
+
+# Iteratively applies "county_median_income" function to inputs specified by "state_abbrev" vector
+# and "state_name" vector, and assigns resulting visualization outputs to list named "median_income_2018_viz_list"
+median_income2018_viz_list<-map2(state_abbrev_vector, state_name_vector, county_median_income)
+
+```
+
+```{r}
+# Creates a vector of names for "median_income2018_viz_list" list elements
+names_median_income_list<-paste0(state_abbrev_vector, "_", "2018_ACS_medianincome")
+# Inspect names in "names_median_income_list" vector
+names_median_income_list
+```
+
+```{r}
+# Assigns names in 
+names(median_income2018_viz_list)<-names_median_income_list
+```
+
+```{r, fig.width=9,fig.height=8, warning=F}
+median_income2018_viz_list
+```
+
+## Dynamic mapping
+
+```{r, message=F, warning=F}
+median_income_2016_states<-get_acs(geography="state",
+                                     variables="B19013_001",
+                                     year=2016,
+                                     geometry=TRUE) %>% 
+                            rename(median_income=estimate) %>% 
+                            arrange(desc(median_income)) %>% 
+                            relocate(NAME)
+```
+
+```{r}
+median_income_map<-tm_shape(median_income_2016_states)+
+                   tm_polygons(col="median_income", n=6, style="fisher", palette="YlOrBr")
+tmap_mode("view")
+
+median_income_map
+```
+
+```{r, echo=FALSE}
+tmap_mode("plot")
+```
+
+# Bivariate Analysis with ACS Data: Education and Income
+
+What is the relationship between county median income, and county share of the over-25 population without at least a bachelor's degree? 
+
+First, let's inspect the variable codes for the 2018 ACS:
+
+```{r}
+ACS_5_2018<-load_variables(2018, "acs5")
+```
+
+```{r}
+education_variables<-ACS_5_2018 %>% filter(str_detect(name, 'B15003'))
+```
+
+```{r}
+View(education_variables)
+```
+
+```{r}
+kable(education_variables)
+```
+
+```{r}
+education_vars<-c(Bachelors="B15003_022", Masters="B15003_023", Professional="B15003_024", 
+                  Doctorate="B15003_025") 
+
+education_acs_2018<-get_acs(geography="county",
+                            year=2018,
+                            variables=education_vars,
+                            summary_var="B15003_001")
+```
+
+```{r}
+education_acs_2018
+```
+
+```{r}
+pct_less_than_BA<-education_acs_2018 %>% 
+                  group_by(GEOID, NAME) %>% 
+                  mutate(no_degree_pct=((summary_est-sum(estimate))/(summary_est)*100)) %>% 
+                  summarize(mean(no_degree_pct)) %>% 
+                  rename(no_degree_pct="mean(no_degree_pct)")
+
+pct_less_than_BA
+```
+
+
+
+```{r}
+median_income_2018<-get_acs(geography="county",
+                       variables="B19013_001",
+                       year=2018) %>% 
+                rename(median_income=estimate) %>% 
+                arrange(desc(median_income))
+```
+
+```{r}
+median_income_nodegree<-full_join(median_income_2018, pct_less_than_BA,by="GEOID")
+```
+
+
+```{r}
+median_income_nodegree
+```
+
+```{r}
+medianincome_nodegree_viz<-median_income_nodegree %>% 
+                           ggplot()+
+                           geom_point(aes(x=no_degree_pct,y=median_income))+
+                           geom_smooth(aes(x=no_degree_pct,y=median_income),method="lm")+
+                           ylab("Estimated County Median Income")+
+                           xlab("Estimated Percentage of Under-25 Population Without at least Bachelors Degree")
+```
+
+
+```{r}
+medianincome_nodegree_viz
+```
+
+```{r}
+median_income_nodegree<-median_income_nodegree %>% 
+                        separate(NAME.x,c("County","State"),sep=",")
+
+median_income_nodegree
+```
+
+```{r}
+medianincome_nodegree_statefacets_viz<-median_income_nodegree %>% 
+                                   ggplot()+
+                                   geom_point(aes(x=no_degree_pct,y=median_income))+
+                                   geom_smooth(aes(x=no_degree_pct,y=median_income),method="lm")+
+                                   ylab("County Median Income")+
+                                   xlab("Pct No Degree")+
+                                   facet_wrap(~State)
+
+```
+
+```{r}
+medianincome_nodegree_statefacets_viz
+```
+
+
+Nested dataset
+
+```{r}
+median_income_nodegree_nested<-median_income_nodegree %>% 
+  group_by(State) %>% 
+  nest() %>% 
+  arrange(State)
+
+median_income_nodegree_nested
+```
+
+```{r}
+median_income_nodegree_nested %>% pull(2) %>% pluck(1)
+```
+
+```{r}
+median_income_nodegree_nested %>% pull("data") %>% pluck(6)
+
+```
+
+Add median income range
+
+```{r}
+median_income_range<-function(x){
+  max_median_income<-x %>% slice_max(median_income, n=1)
+  min_median_income<-x %>% slice_min(median_income, n=1)
+  range<-max_median_income$median_income-min_median_income$median_income
+  return(range)
+}
+
+median_income_nodegree_nested<-median_income_nodegree_nested %>% 
+  mutate(county_income_range=map_dbl(data, median_income_range))
+
+```
+
+```{r}
+median_income_nodegree_nested
+```
+
+
+```{r}
+# Five states with highest spatial inequality with respect to county median income
+median_income_nodegree_nested %>% ungroup() %>% slice_max(county_income_range, n=5)
+```
+
+
+```{r}
+# Five states with lowest spatial inequality with respect to county median income
+median_income_nodegree_nested %>% ungroup() %>% slice_min(county_income_range, n=5)
+```
+
+
+```{r}
+correlation_income_ed<-function(x){
+  income<-x$median_income
+  education<-x$no_degree_pct
+  corr_table<-cor.test(income, education)
+  return(corr_table)
+}
+
+median_income_nodegree_nested_final<- 
+  median_income_nodegree_nested %>% 
+  filter(county_income_range>0) %>% 
+  mutate(correlation_education_income=map(data, correlation_income_ed))
+
+```
+
+```{r}
+median_income_nodegree_nested_final
+```
+
+```{r}
+# Alabama correlation coefficient table
+median_income_nodegree_nested_final %>% pull(4) %>% pluck(1)
+```
+
+```{r}
+# Colorado correlation coefficient table
+median_income_nodegree_nested_final %>% pull(4) %>% pluck(6)
+```
+
+# Integrating census data and external data
+
+## Reading external data into R Studio
+
+Colorado open Covid-19 data is available here: [https://data-cdphe.opendata.arcgis.com/datasets/colorado-covid-19-positive-cases-and-rates-of-infection-by-county-of-identification/explore?location=38.997818%2C-105.550873%2C7.60&showTable=true](https://data-cdphe.opendata.arcgis.com/datasets/colorado-covid-19-positive-cases-and-rates-of-infection-by-county-of-identification/explore?location=38.997818%2C-105.550873%2C7.60&showTable=true)
+
+For the purpose of this workshop, we've also placed this data (which runs through January 23, 2022) on dropbox, available here: [https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=0](https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=0). 
+
+It is possible to read data into R Studio straight from an online source. To read in a file stored on Dropbox, simply change the "0" at the end of the link into a "1" and paste it into the ```read_csv``` function. Here, we'll read the Colorado Covid dataset into our R environment directly from the online source, and assign it to a new object named ```co_covid```. 
+
+```{r}
+co_covid<-read_csv("https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=1")
+```
+
+```{r}
+co_covid
+```
+
+Alternatively, if the dataset you want to load into R has already been downloaded to your computer, simply paste in the filename into the ```read_csv``` function. For example:
+
+```{r, eval=F}
+co_covid<-read_csv("co_covid.csv")
+```
+
+Note that reading in downloaded data with the filename (here, ```co_covid.csv```) is only possible if the file is in our working directory; if it is in another directory, we must pass the full path to the file into the ```read_csv``` function. 
+
+```{r}
+co_covid_medianincome<-inner_join(median_income_nodegree, co_covid,by="GEOID")
+```
+
+
+```{r}
+co_covid_medianincome
+```
+
+
+```{r}
+co_covid_medianincome_viz<-co_covid_medianincome %>% 
+                           ggplot()+
+                           geom_point(aes(x=median_income,y=County_Rate_Per_100_000))+
+                           ylab("County Covid+ Rate Per 100,000")+
+                           xlab("County Median Income, 2018 (ACS Estimate)")
+```
+
+
+```{r}
+co_covid_medianincome_viz
+```
+
+```{r}
+income_cases_corr<-cor.test(co_covid_medianincome$median_income, co_covid_medianincome$County_Rate_Per_100_000)
+income_cases_corr
+```
+
+
+```{r}
+acs_2019_nonwhite_COcounties<-get_acs(geography="county",
+                                      state="CO",
+                                      variables="B03002_003",
+                                      summary_var = "B03002_001",
+                                      year=2019) %>% 
+                              mutate(white_pct=(estimate/summary_est)*100) %>% 
+                              mutate(nonwhite_pct=100-white_pct)
+```
+
+
+```{r}
+co_covid_race<-inner_join(acs_2019_nonwhite_COcounties, co_covid,by="GEOID")
+```
+
+```{r}
+co_covid_race_viz<-co_covid_race %>% 
+                   ggplot()+
+                   geom_point(aes(x=nonwhite_pct,y=County_Rate_Per_100_000))+
+                   ylab("County Covid+ Rate Per 100,000")+
+                   xlab("Non-White/Non-Hispanic Share of County Population, 2019 (ACS Estimate)")
+
+nonwhite_cases_corr<-cor.test(co_covid_race$nonwhite_pct, co_covid_race$County_Rate_Per_100_000)
+
+co_covid_race_viz
+nonwhite_cases_corr
+```
+
+
+
+
+

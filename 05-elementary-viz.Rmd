@@ -30,15 +30,17 @@ median_age_CO_cleaned_visualization<-
   median_age_CO %>%
   ggplot(aes(x = median_age, y = reorder(County, median_age))) + 
   geom_point()+
-  labs(title="Median Age by County, CO", x="Median Age", y="County")+
-  theme(plot.title=element_text(hjust=0.5))
+  labs(title="Median Age by County, CO", x="Median Age", y="County", caption="Source: United States census accessed via tidycensus")+
+  theme(plot.title=element_text(hjust=0.5),
+        plot.caption=element_text(size=5))
 
 median_age_CO_cleaned_visualization
 ```
 
 ## Spatial visualization with *tmap*
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=-1}
+tmap_mode("plot")
 median_age_CO_map<-
   tm_shape(median_age_CO)+
       tm_polygons(col="median_age",
@@ -48,7 +50,9 @@ median_age_CO_map<-
        tm_layout(frame=FALSE, 
                  main.title="Median Age by County,\nColorado",  
                 main.title.position="left", 
-                legend.outside=TRUE)
+                legend.outside=TRUE,
+                attr.outside=TRUE)+
+      tm_credits("Source: US Census via tidycensus", position=c("right", "bottom"))
 
 ```
 
