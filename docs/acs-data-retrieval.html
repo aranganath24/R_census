@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-25" />
+<meta name="date" content="2022-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -280,8 +280,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="extracting-variable-codes-for-acs-data" class="section level2" number="11.1">
 <h2><span class="header-section-number">11.1</span> Extracting variable codes for ACS data</h2>
 <p>To inspect the variable list for the ACS, use the “load variables” function. Let’s say we want to work with the 5-year ACS ending in 2019:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="acs-data-retrieval.html#cb296-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2019<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2019</span>,<span class="st">&quot;acs5&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="acs-data-retrieval.html#cb297-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2019</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="acs-data-retrieval.html#cb279-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2019<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2019</span>,<span class="st">&quot;acs5&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="acs-data-retrieval.html#cb280-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2019</span></code></pre></div>
 <pre><code>## # A tibble: 27,040 x 3
 ##    name       label                                    concept   
 ##    &lt;chr&gt;      &lt;chr&gt;                                    &lt;chr&gt;     
@@ -297,8 +297,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 B01001_010 Estimate!!Total:!!Male:!!22 to 24 years  SEX BY AGE
 ## # … with 27,030 more rows</code></pre>
 <p>If we wanted to view the variables for the 5-year acs ending in 2015, we’d use</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="acs-data-retrieval.html#cb299-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2015<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2015</span>,<span class="st">&quot;acs5&quot;</span>)</span>
-<span id="cb299-2"><a href="acs-data-retrieval.html#cb299-2" aria-hidden="true" tabindex="-1"></a>ACS_5_2015</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="acs-data-retrieval.html#cb282-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2015<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2015</span>,<span class="st">&quot;acs5&quot;</span>)</span>
+<span id="cb282-2"><a href="acs-data-retrieval.html#cb282-2" aria-hidden="true" tabindex="-1"></a>ACS_5_2015</span></code></pre></div>
 <pre><code>## # A tibble: 22,768 x 3
 ##    name       label                                  concept                                  
 ##    &lt;chr&gt;      &lt;chr&gt;                                  &lt;chr&gt;                                    
@@ -314,8 +314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 B01001_008 Estimate!!Total!!Male!!20 years        SEX BY AGE                               
 ## # … with 22,758 more rows</code></pre>
 <p>If we wanted to view the variables for the 1-year acs ending in 2017, we’d use:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="acs-data-retrieval.html#cb301-1" aria-hidden="true" tabindex="-1"></a>ACS_1_2017<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2017</span>, <span class="st">&quot;acs1&quot;</span>)</span>
-<span id="cb301-2"><a href="acs-data-retrieval.html#cb301-2" aria-hidden="true" tabindex="-1"></a>ACS_1_2017</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="acs-data-retrieval.html#cb284-1" aria-hidden="true" tabindex="-1"></a>ACS_1_2017<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2017</span>, <span class="st">&quot;acs1&quot;</span>)</span>
+<span id="cb284-2"><a href="acs-data-retrieval.html#cb284-2" aria-hidden="true" tabindex="-1"></a>ACS_1_2017</span></code></pre></div>
 <pre><code>## # A tibble: 33,594 x 3
 ##    name       label                                  concept                                  
 ##    &lt;chr&gt;      &lt;chr&gt;                                  &lt;chr&gt;                                    
@@ -331,8 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 B01001_008 Estimate!!Total!!Male!!20 years        SEX BY AGE                               
 ## # … with 33,584 more rows</code></pre>
 <p>3-year ACS ending in 2012:</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="acs-data-retrieval.html#cb303-1" aria-hidden="true" tabindex="-1"></a>ACS_3_2012<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2012</span>, <span class="st">&quot;acs3&quot;</span>)</span>
-<span id="cb303-2"><a href="acs-data-retrieval.html#cb303-2" aria-hidden="true" tabindex="-1"></a>ACS_3_2012</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="acs-data-retrieval.html#cb286-1" aria-hidden="true" tabindex="-1"></a>ACS_3_2012<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2012</span>, <span class="st">&quot;acs3&quot;</span>)</span>
+<span id="cb286-2"><a href="acs-data-retrieval.html#cb286-2" aria-hidden="true" tabindex="-1"></a>ACS_3_2012</span></code></pre></div>
 <pre><code>## # A tibble: 34,278 x 3
 ##    name       label                                  concept                                  
 ##    &lt;chr&gt;      &lt;chr&gt;                                  &lt;chr&gt;                                    
@@ -351,12 +351,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="calling-acs-data-with-tidycensus" class="section level2" number="11.2">
 <h2><span class="header-section-number">11.2</span> Calling ACS data with <code>tidycensus</code></h2>
 <p>County-level median income data</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="acs-data-retrieval.html#cb305-1" aria-hidden="true" tabindex="-1"></a>median_income<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
-<span id="cb305-2"><a href="acs-data-retrieval.html#cb305-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">variables=</span><span class="st">&quot;B19013_001&quot;</span>,</span>
-<span id="cb305-3"><a href="acs-data-retrieval.html#cb305-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">year=</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb305-4"><a href="acs-data-retrieval.html#cb305-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rename</span>(<span class="at">median_income=</span>estimate) <span class="sc">%&gt;%</span> </span>
-<span id="cb305-5"><a href="acs-data-retrieval.html#cb305-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">arrange</span>(<span class="fu">desc</span>(median_income))</span></code></pre></div>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="acs-data-retrieval.html#cb306-1" aria-hidden="true" tabindex="-1"></a>median_income</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="acs-data-retrieval.html#cb288-1" aria-hidden="true" tabindex="-1"></a>median_income<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
+<span id="cb288-2"><a href="acs-data-retrieval.html#cb288-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">variables=</span><span class="st">&quot;B19013_001&quot;</span>,</span>
+<span id="cb288-3"><a href="acs-data-retrieval.html#cb288-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">year=</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb288-4"><a href="acs-data-retrieval.html#cb288-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rename</span>(<span class="at">median_income=</span>estimate) <span class="sc">%&gt;%</span> </span>
+<span id="cb288-5"><a href="acs-data-retrieval.html#cb288-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">arrange</span>(<span class="fu">desc</span>(median_income))</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="acs-data-retrieval.html#cb289-1" aria-hidden="true" tabindex="-1"></a>median_income</span></code></pre></div>
 <pre><code>## # A tibble: 3,220 x 5
 ##    GEOID NAME                           variable   median_income   moe
 ##    &lt;chr&gt; &lt;chr&gt;                          &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;

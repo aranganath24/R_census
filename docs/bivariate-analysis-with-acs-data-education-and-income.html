@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-25" />
+<meta name="date" content="2022-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -279,10 +279,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">13</span> Bivariate Analysis with ACS Data: Education and Income</h1>
 <p>What is the relationship between county median income, and county share of the over-25 population without at least a bachelor’s degree?</p>
 <p>First, let’s inspect the variable codes for the 2018 ACS:</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb344-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2018<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2018</span>, <span class="st">&quot;acs5&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb345-1" aria-hidden="true" tabindex="-1"></a>education_variables<span class="ot">&lt;-</span>ACS_5_2018 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&#39;B15003&#39;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(education_variables)</span></code></pre></div>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(education_variables)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb326-1" aria-hidden="true" tabindex="-1"></a>ACS_5_2018<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2018</span>, <span class="st">&quot;acs5&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb327-1" aria-hidden="true" tabindex="-1"></a>education_variables<span class="ot">&lt;-</span>ACS_5_2018 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">&#39;B15003&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(education_variables)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(education_variables)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -575,15 +575,15 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-1" aria-hidden="true" tabindex="-1"></a>education_vars<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="at">Bachelors=</span><span class="st">&quot;B15003_022&quot;</span>, <span class="at">Masters=</span><span class="st">&quot;B15003_023&quot;</span>, <span class="at">Professional=</span><span class="st">&quot;B15003_024&quot;</span>, </span>
-<span id="cb348-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Doctorate=</span><span class="st">&quot;B15003_025&quot;</span>) </span>
-<span id="cb348-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb348-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-4" aria-hidden="true" tabindex="-1"></a>education_acs_2018<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
-<span id="cb348-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">year=</span><span class="dv">2018</span>,</span>
-<span id="cb348-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">variables=</span>education_vars,</span>
-<span id="cb348-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">summary_var=</span><span class="st">&quot;B15003_001&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-1" aria-hidden="true" tabindex="-1"></a>education_vars<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="at">Bachelors=</span><span class="st">&quot;B15003_022&quot;</span>, <span class="at">Masters=</span><span class="st">&quot;B15003_023&quot;</span>, <span class="at">Professional=</span><span class="st">&quot;B15003_024&quot;</span>, </span>
+<span id="cb330-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Doctorate=</span><span class="st">&quot;B15003_025&quot;</span>) </span>
+<span id="cb330-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb330-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-4" aria-hidden="true" tabindex="-1"></a>education_acs_2018<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
+<span id="cb330-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">year=</span><span class="dv">2018</span>,</span>
+<span id="cb330-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">variables=</span>education_vars,</span>
+<span id="cb330-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb330-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">summary_var=</span><span class="st">&quot;B15003_001&quot;</span>)</span></code></pre></div>
 <pre><code>## Getting data from the 2014-2018 5-year ACS</code></pre>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-1" aria-hidden="true" tabindex="-1"></a>education_acs_2018</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb332-1" aria-hidden="true" tabindex="-1"></a>education_acs_2018</span></code></pre></div>
 <pre><code>## # A tibble: 12,880 x 7
 ##    GEOID NAME                    variable     estimate   moe summary_est summary_moe
 ##    &lt;chr&gt; &lt;chr&gt;                   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
@@ -598,13 +598,13 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ##  9 01005 Barbour County, Alabama Bachelors        1417   208       18173          81
 ## 10 01005 Barbour County, Alabama Masters           606   122       18173          81
 ## # … with 12,870 more rows</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb352-1" aria-hidden="true" tabindex="-1"></a>pct_less_than_BA<span class="ot">&lt;-</span>education_acs_2018 <span class="sc">%&gt;%</span> </span>
-<span id="cb352-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb352-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(GEOID, NAME) <span class="sc">%&gt;%</span> </span>
-<span id="cb352-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb352-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">mutate</span>(<span class="at">no_degree_pct=</span>((summary_est<span class="sc">-</span><span class="fu">sum</span>(estimate))<span class="sc">/</span>(summary_est)<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb352-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb352-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">summarize</span>(<span class="fu">mean</span>(no_degree_pct)) <span class="sc">%&gt;%</span> </span>
-<span id="cb352-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb352-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">rename</span>(<span class="at">no_degree_pct=</span><span class="st">&quot;mean(no_degree_pct)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb334-1" aria-hidden="true" tabindex="-1"></a>pct_less_than_BA<span class="ot">&lt;-</span>education_acs_2018 <span class="sc">%&gt;%</span> </span>
+<span id="cb334-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb334-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">group_by</span>(GEOID, NAME) <span class="sc">%&gt;%</span> </span>
+<span id="cb334-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb334-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">mutate</span>(<span class="at">no_degree_pct=</span>((summary_est<span class="sc">-</span><span class="fu">sum</span>(estimate))<span class="sc">/</span>(summary_est)<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb334-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb334-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">summarize</span>(<span class="fu">mean</span>(no_degree_pct)) <span class="sc">%&gt;%</span> </span>
+<span id="cb334-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb334-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">rename</span>(<span class="at">no_degree_pct=</span><span class="st">&quot;mean(no_degree_pct)&quot;</span>)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;GEOID&#39;. You can override using the `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb354-1" aria-hidden="true" tabindex="-1"></a>pct_less_than_BA</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb336-1" aria-hidden="true" tabindex="-1"></a>pct_less_than_BA</span></code></pre></div>
 <pre><code>## # A tibble: 3,220 x 3
 ## # Groups:   GEOID [3,220]
 ##    GEOID NAME                     no_degree_pct
@@ -620,76 +620,76 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ##  9 01017 Chambers County, Alabama          86.8
 ## 10 01019 Cherokee County, Alabama          87.1
 ## # … with 3,210 more rows</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb356-1" aria-hidden="true" tabindex="-1"></a>median_income_2018<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
-<span id="cb356-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb356-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">variables=</span><span class="st">&quot;B19013_001&quot;</span>,</span>
-<span id="cb356-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb356-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">year=</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb356-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb356-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">median_income=</span>estimate) <span class="sc">%&gt;%</span> </span>
-<span id="cb356-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb356-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">arrange</span>(<span class="fu">desc</span>(median_income))</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb338-1" aria-hidden="true" tabindex="-1"></a>median_income_2018<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
+<span id="cb338-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb338-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">variables=</span><span class="st">&quot;B19013_001&quot;</span>,</span>
+<span id="cb338-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb338-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">year=</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb338-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb338-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">median_income=</span>estimate) <span class="sc">%&gt;%</span> </span>
+<span id="cb338-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb338-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">arrange</span>(<span class="fu">desc</span>(median_income))</span></code></pre></div>
 <pre><code>## Getting data from the 2014-2018 5-year ACS</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb358-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree<span class="ot">&lt;-</span><span class="fu">full_join</span>(median_income_2018, pct_less_than_BA,<span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb359-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb340-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree<span class="ot">&lt;-</span><span class="fu">full_join</span>(median_income_2018, pct_less_than_BA,<span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb341-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree</span></code></pre></div>
 <pre><code>## # A tibble: 3,220 x 7
-##    GEOID NAME.x                     variable  median_income   moe NAME.y                    no_degree_pct
-##    &lt;chr&gt; &lt;chr&gt;                      &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                             &lt;dbl&gt;
-##  1 51107 Loudoun County, Virginia   B19013_0…        136268  2063 Loudoun County, Virginia           39.2
-##  2 51610 Falls Church city, Virgin… B19013_0…        124796 15295 Falls Church city, Virgi…          21.5
-##  3 51059 Fairfax County, Virginia   B19013_0…        121133  1144 Fairfax County, Virginia           38.9
-##  4 24027 Howard County, Maryland    B19013_0…        117730  2023 Howard County, Maryland            38.6
-##  5 51013 Arlington County, Virginia B19013_0…        117374  2067 Arlington County, Virgin…          25.4
-##  6 06085 Santa Clara County, Calif… B19013_0…        116178   938 Santa Clara County, Cali…          48.7
-##  7 08035 Douglas County, Colorado   B19013_0…        115314  2028 Douglas County, Colorado           42.1
-##  8 35028 Los Alamos County, New Me… B19013_0…        115248  7220 Los Alamos County, New M…          33.5
-##  9 06081 San Mateo County, Califor… B19013_0…        113776  1672 San Mateo County, Califo…          50.1
-## 10 34019 Hunterdon County, New Jer… B19013_0…        112535  2409 Hunterdon County, New Je…          48.0
+##    GEOID NAME.x                         variable  median_income   moe NAME.y                        no_degree_pct
+##    &lt;chr&gt; &lt;chr&gt;                          &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                                 &lt;dbl&gt;
+##  1 51107 Loudoun County, Virginia       B19013_0…        136268  2063 Loudoun County, Virginia               39.2
+##  2 51610 Falls Church city, Virginia    B19013_0…        124796 15295 Falls Church city, Virginia            21.5
+##  3 51059 Fairfax County, Virginia       B19013_0…        121133  1144 Fairfax County, Virginia               38.9
+##  4 24027 Howard County, Maryland        B19013_0…        117730  2023 Howard County, Maryland                38.6
+##  5 51013 Arlington County, Virginia     B19013_0…        117374  2067 Arlington County, Virginia             25.4
+##  6 06085 Santa Clara County, California B19013_0…        116178   938 Santa Clara County, Californ…          48.7
+##  7 08035 Douglas County, Colorado       B19013_0…        115314  2028 Douglas County, Colorado               42.1
+##  8 35028 Los Alamos County, New Mexico  B19013_0…        115248  7220 Los Alamos County, New Mexico          33.5
+##  9 06081 San Mateo County, California   B19013_0…        113776  1672 San Mateo County, California           50.1
+## 10 34019 Hunterdon County, New Jersey   B19013_0…        112535  2409 Hunterdon County, New Jersey           48.0
 ## # … with 3,210 more rows</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_viz<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
-<span id="cb361-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-2" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb361-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income))<span class="sc">+</span></span>
-<span id="cb361-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)<span class="sc">+</span></span>
-<span id="cb361-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-5" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ylab</span>(<span class="st">&quot;Estimated County Median Income&quot;</span>)<span class="sc">+</span></span>
-<span id="cb361-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-6" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">xlab</span>(<span class="st">&quot;Estimated Percentage of Under-25 Population Without at least Bachelors Degree&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb362-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_viz</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb343-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_viz<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
+<span id="cb343-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb343-2" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb343-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb343-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income))<span class="sc">+</span></span>
+<span id="cb343-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb343-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)<span class="sc">+</span></span>
+<span id="cb343-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb343-5" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ylab</span>(<span class="st">&quot;Estimated County Median Income&quot;</span>)<span class="sc">+</span></span>
+<span id="cb343-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb343-6" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">xlab</span>(<span class="st">&quot;Estimated Percentage of Under-25 Population Without at least Bachelors Degree&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb344-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_viz</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb366-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
-<span id="cb366-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb366-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">separate</span>(NAME.x,<span class="fu">c</span>(<span class="st">&quot;County&quot;</span>,<span class="st">&quot;State&quot;</span>),<span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
-<span id="cb366-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb366-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb366-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb366-4" aria-hidden="true" tabindex="-1"></a>median_income_nodegree</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
+<span id="cb348-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">separate</span>(NAME.x,<span class="fu">c</span>(<span class="st">&quot;County&quot;</span>,<span class="st">&quot;State&quot;</span>),<span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb348-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb348-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb348-4" aria-hidden="true" tabindex="-1"></a>median_income_nodegree</span></code></pre></div>
 <pre><code>## # A tibble: 3,220 x 8
-##    GEOID County          State       variable   median_income   moe NAME.y                  no_degree_pct
-##    &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                           &lt;dbl&gt;
-##  1 51107 Loudoun County  &quot; Virginia&quot; B19013_001        136268  2063 Loudoun County, Virgin…          39.2
-##  2 51610 Falls Church c… &quot; Virginia&quot; B19013_001        124796 15295 Falls Church city, Vir…          21.5
-##  3 51059 Fairfax County  &quot; Virginia&quot; B19013_001        121133  1144 Fairfax County, Virgin…          38.9
-##  4 24027 Howard County   &quot; Maryland&quot; B19013_001        117730  2023 Howard County, Maryland          38.6
-##  5 51013 Arlington Coun… &quot; Virginia&quot; B19013_001        117374  2067 Arlington County, Virg…          25.4
-##  6 06085 Santa Clara Co… &quot; Californ… B19013_001        116178   938 Santa Clara County, Ca…          48.7
-##  7 08035 Douglas County  &quot; Colorado&quot; B19013_001        115314  2028 Douglas County, Colora…          42.1
-##  8 35028 Los Alamos Cou… &quot; New Mexi… B19013_001        115248  7220 Los Alamos County, New…          33.5
-##  9 06081 San Mateo Coun… &quot; Californ… B19013_001        113776  1672 San Mateo County, Cali…          50.1
-## 10 34019 Hunterdon Coun… &quot; New Jers… B19013_001        112535  2409 Hunterdon County, New …          48.0
+##    GEOID County            State         variable   median_income   moe NAME.y                      no_degree_pct
+##    &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;         &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                               &lt;dbl&gt;
+##  1 51107 Loudoun County    &quot; Virginia&quot;   B19013_001        136268  2063 Loudoun County, Virginia             39.2
+##  2 51610 Falls Church city &quot; Virginia&quot;   B19013_001        124796 15295 Falls Church city, Virginia          21.5
+##  3 51059 Fairfax County    &quot; Virginia&quot;   B19013_001        121133  1144 Fairfax County, Virginia             38.9
+##  4 24027 Howard County     &quot; Maryland&quot;   B19013_001        117730  2023 Howard County, Maryland              38.6
+##  5 51013 Arlington County  &quot; Virginia&quot;   B19013_001        117374  2067 Arlington County, Virginia           25.4
+##  6 06085 Santa Clara Coun… &quot; California&quot; B19013_001        116178   938 Santa Clara County, Califo…          48.7
+##  7 08035 Douglas County    &quot; Colorado&quot;   B19013_001        115314  2028 Douglas County, Colorado             42.1
+##  8 35028 Los Alamos County &quot; New Mexico&quot; B19013_001        115248  7220 Los Alamos County, New Mex…          33.5
+##  9 06081 San Mateo County  &quot; California&quot; B19013_001        113776  1672 San Mateo County, Californ…          50.1
+## 10 34019 Hunterdon County  &quot; New Jersey&quot; B19013_001        112535  2409 Hunterdon County, New Jers…          48.0
 ## # … with 3,210 more rows</code></pre>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_statefacets_viz<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
-<span id="cb368-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb368-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income))<span class="sc">+</span></span>
-<span id="cb368-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)<span class="sc">+</span></span>
-<span id="cb368-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">ylab</span>(<span class="st">&quot;County Median Income&quot;</span>)<span class="sc">+</span></span>
-<span id="cb368-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">xlab</span>(<span class="st">&quot;Pct No Degree&quot;</span>)<span class="sc">+</span></span>
-<span id="cb368-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">facet_wrap</span>(<span class="sc">~</span>State)</span></code></pre></div>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb369-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_statefacets_viz</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_statefacets_viz<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
+<span id="cb350-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb350-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income))<span class="sc">+</span></span>
+<span id="cb350-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>no_degree_pct,<span class="at">y=</span>median_income),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)<span class="sc">+</span></span>
+<span id="cb350-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">ylab</span>(<span class="st">&quot;County Median Income&quot;</span>)<span class="sc">+</span></span>
+<span id="cb350-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">xlab</span>(<span class="st">&quot;Pct No Degree&quot;</span>)<span class="sc">+</span></span>
+<span id="cb350-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb350-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">facet_wrap</span>(<span class="sc">~</span>State)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb351-1" aria-hidden="true" tabindex="-1"></a>medianincome_nodegree_statefacets_viz</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
 <p>Nested dataset</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
-<span id="cb373-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(State) <span class="sc">%&gt;%</span> </span>
-<span id="cb373-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb373-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(State)</span>
-<span id="cb373-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb373-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-6" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb355-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested<span class="ot">&lt;-</span>median_income_nodegree <span class="sc">%&gt;%</span> </span>
+<span id="cb355-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb355-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(State) <span class="sc">%&gt;%</span> </span>
+<span id="cb355-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb355-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb355-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb355-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(State)</span>
+<span id="cb355-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb355-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb355-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb355-6" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested</span></code></pre></div>
 <pre><code>## # A tibble: 52 x 2
 ## # Groups:   State [52]
 ##    State                   data             
@@ -705,7 +705,7 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ##  9 &quot; District of Columbia&quot; &lt;tibble [1 × 7]&gt; 
 ## 10 &quot; Florida&quot;              &lt;tibble [67 × 7]&gt;
 ## # … with 42 more rows</code></pre>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb375-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb357-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 67 x 7
 ##    GEOID County            variable   median_income   moe NAME.y                     no_degree_pct
 ##    &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                              &lt;dbl&gt;
@@ -720,7 +720,7 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ##  9 01125 Tuscaloosa County B19013_001         52221  1240 Tuscaloosa County, Alabama          69.7
 ## 10 01073 Jefferson County  B19013_001         51979   687 Jefferson County, Alabama           67.6
 ## # … with 57 more rows</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb377-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="st">&quot;data&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb359-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="st">&quot;data&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 64 x 7
 ##    GEOID County            variable   median_income   moe NAME.y                      no_degree_pct
 ##    &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                               &lt;dbl&gt;
@@ -736,16 +736,16 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ## 10 08005 Arapahoe County   B19013_001         73925   902 Arapahoe County, Colorado            57.8
 ## # … with 54 more rows</code></pre>
 <p>Add median income range</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-1" aria-hidden="true" tabindex="-1"></a>median_income_range<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
-<span id="cb379-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-2" aria-hidden="true" tabindex="-1"></a>  max_median_income<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(median_income, <span class="at">n=</span><span class="dv">1</span>)</span>
-<span id="cb379-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-3" aria-hidden="true" tabindex="-1"></a>  min_median_income<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(median_income, <span class="at">n=</span><span class="dv">1</span>)</span>
-<span id="cb379-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-4" aria-hidden="true" tabindex="-1"></a>  range<span class="ot">&lt;-</span>max_median_income<span class="sc">$</span>median_income<span class="sc">-</span>min_median_income<span class="sc">$</span>median_income</span>
-<span id="cb379-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(range)</span>
-<span id="cb379-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb379-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb379-8"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-8" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested<span class="ot">&lt;-</span>median_income_nodegree_nested <span class="sc">%&gt;%</span> </span>
-<span id="cb379-9"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb379-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">county_income_range=</span><span class="fu">map_dbl</span>(data, median_income_range))</span></code></pre></div>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb380-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-1" aria-hidden="true" tabindex="-1"></a>median_income_range<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb361-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-2" aria-hidden="true" tabindex="-1"></a>  max_median_income<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(median_income, <span class="at">n=</span><span class="dv">1</span>)</span>
+<span id="cb361-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-3" aria-hidden="true" tabindex="-1"></a>  min_median_income<span class="ot">&lt;-</span>x <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(median_income, <span class="at">n=</span><span class="dv">1</span>)</span>
+<span id="cb361-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-4" aria-hidden="true" tabindex="-1"></a>  range<span class="ot">&lt;-</span>max_median_income<span class="sc">$</span>median_income<span class="sc">-</span>min_median_income<span class="sc">$</span>median_income</span>
+<span id="cb361-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(range)</span>
+<span id="cb361-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb361-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb361-8"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-8" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested<span class="ot">&lt;-</span>median_income_nodegree_nested <span class="sc">%&gt;%</span> </span>
+<span id="cb361-9"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb361-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">county_income_range=</span><span class="fu">map_dbl</span>(data, median_income_range))</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb362-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested</span></code></pre></div>
 <pre><code>## # A tibble: 52 x 3
 ## # Groups:   State [52]
 ##    State                   data              county_income_range
@@ -761,8 +761,8 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ##  9 &quot; District of Columbia&quot; &lt;tibble [1 × 7]&gt;                    0
 ## 10 &quot; Florida&quot;              &lt;tibble [67 × 7]&gt;               42740
 ## # … with 42 more rows</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Five states with highest spatial inequality with respect to county median income</span></span>
-<span id="cb382-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb382-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(county_income_range, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Five states with highest spatial inequality with respect to county median income</span></span>
+<span id="cb364-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb364-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_max</span>(county_income_range, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   State         data               county_income_range
 ##   &lt;chr&gt;         &lt;list&gt;                           &lt;dbl&gt;
@@ -771,8 +771,8 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ## 3 &quot; Colorado&quot;   &lt;tibble [64 × 7]&gt;                84721
 ## 4 &quot; Tennessee&quot;  &lt;tibble [95 × 7]&gt;                80036
 ## 5 &quot; California&quot; &lt;tibble [58 × 7]&gt;                77681</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Five states with lowest spatial inequality with respect to county median income</span></span>
-<span id="cb384-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb384-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(county_income_range, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Five states with lowest spatial inequality with respect to county median income</span></span>
+<span id="cb366-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb366-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(county_income_range, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   State                   data              county_income_range
 ##   &lt;chr&gt;                   &lt;list&gt;                          &lt;dbl&gt;
@@ -781,18 +781,18 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ## 3 &quot; Puerto Rico&quot;          &lt;tibble [78 × 7]&gt;               21125
 ## 4 &quot; Hawaii&quot;               &lt;tibble [5 × 7]&gt;                23609
 ## 5 &quot; Rhode Island&quot;         &lt;tibble [5 × 7]&gt;                26068</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-1" aria-hidden="true" tabindex="-1"></a>correlation_income_ed<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
-<span id="cb386-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-2" aria-hidden="true" tabindex="-1"></a>  income<span class="ot">&lt;-</span>x<span class="sc">$</span>median_income</span>
-<span id="cb386-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-3" aria-hidden="true" tabindex="-1"></a>  education<span class="ot">&lt;-</span>x<span class="sc">$</span>no_degree_pct</span>
-<span id="cb386-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-4" aria-hidden="true" tabindex="-1"></a>  corr_table<span class="ot">&lt;-</span><span class="fu">cor.test</span>(income, education)</span>
-<span id="cb386-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(corr_table)</span>
-<span id="cb386-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb386-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb386-8"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-8" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final<span class="ot">&lt;-</span> </span>
-<span id="cb386-9"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-9" aria-hidden="true" tabindex="-1"></a>  median_income_nodegree_nested <span class="sc">%&gt;%</span> </span>
-<span id="cb386-10"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(county_income_range<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb386-11"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb386-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">correlation_education_income=</span><span class="fu">map</span>(data, correlation_income_ed))</span></code></pre></div>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb387-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-1" aria-hidden="true" tabindex="-1"></a>correlation_income_ed<span class="ot">&lt;-</span><span class="cf">function</span>(x){</span>
+<span id="cb368-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-2" aria-hidden="true" tabindex="-1"></a>  income<span class="ot">&lt;-</span>x<span class="sc">$</span>median_income</span>
+<span id="cb368-3"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-3" aria-hidden="true" tabindex="-1"></a>  education<span class="ot">&lt;-</span>x<span class="sc">$</span>no_degree_pct</span>
+<span id="cb368-4"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-4" aria-hidden="true" tabindex="-1"></a>  corr_table<span class="ot">&lt;-</span><span class="fu">cor.test</span>(income, education)</span>
+<span id="cb368-5"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(corr_table)</span>
+<span id="cb368-6"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb368-7"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb368-8"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-8" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final<span class="ot">&lt;-</span> </span>
+<span id="cb368-9"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-9" aria-hidden="true" tabindex="-1"></a>  median_income_nodegree_nested <span class="sc">%&gt;%</span> </span>
+<span id="cb368-10"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(county_income_range<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb368-11"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb368-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">correlation_education_income=</span><span class="fu">map</span>(data, correlation_income_ed))</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb369-1" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final</span></code></pre></div>
 <pre><code>## # A tibble: 51 x 4
 ## # Groups:   State [51]
 ##    State          data               county_income_range correlation_education_income
@@ -808,8 +808,8 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ##  9 &quot; Florida&quot;     &lt;tibble [67 × 7]&gt;                42740 &lt;htest&gt;                     
 ## 10 &quot; Georgia&quot;     &lt;tibble [159 × 7]&gt;               76743 &lt;htest&gt;                     
 ## # … with 41 more rows</code></pre>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alabama correlation coefficient table</span></span>
-<span id="cb389-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb389-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alabama correlation coefficient table</span></span>
+<span id="cb371-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb371-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -821,8 +821,8 @@ EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 ## sample estimates:
 ##        cor 
 ## -0.6988386</code></pre>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colorado correlation coefficient table</span></span>
-<span id="cb391-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb391-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colorado correlation coefficient table</span></span>
+<span id="cb373-2"><a href="bivariate-analysis-with-acs-data-education-and-income.html#cb373-2" aria-hidden="true" tabindex="-1"></a>median_income_nodegree_nested_final <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">pluck</span>(<span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 

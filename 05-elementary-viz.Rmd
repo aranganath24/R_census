@@ -39,7 +39,8 @@ median_age_CO_cleaned_visualization
 
 ## Spatial visualization with *tmap*
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=-1}
+tmap_mode("plot")
 median_age_CO_map<-
   tm_shape(median_age_CO)+
       tm_polygons(col="median_age",

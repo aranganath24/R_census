@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-01-25" />
+<meta name="date" content="2022-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -282,9 +282,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Colorado open Covid-19 data is available here: <a href="https://data-cdphe.opendata.arcgis.com/datasets/colorado-covid-19-positive-cases-and-rates-of-infection-by-county-of-identification/explore?location=38.997818%2C-105.550873%2C7.60&amp;showTable=true">https://data-cdphe.opendata.arcgis.com/datasets/colorado-covid-19-positive-cases-and-rates-of-infection-by-county-of-identification/explore?location=38.997818%2C-105.550873%2C7.60&amp;showTable=true</a></p>
 <p>For the purpose of this workshop, we’ve also placed this data (which runs through January 23, 2022) on dropbox, available here: <a href="https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=0">https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=0</a>.</p>
 <p>It is possible to read data into R Studio straight from an online source. To read in a file stored on Dropbox, simply change the “0” at the end of the link into a “1” and paste it into the <code>read_csv</code> function. Here, we’ll read the Colorado Covid dataset into our R environment directly from the online source, and assign it to a new object named <code>co_covid</code>.</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="integrating-census-data-and-external-data.html#cb393-1" aria-hidden="true" tabindex="-1"></a>co_covid<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="integrating-census-data-and-external-data.html#cb375-1" aria-hidden="true" tabindex="-1"></a>co_covid<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;https://www.dropbox.com/s/954sfaykdcs2q4f/co_covid.csv?dl=1&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_double(),
 ##   FULL_ = col_character(),
@@ -297,7 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   Date_Data_Last_Updated = col_character()
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="integrating-census-data-and-external-data.html#cb395-1" aria-hidden="true" tabindex="-1"></a>co_covid</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="integrating-census-data-and-external-data.html#cb377-1" aria-hidden="true" tabindex="-1"></a>co_covid</span></code></pre></div>
 <pre><code>## # A tibble: 67 x 29
 ##    OBJECTID FULL_ GEOID LABEL STAETFP COUNTY COUNTYFP County_Pos_Cases County_Populati… County_Rate_Per…
 ##       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -311,48 +311,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8        8 Park… 08093 Park  08      PARK   093                  2550            17427           14632.
 ##  9        9 Alam… 08003 Alam… 08      ALAMO… 003                  3814            16329           23357.
 ## 10       10 Prow… 08099 Prow… 08      PROWE… 099                  2308            12015           19209.
-## # … with 57 more rows, and 19 more variables: County_Pos_Cases_Yesterday &lt;dbl&gt;,
-## #   County_Pos_Cases_Change &lt;dbl&gt;, County_Deaths &lt;dbl&gt;, County_Deaths_Yesterday &lt;dbl&gt;,
-## #   County_Deaths_Change &lt;dbl&gt;, State_Pos_Cases &lt;dbl&gt;, State_Population &lt;dbl&gt;,
-## #   State_Rate_Per_100000 &lt;dbl&gt;, State_Deaths &lt;dbl&gt;, State_CDC_Deaths &lt;dbl&gt;,
+## # … with 57 more rows, and 19 more variables: County_Pos_Cases_Yesterday &lt;dbl&gt;, County_Pos_Cases_Change &lt;dbl&gt;,
+## #   County_Deaths &lt;dbl&gt;, County_Deaths_Yesterday &lt;dbl&gt;, County_Deaths_Change &lt;dbl&gt;, State_Pos_Cases &lt;dbl&gt;,
+## #   State_Population &lt;dbl&gt;, State_Rate_Per_100000 &lt;dbl&gt;, State_Deaths &lt;dbl&gt;, State_CDC_Deaths &lt;dbl&gt;,
 ## #   State_Number_Hospitalizations &lt;dbl&gt;, State_Number_Tested &lt;dbl&gt;, State_Test_Encounters &lt;dbl&gt;,
 ## #   State_Number_of_Counties_Pos &lt;dbl&gt;, State_Number_of_Outbreaks &lt;dbl&gt;, Data_Source &lt;chr&gt;,
 ## #   Date_Data_Last_Updated &lt;chr&gt;, Shape__Area &lt;dbl&gt;, Shape__Length &lt;dbl&gt;</code></pre>
 <p>Alternatively, if the dataset you want to load into R has already been downloaded to your computer, simply paste in the filename into the <code>read_csv</code> function. For example:</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="integrating-census-data-and-external-data.html#cb397-1" aria-hidden="true" tabindex="-1"></a>co_covid<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_covid.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="integrating-census-data-and-external-data.html#cb379-1" aria-hidden="true" tabindex="-1"></a>co_covid<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_covid.csv&quot;</span>)</span></code></pre></div>
 <p>Note that reading in downloaded data with the filename (here, <code>co_covid.csv</code>) is only possible if the file is in our working directory; if it is in another directory, we must pass the full path to the file into the <code>read_csv</code> function.</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="integrating-census-data-and-external-data.html#cb398-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome<span class="ot">&lt;-</span><span class="fu">inner_join</span>(median_income_nodegree, co_covid,<span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="integrating-census-data-and-external-data.html#cb399-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="integrating-census-data-and-external-data.html#cb380-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome<span class="ot">&lt;-</span><span class="fu">inner_join</span>(median_income_nodegree, co_covid,<span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="integrating-census-data-and-external-data.html#cb381-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome</span></code></pre></div>
 <pre><code>## # A tibble: 64 x 36
-##    GEOID County State variable median_income   moe NAME.y no_degree_pct OBJECTID FULL_ LABEL STAETFP
-##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  
-##  1 08035 Dougl… &quot; Co… B19013_…        115314  2028 Dougl…          42.1       52 Doug… Doug… 08     
-##  2 08039 Elber… &quot; Co… B19013_…         96658  4279 Elber…          64.1       59 Elbe… Elbe… 08     
-##  3 08014 Broom… &quot; Co… B19013_…         89624  4013 Broom…          44.5       21 Broo… Broo… 08     
-##  4 08037 Eagle… &quot; Co… B19013_…         84685  4478 Eagle…          51.9       18 Eagl… Eagle 08     
-##  5 08059 Jeffe… &quot; Co… B19013_…         78943  1142 Jeffe…          55.9       12 Jeff… Jeff… 08     
-##  6 08013 Bould… &quot; Co… B19013_…         78642  1583 Bould…          39.2       15 Boul… Boul… 08     
-##  7 08117 Summi… &quot; Co… B19013_…         77589  4772 Summi…          49.0       13 Summ… Summ… 08     
-##  8 08047 Gilpi… &quot; Co… B19013_…         75120  6107 Gilpi…          61.3       45 Gilp… Gilp… 08     
-##  9 08107 Routt… &quot; Co… B19013_…         74273  3839 Routt…          49.6       39 Rout… Routt 08     
-## 10 08005 Arapa… &quot; Co… B19013_…         73925   902 Arapa…          57.8       62 Arap… Arap… 08     
-## # … with 54 more rows, and 24 more variables: COUNTY &lt;chr&gt;, COUNTYFP &lt;chr&gt;, County_Pos_Cases &lt;dbl&gt;,
-## #   County_Population &lt;dbl&gt;, County_Rate_Per_100_000 &lt;dbl&gt;, County_Pos_Cases_Yesterday &lt;dbl&gt;,
-## #   County_Pos_Cases_Change &lt;dbl&gt;, County_Deaths &lt;dbl&gt;, County_Deaths_Yesterday &lt;dbl&gt;,
-## #   County_Deaths_Change &lt;dbl&gt;, State_Pos_Cases &lt;dbl&gt;, State_Population &lt;dbl&gt;,
-## #   State_Rate_Per_100000 &lt;dbl&gt;, State_Deaths &lt;dbl&gt;, State_CDC_Deaths &lt;dbl&gt;,
+##    GEOID County State variable median_income   moe NAME.y no_degree_pct OBJECTID FULL_ LABEL STAETFP COUNTY
+##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+##  1 08035 Dougl… &quot; Co… B19013_…        115314  2028 Dougl…          42.1       52 Doug… Doug… 08      DOUGL…
+##  2 08039 Elber… &quot; Co… B19013_…         96658  4279 Elber…          64.1       59 Elbe… Elbe… 08      ELBERT
+##  3 08014 Broom… &quot; Co… B19013_…         89624  4013 Broom…          44.5       21 Broo… Broo… 08      BROOM…
+##  4 08037 Eagle… &quot; Co… B19013_…         84685  4478 Eagle…          51.9       18 Eagl… Eagle 08      EAGLE 
+##  5 08059 Jeffe… &quot; Co… B19013_…         78943  1142 Jeffe…          55.9       12 Jeff… Jeff… 08      JEFFE…
+##  6 08013 Bould… &quot; Co… B19013_…         78642  1583 Bould…          39.2       15 Boul… Boul… 08      BOULD…
+##  7 08117 Summi… &quot; Co… B19013_…         77589  4772 Summi…          49.0       13 Summ… Summ… 08      SUMMIT
+##  8 08047 Gilpi… &quot; Co… B19013_…         75120  6107 Gilpi…          61.3       45 Gilp… Gilp… 08      GILPIN
+##  9 08107 Routt… &quot; Co… B19013_…         74273  3839 Routt…          49.6       39 Rout… Routt 08      ROUTT 
+## 10 08005 Arapa… &quot; Co… B19013_…         73925   902 Arapa…          57.8       62 Arap… Arap… 08      ARAPA…
+## # … with 54 more rows, and 23 more variables: COUNTYFP &lt;chr&gt;, County_Pos_Cases &lt;dbl&gt;, County_Population &lt;dbl&gt;,
+## #   County_Rate_Per_100_000 &lt;dbl&gt;, County_Pos_Cases_Yesterday &lt;dbl&gt;, County_Pos_Cases_Change &lt;dbl&gt;,
+## #   County_Deaths &lt;dbl&gt;, County_Deaths_Yesterday &lt;dbl&gt;, County_Deaths_Change &lt;dbl&gt;, State_Pos_Cases &lt;dbl&gt;,
+## #   State_Population &lt;dbl&gt;, State_Rate_Per_100000 &lt;dbl&gt;, State_Deaths &lt;dbl&gt;, State_CDC_Deaths &lt;dbl&gt;,
 ## #   State_Number_Hospitalizations &lt;dbl&gt;, State_Number_Tested &lt;dbl&gt;, State_Test_Encounters &lt;dbl&gt;,
 ## #   State_Number_of_Counties_Pos &lt;dbl&gt;, State_Number_of_Outbreaks &lt;dbl&gt;, Data_Source &lt;chr&gt;,
 ## #   Date_Data_Last_Updated &lt;chr&gt;, Shape__Area &lt;dbl&gt;, Shape__Length &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="integrating-census-data-and-external-data.html#cb401-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome_viz<span class="ot">&lt;-</span>co_covid_medianincome <span class="sc">%&gt;%</span> </span>
-<span id="cb401-2"><a href="integrating-census-data-and-external-data.html#cb401-2" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb401-3"><a href="integrating-census-data-and-external-data.html#cb401-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>median_income,<span class="at">y=</span>County_Rate_Per_100_000))<span class="sc">+</span></span>
-<span id="cb401-4"><a href="integrating-census-data-and-external-data.html#cb401-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ylab</span>(<span class="st">&quot;County Covid+ Rate Per 100,000&quot;</span>)<span class="sc">+</span></span>
-<span id="cb401-5"><a href="integrating-census-data-and-external-data.html#cb401-5" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">xlab</span>(<span class="st">&quot;County Median Income, 2018 (ACS Estimate)&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="integrating-census-data-and-external-data.html#cb402-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome_viz</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="integrating-census-data-and-external-data.html#cb403-1" aria-hidden="true" tabindex="-1"></a>income_cases_corr<span class="ot">&lt;-</span><span class="fu">cor.test</span>(co_covid_medianincome<span class="sc">$</span>median_income, co_covid_medianincome<span class="sc">$</span>County_Rate_Per_100_000)</span>
-<span id="cb403-2"><a href="integrating-census-data-and-external-data.html#cb403-2" aria-hidden="true" tabindex="-1"></a>income_cases_corr</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="integrating-census-data-and-external-data.html#cb383-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome_viz<span class="ot">&lt;-</span>co_covid_medianincome <span class="sc">%&gt;%</span> </span>
+<span id="cb383-2"><a href="integrating-census-data-and-external-data.html#cb383-2" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb383-3"><a href="integrating-census-data-and-external-data.html#cb383-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>median_income,<span class="at">y=</span>County_Rate_Per_100_000))<span class="sc">+</span></span>
+<span id="cb383-4"><a href="integrating-census-data-and-external-data.html#cb383-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ylab</span>(<span class="st">&quot;County Covid+ Rate Per 100,000&quot;</span>)<span class="sc">+</span></span>
+<span id="cb383-5"><a href="integrating-census-data-and-external-data.html#cb383-5" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">xlab</span>(<span class="st">&quot;County Median Income, 2018 (ACS Estimate)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="integrating-census-data-and-external-data.html#cb384-1" aria-hidden="true" tabindex="-1"></a>co_covid_medianincome_viz</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="integrating-census-data-and-external-data.html#cb385-1" aria-hidden="true" tabindex="-1"></a>income_cases_corr<span class="ot">&lt;-</span><span class="fu">cor.test</span>(co_covid_medianincome<span class="sc">$</span>median_income, co_covid_medianincome<span class="sc">$</span>County_Rate_Per_100_000)</span>
+<span id="cb385-2"><a href="integrating-census-data-and-external-data.html#cb385-2" aria-hidden="true" tabindex="-1"></a>income_cases_corr</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -364,27 +362,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## sample estimates:
 ##        cor 
 ## -0.0745316</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="integrating-census-data-and-external-data.html#cb405-1" aria-hidden="true" tabindex="-1"></a>acs_2019_nonwhite_COcounties<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
-<span id="cb405-2"><a href="integrating-census-data-and-external-data.html#cb405-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">state=</span><span class="st">&quot;CO&quot;</span>,</span>
-<span id="cb405-3"><a href="integrating-census-data-and-external-data.html#cb405-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">variables=</span><span class="st">&quot;B03002_003&quot;</span>,</span>
-<span id="cb405-4"><a href="integrating-census-data-and-external-data.html#cb405-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">summary_var =</span> <span class="st">&quot;B03002_001&quot;</span>,</span>
-<span id="cb405-5"><a href="integrating-census-data-and-external-data.html#cb405-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">year=</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb405-6"><a href="integrating-census-data-and-external-data.html#cb405-6" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">mutate</span>(<span class="at">white_pct=</span>(estimate<span class="sc">/</span>summary_est)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb405-7"><a href="integrating-census-data-and-external-data.html#cb405-7" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">mutate</span>(<span class="at">nonwhite_pct=</span><span class="dv">100</span><span class="sc">-</span>white_pct)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="integrating-census-data-and-external-data.html#cb387-1" aria-hidden="true" tabindex="-1"></a>acs_2019_nonwhite_COcounties<span class="ot">&lt;-</span><span class="fu">get_acs</span>(<span class="at">geography=</span><span class="st">&quot;county&quot;</span>,</span>
+<span id="cb387-2"><a href="integrating-census-data-and-external-data.html#cb387-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">state=</span><span class="st">&quot;CO&quot;</span>,</span>
+<span id="cb387-3"><a href="integrating-census-data-and-external-data.html#cb387-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">variables=</span><span class="st">&quot;B03002_003&quot;</span>,</span>
+<span id="cb387-4"><a href="integrating-census-data-and-external-data.html#cb387-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">summary_var =</span> <span class="st">&quot;B03002_001&quot;</span>,</span>
+<span id="cb387-5"><a href="integrating-census-data-and-external-data.html#cb387-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">year=</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb387-6"><a href="integrating-census-data-and-external-data.html#cb387-6" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">mutate</span>(<span class="at">white_pct=</span>(estimate<span class="sc">/</span>summary_est)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb387-7"><a href="integrating-census-data-and-external-data.html#cb387-7" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">mutate</span>(<span class="at">nonwhite_pct=</span><span class="dv">100</span><span class="sc">-</span>white_pct)</span></code></pre></div>
 <pre><code>## Getting data from the 2015-2019 5-year ACS</code></pre>
 <pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="integrating-census-data-and-external-data.html#cb408-1" aria-hidden="true" tabindex="-1"></a>co_covid_race<span class="ot">&lt;-</span><span class="fu">inner_join</span>(acs_2019_nonwhite_COcounties, co_covid,<span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="integrating-census-data-and-external-data.html#cb409-1" aria-hidden="true" tabindex="-1"></a>co_covid_race_viz<span class="ot">&lt;-</span>co_covid_race <span class="sc">%&gt;%</span> </span>
-<span id="cb409-2"><a href="integrating-census-data-and-external-data.html#cb409-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb409-3"><a href="integrating-census-data-and-external-data.html#cb409-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>nonwhite_pct,<span class="at">y=</span>County_Rate_Per_100_000))<span class="sc">+</span></span>
-<span id="cb409-4"><a href="integrating-census-data-and-external-data.html#cb409-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ylab</span>(<span class="st">&quot;County Covid+ Rate Per 100,000&quot;</span>)<span class="sc">+</span></span>
-<span id="cb409-5"><a href="integrating-census-data-and-external-data.html#cb409-5" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">xlab</span>(<span class="st">&quot;Non-White/Non-Hispanic Share of County Population, 2019 (ACS Estimate)&quot;</span>)</span>
-<span id="cb409-6"><a href="integrating-census-data-and-external-data.html#cb409-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb409-7"><a href="integrating-census-data-and-external-data.html#cb409-7" aria-hidden="true" tabindex="-1"></a>nonwhite_cases_corr<span class="ot">&lt;-</span><span class="fu">cor.test</span>(co_covid_race<span class="sc">$</span>nonwhite_pct, co_covid_race<span class="sc">$</span>County_Rate_Per_100_000)</span>
-<span id="cb409-8"><a href="integrating-census-data-and-external-data.html#cb409-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb409-9"><a href="integrating-census-data-and-external-data.html#cb409-9" aria-hidden="true" tabindex="-1"></a>co_covid_race_viz</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="integrating-census-data-and-external-data.html#cb410-1" aria-hidden="true" tabindex="-1"></a>nonwhite_cases_corr</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="integrating-census-data-and-external-data.html#cb390-1" aria-hidden="true" tabindex="-1"></a>co_covid_race<span class="ot">&lt;-</span><span class="fu">inner_join</span>(acs_2019_nonwhite_COcounties, co_covid,<span class="at">by=</span><span class="st">&quot;GEOID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="integrating-census-data-and-external-data.html#cb391-1" aria-hidden="true" tabindex="-1"></a>co_covid_race_viz<span class="ot">&lt;-</span>co_covid_race <span class="sc">%&gt;%</span> </span>
+<span id="cb391-2"><a href="integrating-census-data-and-external-data.html#cb391-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb391-3"><a href="integrating-census-data-and-external-data.html#cb391-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>nonwhite_pct,<span class="at">y=</span>County_Rate_Per_100_000))<span class="sc">+</span></span>
+<span id="cb391-4"><a href="integrating-census-data-and-external-data.html#cb391-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ylab</span>(<span class="st">&quot;County Covid+ Rate Per 100,000&quot;</span>)<span class="sc">+</span></span>
+<span id="cb391-5"><a href="integrating-census-data-and-external-data.html#cb391-5" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">xlab</span>(<span class="st">&quot;Non-White/Non-Hispanic Share of County Population, 2019 (ACS Estimate)&quot;</span>)</span>
+<span id="cb391-6"><a href="integrating-census-data-and-external-data.html#cb391-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb391-7"><a href="integrating-census-data-and-external-data.html#cb391-7" aria-hidden="true" tabindex="-1"></a>nonwhite_cases_corr<span class="ot">&lt;-</span><span class="fu">cor.test</span>(co_covid_race<span class="sc">$</span>nonwhite_pct, co_covid_race<span class="sc">$</span>County_Rate_Per_100_000)</span>
+<span id="cb391-8"><a href="integrating-census-data-and-external-data.html#cb391-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb391-9"><a href="integrating-census-data-and-external-data.html#cb391-9" aria-hidden="true" tabindex="-1"></a>co_covid_race_viz</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="integrating-census-data-and-external-data.html#cb392-1" aria-hidden="true" tabindex="-1"></a>nonwhite_cases_corr</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 

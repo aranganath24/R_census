@@ -43,7 +43,7 @@ median_income_CO_counties_2018<-get_acs(geography="county",
                             arrange(desc(median_income))
 
 median_income_CO_counties_2018_viz<-
-     median_income_CO_2018 %>% 
+     median_income_CO_counties_2018 %>% 
         mutate(County_Name=str_remove_all(NAME,"County, Colorado")) %>% 
           ggplot(aes(x=median_income,y=reorder(County_Name, median_income)))+
            geom_errorbarh(aes(xmin = median_income - moe, xmax = median_income + moe)) +
@@ -121,7 +121,7 @@ median_income2018_viz_list
 
 ## Dynamic mapping
 
-```{r}
+```{r, message=F, warning=F}
 median_income_2016_states<-get_acs(geography="state",
                                      variables="B19013_001",
                                      year=2016,
@@ -137,6 +137,10 @@ median_income_map<-tm_shape(median_income_2016_states)+
 tmap_mode("view")
 
 median_income_map
+```
+
+```{r, echo=FALSE}
+tmap_mode("plot")
 ```
 
 # Bivariate Analysis with ACS Data: Education and Income
